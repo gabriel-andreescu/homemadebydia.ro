@@ -1,0 +1,32 @@
+[
+  {
+    "imageUrl": "/gallery/placeholder.svg",
+    "title": "Ecler",
+    "assortments": "vanilie, ciocolata, caramel si arahide caramelizate",
+    "min": 5,
+    "unit": "buc",
+    "price": 11
+  },
+  {
+    "imageUrl": "/gallery/placeholder.svg",
+    "title": "Choux",
+    "assortments": "vanilie, ciocolata, caramel",
+    "min": 5,
+    "unit": "buc",
+    "price": 5
+  },
+  {
+    "imageUrl": "/gallery/placeholder.svg",
+    "title": "Prajitura cu ciocolata si rom",
+    "min": 5,
+    "unit": "buc",
+    "price": 10
+  },
+  {
+    "imageUrl": "/gallery/placeholder.svg",
+    "title": "Alba ca zapada",
+    "min": 0.5,
+    "unit": "kg",
+    "price": 70
+  }
+]

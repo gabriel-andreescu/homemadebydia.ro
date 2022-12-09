@@ -1,0 +1,15 @@
+[
+  {
+    "imageUrl": "/gallery/pastry/cozonac.jpg",
+    "title": "Cozonac",
+    "assortments": "cantareste aprox. 750-800 gr",
+    "unit": "buc",
+    "price": 55
+  },
+  {
+    "imageUrl": "/gallery/placeholder.svg",
+    "title": "Fursecuri cu dulceata si nuca",
+    "unit": "kg",
+    "price": 100
+  }
+]

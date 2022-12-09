@@ -1,0 +1,44 @@
+[
+  {
+    "imageUrl": "/gallery/cakes/carrot-cake-caramel.jpg",
+    "title": "Tort carot cu caramel",
+    "unit": "kg",
+    "price": 50
+  },
+  {
+    "imageUrl": "/gallery/cakes/carrot-cake-fructe.jpg",
+    "title": "Tort carot cu fructe",
+    "unit": "kg",
+    "price": 50
+  },
+  {
+    "imageUrl": "/gallery/cakes/ciocolata-caramel.jpg",
+    "title": "Tort ciocolata cu caramel",
+    "unit": "kg",
+    "price": 50
+  },
+  {
+    "imageUrl": "/gallery/cakes/diplomat.jpg",
+    "title": "Tort diplomat",
+    "unit": "kg",
+    "price": 50
+  },
+  {
+    "imageUrl": "/gallery/cakes/profiterol.jpg",
+    "title": "Tort profiterol",
+    "unit": "kg",
+    "price": 50
+  },
+  {
+    "imageUrl": "/gallery/cakes/tort-mac.jpg",
+    "title": "Tort mac",
+    "unit": "kg",
+    "price": 50
+  },
+  {
+    "imageUrl": "/gallery/cakes/tortul-casei.jpg",
+    "title": "Tortul casei",
+    "unit": "kg",
+    "price": 50
+  }
+]
