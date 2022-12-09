@@ -12,7 +12,7 @@ module.exports = {
             DEFAULT: '#E20076',
             dark: '#880047',
           },
-          nude: '#d4d5d0'
+          nude: '#D1D0CE'
         }
     },
   },
