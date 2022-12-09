@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppHeader from "./AppHeader.vue";
+import AppHeader from "./components/AppHeader.vue";
 import AppSection from "./components/AppSection.vue";
 import SectionHome from "./components/SectionHome.vue";
 import SectionCatalog from "./components/SectionCatalog.vue";
