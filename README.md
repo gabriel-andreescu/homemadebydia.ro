@@ -1,4 +1,4 @@
-# HomeMadeByDia.ro
+# HomemadeByDia.ro
 
 ## What is this?
 
