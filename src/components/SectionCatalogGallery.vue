@@ -15,15 +15,11 @@ defineProps<{
 
 <template>
   <div class="flex flex-wrap justify-center items-center text-center">
-    <div
-      v-for="item in data"
-      :key="item.title"
-      class="flex flex-col m-4 items-center"
-    >
-      <div class="w-96 h-96 rounded-full overflow-hidden">
+    <div v-for="item in data" :key="item.title" class="flex flex-col m-4 items-center">
+      <div class="lg:w-96 lg:h-96 w-64 h-64 rounded-full overflow-hidden">
         <img
           :src="item.imageUrl"
-          class="h-96 min-w-full object-cover"
+          class="lg:h-96 h-64 min-w-full object-cover"
           alt="poza {{ item.title }}"
         />
       </div>
@@ -39,9 +35,7 @@ defineProps<{
         lei
         <span class="text-sm" v-if="item.unit">/{{ item.unit }}</span>
       </p>
-      <p class="text-sm mb-2" v-if="item.min">
-        minim {{ item.min }} {{ item.unit }}
-      </p>
+      <p class="text-sm mb-2" v-if="item.min">minim {{ item.min }} {{ item.unit }}</p>
     </div>
   </div>
 </template>

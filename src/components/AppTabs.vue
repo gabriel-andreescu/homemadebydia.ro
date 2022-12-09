@@ -37,7 +37,7 @@ onMounted(() => {
 
 <style scoped>
 ul li {
-  @apply p-2 mx-6 z-10;
+  @apply p-2 mx-6 cursor-pointer transition-colors duration-200;
 }
 
 ul li.active {
