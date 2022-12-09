@@ -7,11 +7,12 @@ module.exports = {
   theme: {
     extend: {
         colors: {
-          'accent': {
+          accent: {
             light: '#ee66ad',
             DEFAULT: '#E20076',
             dark: '#880047',
           },
+          nude: '#d4d5d0'
         }
     },
   },

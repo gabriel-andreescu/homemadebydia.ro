@@ -4,6 +4,7 @@ import AppSection from "./components/AppSection.vue";
 import SectionHome from "./components/SectionHome.vue";
 import SectionCatalog from "./components/SectionCatalog.vue";
 import SectionWhyChooseUs from "./components/SectionWhyChooseUs.vue";
+import AppFooter from "./components/AppFooter.vue";
 </script>
 
 <template>
@@ -19,8 +20,5 @@ import SectionWhyChooseUs from "./components/SectionWhyChooseUs.vue";
       <SectionWhyChooseUs />
     </AppSection>
   </main>
-  <footer class="container mx-auto h-64">
-    <p class="text-center py-4">© 2023 Homemade by Dia</p>
-    <div>test</div>
-  </footer>
+  <AppFooter />
 </template>
