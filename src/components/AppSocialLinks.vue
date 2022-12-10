@@ -3,10 +3,19 @@ import IconFacebook from "./IconFacebook.vue";
 import IconMessenger from "./IconMessenger.vue";
 import IconInstagram from "./IconInstagram.vue";
 import IconWhatsapp from "./IconWhatsapp.vue";
+
+withDefaults(defineProps<{
+  center: boolean;
+}>(),{
+  center: true
+});
 </script>
 
 <template>
-  <p class="h-32 flex items-center justify-center">
+  <p
+      class="h-32 flex items-center"
+      :class="{ 'justify-center': center }"
+  >
     <a href="https://www.facebook.com/homemadebyDia" target="_blank" class="m-2">
       <IconFacebook class="w-8 cursor-pointer hover:text-accent" />
     </a>
