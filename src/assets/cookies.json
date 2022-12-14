@@ -8,7 +8,7 @@
     "price": 11
   },
   {
-    "imageUrl": "/gallery/placeholder.svg",
+    "imageUrl": "/gallery/cookies/choux-min.jpg",
     "title": "Choux",
     "assortments": "vanilie, ciocolata, caramel",
     "min": 5,
@@ -23,7 +23,7 @@
     "price": 10
   },
   {
-    "imageUrl": "/gallery/placeholder.svg",
+    "imageUrl": "/gallery/cookies/alba-ca-zapada-min.jpg",
     "title": "Alba ca zapada",
     "min": 0.5,
     "unit": "kg",
