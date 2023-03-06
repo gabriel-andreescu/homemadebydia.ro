@@ -21,6 +21,9 @@ const navOpen = ref(false);
       <li>
         <a href="#catalog" @click="navOpen = false">Catalog</a>
       </li>
+      <li>
+        <a href="#galerie" @click="navOpen = false">Galerie</a>
+      </li>
       <li><a href="#de-ce-noi" @click="navOpen = false">De ce noi?</a></li>
       <li><a href="#cum-sa-comanzi" @click="navOpen = false">Cum să comanzi</a></li>
       <li><a href="#contact" @click="navOpen = false">Contact</a></li>

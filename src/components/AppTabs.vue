@@ -20,7 +20,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <ul class="flex">
+  <ul class="flex justify-between w-screen sm:container sm:justify-evenly px-2">
     <li
       v-for="tab in tabs"
       :key="tab.title"
@@ -37,7 +37,7 @@ onMounted(() => {
 
 <style scoped>
 ul li {
-  @apply p-2 mx-6 cursor-pointer transition-colors duration-200;
+  @apply py-2 cursor-pointer transition-colors duration-200;
 }
 
 ul li.active {

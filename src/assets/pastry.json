@@ -2,14 +2,24 @@
   {
     "imageUrl": "/gallery/pastry/cozonac.jpg",
     "title": "Cozonac",
-    "assortments": "cantareste aprox. 750-800 gr",
+    "assortments": "cântărește aprox. 750-800 gr",
     "unit": "buc",
     "price": 55
   },
   {
-    "imageUrl": "/gallery/placeholder.svg",
-    "title": "Fursecuri cu dulceata si nuca",
+    "imageUrl": "/gallery/pastry/fursecuri.jpg",
+    "title": "Fursecuri",
+    "assortments": "dulceață și nucă",
+    "min": 0.25,
     "unit": "kg",
     "price": 100
+  },
+  {
+    "imageUrl": "/gallery/pastry/sable-breton-1.jpg",
+    "title": "Sablé Breton",
+    "desc": ["- Biscuite francez", "- Inserție lemon curd", "- Cremă de ciocolată albă"],
+    "min": 0,
+    "unit": "buc",
+    "price": 11
   }
 ]

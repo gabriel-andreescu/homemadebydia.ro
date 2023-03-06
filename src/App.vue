@@ -5,6 +5,7 @@ import SectionHome from "./components/SectionHome.vue";
 import SectionCatalog from "./components/SectionCatalog.vue";
 import SectionWhyChooseUs from "./components/SectionWhyChooseUs.vue";
 import AppFooter from "./components/AppFooter.vue";
+import SectionGallery from "./components/SectionGallery.vue";
 </script>
 
 <template>
@@ -15,6 +16,9 @@ import AppFooter from "./components/AppFooter.vue";
     </AppSection>
     <AppSection title="Catalog" id="catalog">
       <SectionCatalog />
+    </AppSection>
+    <AppSection title="Galerie" id="galerie">
+      <SectionGallery />
     </AppSection>
     <AppSection title="De ce noi?" id="de-ce-noi">
       <SectionWhyChooseUs />

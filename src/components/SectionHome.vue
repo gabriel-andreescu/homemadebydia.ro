@@ -10,7 +10,7 @@ import AppSocialLinks from "./AppSocialLinks.vue";
         <br />
         torturi și prăjituri
       </h2>
-      <AppSocialLinks />
+      <AppSocialLinks :center="true" />
     </div>
   </header>
 </template>

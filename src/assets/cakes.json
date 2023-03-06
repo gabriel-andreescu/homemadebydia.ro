@@ -1,44 +1,92 @@
 [
   {
     "imageUrl": "/gallery/cakes/carrot-cake-caramel-min.jpg",
-    "title": "Tort carot cu caramel",
+    "title": "Tort carrot cu caramel",
+    "desc": [
+      "- Blat umed de morcov cu scorțișoară si nuca",
+      "- Cremă de brânză cu portocală",
+      "- Inserție de caramel"
+    ],
+    "min": 1.5,
     "unit": "kg",
-    "price": 50
+    "price": 120
   },
   {
     "imageUrl": "/gallery/cakes/carrot-cake-fructe-min.jpg",
-    "title": "Tort carot cu fructe",
+    "title": "Tort carrot cu fructe",
+    "desc": [
+      "- Blat umed de morcov cu scorțișoară si nuca",
+      "- Cremă de brânză cu fructe de pădure"
+    ],
+    "min": 1.5,
     "unit": "kg",
-    "price": 50
+    "price": 120
   },
   {
     "imageUrl": "/gallery/cakes/ciocolata-caramel-min.jpg",
-    "title": "Tort ciocolata cu caramel",
+    "title": "Tort ciocolată cu caramel",
+    "desc": [
+      "- Blat alb însiropat cu lichior de ciocolată",
+      "- Cremă de ciocolată neagră",
+      "- Inserție de caramel cu arahide caramelizate",
+      "- Cremă de ciocolată albă cu bucăți de piersică"
+    ],
+    "min": 1.6,
     "unit": "kg",
-    "price": 50
+    "price": 120
   },
   {
     "imageUrl": "/gallery/cakes/diplomat-min.jpg",
     "title": "Tort diplomat",
+    "desc": [
+      "- Blat pandișpan însiropat cu compot",
+      "- Șarlotă de vanilie cu frișcă",
+      "- Fructe (ananas si piersica)",
+      "- Jeleu de căpșuni"
+    ],
+    "min": 1.6,
     "unit": "kg",
-    "price": 50
+    "price": 110
   },
   {
     "imageUrl": "/gallery/cakes/profiterol-min.jpg",
     "title": "Tort profiterol",
+    "desc": [
+      "- Blat cacao însiropat cu rom",
+      "- Cremă de ciocolată neagră",
+      "- Cremă de ciocolată cu lapte",
+      "- Biluțe profiterol cu cremă de vanilie",
+      "Se pot adăuga fructe de pădure sau caramel"
+    ],
+    "min": 1.6,
     "unit": "kg",
-    "price": 50
+    "price": 120
   },
   {
     "imageUrl": "/gallery/cakes/tort-mac-min.jpg",
     "title": "Tort cu mac, lemon curd si căpșuni",
+    "desc": [
+      "- Blat cu mac",
+      "- Inserție lemon curd",
+      "- Inserție jeleu căpșuni",
+      "- Cremă de ciocolată albă"
+    ],
+    "min": 1.5,
     "unit": "kg",
-    "price": 50
+    "price": 130
   },
   {
     "imageUrl": "/gallery/cakes/tortul-casei-min.jpg",
     "title": "Tortul casei",
+    "desc": [
+      "- Blat cacao însiropat",
+      "- Cremă de ciocolată neagră cu mascarpone",
+      "- Șarlotă de vanilie",
+      "- Inserție jeleu de căpșuni",
+      "- Fructe de pădure"
+    ],
+    "min": 1.6,
     "unit": "kg",
-    "price": 50
+    "price": 110
   }
 ]

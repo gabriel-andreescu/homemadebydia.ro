@@ -20,7 +20,6 @@ import AppSocialLinks from "./AppSocialLinks.vue";
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11370.733221679735!2d25.9309805!3d44.562586!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xfbb397e844540bfb!2sHomemade%20by%20Dia!5e0!3m2!1sro!2sro!4v1670659460931!5m2!1sro!2sro"
             class="border-0 border-none min-w-full"
-            allowfullscreen=""
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
@@ -48,7 +47,7 @@ import AppSocialLinks from "./AppSocialLinks.vue";
           </div>
         </section>
       </section>
-      <div>
+      <div class="bg-nude">
         <img
           src="/gallery/footer.jpg"
           class="hidden 2xl:block max-h-screen"

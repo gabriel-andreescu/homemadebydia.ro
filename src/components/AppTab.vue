@@ -5,12 +5,12 @@ defineProps<{
   title: string;
 }>();
 
-const selectedTabState = inject("selectedTabState");
+const selectedTabState: { selectedTab: string } | undefined = inject("selectedTabState");
 </script>
 
 <template>
   <Transition name="slide-fade">
-    <div v-show="selectedTabState.selectedTab === title">
+    <div v-show="selectedTabState?.selectedTab === title">
       <slot></slot>
     </div>
   </Transition>

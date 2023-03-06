@@ -17,7 +17,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <header class="fixed bg-white w-screen px-4 lg:px-12 transition-all duration-200">
+  <header class="fixed bg-white w-screen px-4 lg:px-12 transition-all duration-200 z-10">
     <div
       class="container mx-auto flex justify-between items-center"
       :class="{ 'h-32': !scrolledFromTop, 'h-16': scrolledFromTop }"
