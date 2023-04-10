@@ -31,7 +31,7 @@ import pastry from "../assets/pastry.json";
             <li>20 lei include 4 prăjituri / persoană, 7 sortimente</li>
           </ul>
           <span class="font-light">
-            * Ambele oferte includ bezele colorate și fursecuri. Decor doar comatic.
+            * Ambele oferte includ bezele colorate și fursecuri. Decor doar cromatic.
           </span>
         </div>
 
