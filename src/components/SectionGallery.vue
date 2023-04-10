@@ -1,13 +1,8 @@
 <script setup lang="ts">
-const modules = import.meta.glob("../assets/*.{png,jpg,jpeg,PNG,JPEG}", {
-  eager: true,
-  as: "url",
-});
 const gallery: string[] = [];
 
-for (const path in modules) {
-  const p = new URL(path, import.meta.url).href;
-  gallery.push(p);
+for (let i = 1; i <= 12; i++) {
+  gallery.push('/gallery/gallery/' + i + '.jpeg');
 }
 </script>
 
