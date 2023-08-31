@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const gallery: string[] = [];
 
-for (let i = 1; i <= 12; i++) {
-  gallery.push('/gallery/gallery/' + i + '.jpeg');
+for (let i = 1; i <= 20; i++) {
+  gallery.push('/gallery/gallery/' + i + '-min.jpeg');
 }
 </script>
 

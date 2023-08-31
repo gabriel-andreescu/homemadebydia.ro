@@ -1,5 +1,33 @@
 [
   {
+    "imageUrl": "/gallery/cakes/tort-stil-snickers-min.jpg",
+    "title": "Tort stil Snickers",
+    "desc": [
+      "- Blat cacao",
+      "- Cremă de brânză",
+      "- Inserție de arahide cu caramel",
+      "- Cremă de ciocolată cu pralină",
+      "- Biluțe crocante de caramel sărat"
+    ],
+    "min": 1.7,
+    "unit": "kg",
+    "price": 130
+  },
+  {
+    "imageUrl": "/gallery/cakes/vanilla-fruit-min.jpg",
+    "title": "Vanilla Fruit",
+    "desc": [
+      "- Blat alb cu merișoare",
+      "- Cremă frișcă si mascarpone",
+      "- Inserție jeleu fructe",
+      "- Salsa fructe pădure",
+      "- Inserție lemon curd"
+    ],
+    "min": 1.7,
+    "unit": "kg",
+    "price": 130
+  },
+  {
     "imageUrl": "/gallery/cakes/carrot-cake-caramel-min.jpg",
     "title": "Tort carrot cu caramel",
     "desc": [
@@ -21,6 +49,18 @@
     "min": 1.5,
     "unit": "kg",
     "price": 120
+  },
+  {
+    "imageUrl": "/gallery/cakes/medovik-min.jpg",
+    "title": "Tort cifră Medovik",
+    "desc": [
+      "- Foi pufoase cu miere",
+      "- Cremă de smântână cu cardamon",
+      "- Fructe de pădure"
+    ],
+    "min": 1,
+    "unit": "kg",
+    "price": 140
   },
   {
     "imageUrl": "/gallery/cakes/ciocolata-caramel-min.jpg",

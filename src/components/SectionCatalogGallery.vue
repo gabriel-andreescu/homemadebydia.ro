@@ -47,9 +47,7 @@ defineProps<{
         </p>
       </div>
       <p class="text-md" :class="{ 'mb-1': !item.min }">
-        <span class="font-bold">{{ item.price }}</span>
-        lei
-        <span class="text-sm" v-if="item.unit">/{{ item.unit }}</span>
+        <span class="font-bold">{{ item.price }}</span> lei<span class="text-sm" v-if="item.unit">/{{ item.unit }}</span>
       </p>
       <p class="text-xs mb-2" v-if="item.min">(minim {{ item.min }} {{ item.unit }})</p>
     </div>

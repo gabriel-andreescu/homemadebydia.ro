@@ -5,12 +5,18 @@ import SectionCatalogGallery from "./SectionCatalogGallery.vue";
 import cakes from "../assets/cakes.json";
 import cookies from "../assets/cookies.json";
 import pastry from "../assets/pastry.json";
+import SectionCatalogEventsGallery from "./SectionCatalogEventsGallery.vue";
 </script>
 
 <template>
   <AppTabs>
     <AppTab title="Torturi" tab-key="torturi">
       <SectionCatalogGallery :data="cakes" />
+      <p class="mt-2 mb-8">
+        * Decorurile personalizate se achită separat, prețul începând de la 20 lei până la 200 lei in funcție de complexitate<br>
+        * În cazul în care suferiţi de o alergie / sunteți intolerant la un ingredient, vă rugăm să solicitaţi informaţii
+        suplimentare înainte de efectuarea comenzii
+      </p>
     </AppTab>
     <AppTab title="Prăjituri" tab-key="prajituri">
       <SectionCatalogGallery :data="cookies" />
@@ -35,41 +41,22 @@ import pastry from "../assets/pastry.json";
           </span>
         </div>
 
-        <p class="mb-8">
+        <p class="mt-2">
           Pentru optare tematică candy bar +1,5 lei / persoană (include toppere, numele copilului,
           imagini comestibile, etc)
         </p>
-      </div>
-      <div class="columns-2xs gap-8 space-y-8">
-        <div class="relative aspect-w-24 aspect-h-9">
-          <img class="w-full object-cover rounded-lg" src="/gallery/events/1.jpg" alt="candy bar" />
-          <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg"></div>
-        </div>
-        <div class="relative aspect-w-1 aspect-h-1">
-          <img
-            class="w-full object-cover rounded-lg"
-            src="/gallery/events/2.jpg"
-            alt="tort eveniment"
-          />
-          <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg"></div>
-        </div>
-        <div class="relative hidden sm:block aspect-w-16 aspect-h-9">
-          <img
-            class="w-full object-cover rounded-lg"
-            src="/gallery/events/4.jpg"
-            alt="cutie cu pavlova"
-          />
-          <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg"></div>
-        </div>
-        <div class="relative hidden sm:block aspect-w-16 aspect-h-9">
-          <img
-            class="w-full object-cover rounded-lg"
-            src="/gallery/events/5.jpg"
-            alt="tort eveniment"
-          />
-          <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg"></div>
+
+        <p class="font-light mt-2">Opțional</p>
+        <div class="ml-12 mt-2 mb-8">
+          <ul class="list-disc">
+            <li>Chirie vase - începând de la 150 lei</li>
+            <li>Montaj candy bar - 150 lei</li>
+            <li>Preluare vase - începând de la 50 lei</li>
+            <li>Livrare - începând de la 120 lei (mașină frigorifică)</li>
+          </ul>
         </div>
       </div>
+      <SectionCatalogEventsGallery />
     </AppTab>
   </AppTabs>
 </template>
