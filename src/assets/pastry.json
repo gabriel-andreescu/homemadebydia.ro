@@ -1,10 +1,17 @@
 [
   {
     "imageUrl": "/gallery/pastry/cozonac-min.jpg",
-    "title": "Cozonac",
-    "assortments": "cântărește aprox. 750-800 gr",
+    "title": "Cozonac Mini Glazurat",
+    "assortments": "cântărește aprox. 650-700 gr",
     "unit": "buc",
-    "price": 55
+    "price": 50
+  },
+  {
+    "imageUrl": "/gallery/pastry/cozonac-min.jpg",
+    "title": "Cozonac Maxi Clasic",
+    "assortments": "cântărește aprox. 1.2 kg",
+    "unit": "buc",
+    "price": 85
   },
   {
     "imageUrl": "/gallery/pastry/turta-min.jpg",
