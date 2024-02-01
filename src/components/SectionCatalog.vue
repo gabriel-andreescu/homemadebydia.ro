@@ -27,7 +27,7 @@ import SectionCatalogEventsGallery from "./SectionCatalogEventsGallery.vue";
     <AppTab title="Evenimente" tab-key="evenimente" class="container">
       <div>
         <p>
-          Oferta pentru candy bar pornește de la 15 lei / persoană, se poate personaliza în funcție
+          Oferta pentru candy bar pornește de la 21 lei / persoană, se poate personaliza în funcție
           de preferințe. Ofertă valabilă pentru minim 30 de persoane.
         </p>
 
