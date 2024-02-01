@@ -28,13 +28,13 @@ import SectionCatalogEventsGallery from "./SectionCatalogEventsGallery.vue";
       <div>
         <p>
           Oferta pentru candy bar pornește de la 15 lei / persoană, se poate personaliza în funcție
-          de preferințe.
+          de preferințe. Ofertă valabilă pentru minim 30 de persoane.
         </p>
 
         <div class="ml-12 mt-2">
           <ul class="list-disc">
-            <li>15 lei include 3 prăjituri / persoană, 5 sortimente</li>
-            <li>20 lei include 4 prăjituri / persoană, 7 sortimente</li>
+            <li>21 lei include 3 prăjituri / persoană, 5 sortimente</li>
+            <li>28 lei include 4 prăjituri / persoană, 7 sortimente</li>
           </ul>
           <span class="font-light">
             * Ambele oferte includ bezele colorate și fursecuri. Decor doar cromatic.
@@ -42,7 +42,7 @@ import SectionCatalogEventsGallery from "./SectionCatalogEventsGallery.vue";
         </div>
 
         <p class="mt-2">
-          Pentru optare tematică candy bar +1,5 lei / persoană (include toppere, numele copilului,
+          Pentru optare tematică candy bar +2 lei / persoană (include toppere, numele copilului,
           imagini comestibile, etc)
         </p>
 

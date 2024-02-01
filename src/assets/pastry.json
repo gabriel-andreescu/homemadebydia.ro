@@ -1,25 +1,32 @@
 [
   {
+    "imageUrl": "/gallery/pastry/tarta-min.jpg",
+    "title": "Tartă fistic și zmeură",
+    "assortments": "cântărește aprox. 600 g",
+    "unit": "buc",
+    "price": 80
+  },
+  {
+    "imageUrl": "/gallery/pastry/saratele-min.jpg",
+    "title": "Sărățele",
+    "desc": ["- Parmezan", "- Parmezan și chimen"],
+    "unit": "100 g",
+    "price": 11
+  },
+  {
     "imageUrl": "/gallery/pastry/cozonac-min.jpg",
     "title": "Cozonac Mini Glazurat",
-    "assortments": "cântărește aprox. 650-700 gr",
+    "assortments": "cântărește aprox. 650-700 g",
     "unit": "buc",
     "price": 50
   },
   {
-    "imageUrl": "/gallery/pastry/cozonac-min.jpg",
-    "title": "Cozonac Maxi Clasic",
-    "assortments": "cântărește aprox. 1.2 kg",
-    "unit": "buc",
-    "price": 85
-  },
-  {
     "imageUrl": "/gallery/pastry/turta-min.jpg",
     "title": "Turtă",
-    "desc": ["- Aluat de cozonac", "- Umplutură cu nucă (+15 lei, opțional)"],
+    "desc": ["- Aluat de cozonac", "- Umplutură cu nucă (+20 lei, opțional)"],
     "min": 1,
     "unit": "kg",
-    "price": 75
+    "price": 85
   },
   {
     "imageUrl": "/gallery/pastry/fursecuri-min.jpg",
@@ -27,14 +34,6 @@
     "assortments": "dulceață și nucă",
     "min": 0.25,
     "unit": "kg",
-    "price": 100
-  },
-  {
-    "imageUrl": "/gallery/pastry/sable-breton-1-min.jpg",
-    "title": "Sablé Breton",
-    "desc": ["- Biscuite francez", "- Inserție lemon curd", "- Cremă de ciocolată albă"],
-    "min": 0,
-    "unit": "buc",
-    "price": 11
+    "price": 110
   }
 ]
