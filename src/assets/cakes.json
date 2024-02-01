@@ -1,5 +1,12 @@
 [
   {
+    "imageUrl": "/gallery/cakes/pavlova-min.jpg",
+    "title": "Tort Pavlova",
+    "desc": ["Cu fistic și zmeură, cântărește aprox. 1 kg"],
+    "unit": "buc",
+    "price": 160
+  },
+  {
     "imageUrl": "/gallery/cakes/tort-stil-snickers-min.jpg",
     "title": "Tort stil Snickers",
     "desc": [
@@ -11,7 +18,7 @@
     ],
     "min": 1.7,
     "unit": "kg",
-    "price": 130
+    "price": 140
   },
   {
     "imageUrl": "/gallery/cakes/vanilla-fruit-min.jpg",
@@ -25,7 +32,7 @@
     ],
     "min": 1.7,
     "unit": "kg",
-    "price": 130
+    "price": 140
   },
   {
     "imageUrl": "/gallery/cakes/carrot-cake-caramel-min.jpg",
@@ -37,7 +44,7 @@
     ],
     "min": 1.5,
     "unit": "kg",
-    "price": 120
+    "price": 130
   },
   {
     "imageUrl": "/gallery/cakes/carrot-cake-fructe-min.jpg",
@@ -48,7 +55,19 @@
     ],
     "min": 1.5,
     "unit": "kg",
-    "price": 120
+    "price": 130
+  },
+  {
+    "imageUrl": "/gallery/cakes/medovik-min.jpg",
+    "title": "Tort Medovik",
+    "desc": [
+      "- Foi pufoase cu miere",
+      "- Cremă de smântână cu cardamon",
+      "- Fructe de pădure"
+    ],
+    "min": 1,
+    "unit": "kg",
+    "price": 140
   },
   {
     "imageUrl": "/gallery/cakes/medovik-min.jpg",
@@ -60,24 +79,11 @@
     ],
     "min": 1,
     "unit": "kg",
-    "price": 140
-  },
-  {
-    "imageUrl": "/gallery/cakes/ciocolata-caramel-min.jpg",
-    "title": "Tort ciocolată cu caramel",
-    "desc": [
-      "- Blat alb însiropat cu lichior de ciocolată",
-      "- Cremă de ciocolată neagră",
-      "- Inserție de caramel cu arahide caramelizate",
-      "- Cremă de ciocolată albă cu bucăți de piersică"
-    ],
-    "min": 1.6,
-    "unit": "kg",
-    "price": 120
+    "price": 150
   },
   {
     "imageUrl": "/gallery/cakes/diplomat-min.jpg",
-    "title": "Tort diplomat",
+    "title": "Tort Elegant",
     "desc": [
       "- Blat pandișpan însiropat cu compot",
       "- Șarlotă de vanilie cu frișcă",
@@ -86,30 +92,16 @@
     ],
     "min": 1.6,
     "unit": "kg",
-    "price": 110
-  },
-  {
-    "imageUrl": "/gallery/cakes/profiterol-min.jpg",
-    "title": "Tort profiterol",
-    "desc": [
-      "- Blat cacao însiropat cu rom",
-      "- Cremă de ciocolată neagră",
-      "- Cremă de ciocolată cu lapte",
-      "- Biluțe profiterol cu cremă de vanilie",
-      "Se pot adăuga fructe de pădure sau caramel"
-    ],
-    "min": 1.6,
-    "unit": "kg",
-    "price": 120
+    "price": 130
   },
   {
     "imageUrl": "/gallery/cakes/tort-mac-min.jpg",
-    "title": "Tort cu mac, lemon curd si căpșuni",
+    "title": "Summer Cake",
     "desc": [
       "- Blat cu mac",
       "- Inserție lemon curd",
       "- Inserție jeleu căpșuni",
-      "- Cremă de ciocolată albă"
+      "- Cremă de frișcă cu mascarpone"
     ],
     "min": 1.5,
     "unit": "kg",
@@ -127,6 +119,6 @@
     ],
     "min": 1.6,
     "unit": "kg",
-    "price": 110
+    "price": 130
   }
 ]

@@ -1,18 +1,27 @@
 [
   {
-    "imageUrl": "/gallery/cookies/choux-min.jpg",
-    "title": "Choux",
-    "assortments": "vanilie, ciocolată, caramel",
+    "imageUrl": "/gallery/cookies/mini-tarte-min.jpg",
+    "title": "Mini Tarte",
+    "assortments": "vanilie, fructe, lămâie și bezea, ciocolată, caramel",
     "min": 0,
-    "unit": "buc",
-    "price": 5
+    "unit": "kg",
+    "price": 145
   },
   {
-    "imageUrl": "/gallery/cookies/prajitura-cu-ciocolata-si-rom-min.jpg",
-    "title": "Prăjitură cu ciocolată și rom",
-    "min": 0.5,
+    "imageUrl": "/gallery/cookies/maxi-choux-min.jpg",
+    "title": "Maxi Choux",
+    "assortments": "vanilie și frișcă, ciocolată și pralină, fistic și zmeură",
+    "min": 0,
+    "unit": "buc",
+    "price": 16
+  },
+  {
+    "imageUrl": "/gallery/cookies/mini-choux-min.jpg",
+    "title": "Mini Choux",
+    "assortments": "vanilie, ciocolată, caramel",
+    "min": 0,
     "unit": "kg",
-    "price": 110
+    "price": 135
   },
   {
     "imageUrl": "/gallery/cookies/alba-ca-zapada-min.jpg",
@@ -31,7 +40,7 @@
     ],
     "min": 0,
     "unit": "buc",
-    "price": 11
+    "price": 16
   },
   {
     "imageUrl": "/gallery/cookies/pavlova-min.jpg",
@@ -39,14 +48,6 @@
     "desc": ["- Bezea crocantă", "- Cremă de mascarpone sau ciocolată"],
     "min": 0.5,
     "unit": "kg",
-    "price": 110
-  },
-  {
-    "imageUrl": "/gallery/cookies/mix-prajituri-min.jpg",
-    "title": "Mix prăjituri",
-    "assortments": "mini ecler, albă ca zăpada, carrot cake, prăjitură cu ciocolată și rom, choux, pavlova, fursecuri, prăjitura casei",
-    "min": 1,
-    "unit": "kg",
-    "price": 110
+    "price": 135
   }
 ]
