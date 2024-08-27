@@ -16,6 +16,7 @@ for (let i = 1; i <= 9; i++) {
           :src="image + '.jpg'"
           alt="imagine din galeria de evenimente"
           class="w-full object-cover rounded-lg"
+          loading="lazy"
         />
       </picture>
       <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg"></div>

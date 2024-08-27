@@ -29,7 +29,7 @@ defineProps<{
               <source :srcset="image + '.jpg'" type="image/jpeg" />
               <img
                 :src="image + '.jpg'"
-                alt="poza {{ item.title }}"
+                :alt="item.title + ' la cofetăria Homemade by Dia din Buftea'"
                 class="min-w-full object-cover"
               />
             </picture>
@@ -40,8 +40,9 @@ defineProps<{
           <source :srcset="item.imageUrl + '.jpg'" type="image/jpeg" />
           <img
             :src="item.imageUrl + '.jpg'"
-            alt="poza {{ item.title }}"
+            :alt="item.title + ' la cofetăria Homemade by Dia din Buftea'"
             class="lg:h-96 h-64 min-w-full object-cover"
+            loading="lazy"
           />
         </picture>
       </div>

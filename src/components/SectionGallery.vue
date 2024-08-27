@@ -17,6 +17,7 @@ for (let i = 1; i <= 20; i++) {
             :src="image + '.jpeg'"
             alt="imagine din galerie"
             class="w-full object-cover sm:rounded-lg"
+            loading="lazy"
           />
         </picture>
       </div>

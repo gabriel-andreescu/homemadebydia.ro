@@ -5,10 +5,10 @@ import AppSocialLinks from "./AppSocialLinks.vue";
 <template>
   <header>
     <div class="h-full w-full h-96 flex items-center justify-center flex-col">
-      <h2 class="text-6xl font-serif text-center mb-8">
-        Laborator artizanal de
+      <h2 class="text-4xl font-serif text-center mb-8">
+        Laborator artizanal autorizat de cofetărie,
         <br />
-        torturi și prăjituri
+        torturi personalizate și prăjituri la comandă
       </h2>
       <AppSocialLinks :center="true" />
     </div>
