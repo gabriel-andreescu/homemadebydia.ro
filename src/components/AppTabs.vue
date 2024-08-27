@@ -25,7 +25,7 @@ onMounted(() => {
       v-for="tab in tabs"
       :key="tab.title"
       :class="[
-        'px-4 py-2 rounded-lg cursor-pointer transition-colors duration-200',
+        'px-2 py-2 rounded-lg cursor-pointer transition-colors duration-200',
         tab.title === selectedTabState.selectedTab
           ? 'bg-pink-700 text-white'
           : 'bg-pink-300 text-gray-900 hover:bg-pink-500 hover:text-white',

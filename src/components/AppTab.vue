@@ -10,7 +10,7 @@ const selectedTabState: { selectedTab: string } | undefined = inject("selectedTa
 
 <template>
   <Transition name="slide-fade">
-    <div v-show="selectedTabState?.selectedTab === title">
+    <div v-show="selectedTabState?.selectedTab === title" class="p-2">
       <slot></slot>
     </div>
   </Transition>

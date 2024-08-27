@@ -4,7 +4,7 @@ import AppSocialLinks from "./AppSocialLinks.vue";
 
 <template>
   <header>
-    <div class="h-full w-full h-96 flex items-center justify-center flex-col">
+    <div class="w-full h-80 flex items-center justify-center flex-col">
       <h2 class="text-4xl font-serif text-center mb-8">
         Laborator artizanal autorizat de cofetărie,
         <br />
