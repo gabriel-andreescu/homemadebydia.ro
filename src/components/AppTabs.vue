@@ -27,8 +27,8 @@ onMounted(() => {
       :class="[
         'px-4 py-2 rounded-lg cursor-pointer transition-colors duration-200',
         tab.title === selectedTabState.selectedTab
-          ? 'bg-pink-500 text-white'
-          : 'bg-pink-200 text-gray-700 hover:bg-pink-400 hover:text-white',
+          ? 'bg-pink-700 text-white'
+          : 'bg-pink-300 text-gray-900 hover:bg-pink-500 hover:text-white',
       ]"
       @click="selectedTabState.selectedTab = tab.title"
     >
