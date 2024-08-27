@@ -11,8 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.45",
-    "vue-gtag-next": "^1.14.0"
+    "vue": "^3.2.45"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.2.0",
