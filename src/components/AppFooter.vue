@@ -48,11 +48,15 @@ import AppSocialLinks from "./AppSocialLinks.vue";
         </section>
       </section>
       <div class="bg-nude">
-        <img
-          src="/gallery/footer.jpg"
-          class="hidden 2xl:block max-h-screen"
-          alt="poză cu un tort văzut de sus"
-        />
+        <picture class="hidden 2xl:block max-h-screen">
+          <source srcset="/gallery/footer.webp" type="image/webp" />
+          <source srcset="/gallery/footer.jpg" type="image/jpeg" />
+          <img
+            src="/gallery/footer.jpg"
+            alt="poză cu un tort văzut de sus"
+            class="hidden 2xl:block max-h-screen"
+          />
+        </picture>
       </div>
     </section>
   </footer>

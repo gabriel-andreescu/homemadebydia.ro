@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node utils/convert-images-to-webp.js",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },

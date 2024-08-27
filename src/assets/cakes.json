@@ -1,13 +1,13 @@
 [
   {
-    "imageUrl": "/gallery/cakes/pavlova-min.jpg",
+    "imageUrl": "/gallery/cakes/pavlova-min",
     "title": "Tort Pavlova",
     "desc": ["Cu fistic și zmeură, cântărește aprox. 1 kg"],
     "unit": "buc",
     "price": 160
   },
   {
-    "imageUrl": "/gallery/cakes/tort-stil-snickers-min.jpg",
+    "imageUrl": "/gallery/cakes/tort-stil-snickers-min",
     "title": "Tort stil Snickers",
     "desc": [
       "- Blat cacao",
@@ -21,7 +21,7 @@
     "price": 140
   },
   {
-    "imageUrl": "/gallery/cakes/vanilla-fruit-min.jpg",
+    "imageUrl": "/gallery/cakes/vanilla-fruit-min",
     "title": "Vanilla Fruit",
     "desc": [
       "- Blat alb cu merișoare",
@@ -35,7 +35,7 @@
     "price": 140
   },
   {
-    "imageUrl": "/gallery/cakes/carrot-cake-caramel-min.jpg",
+    "imageUrl": "/gallery/cakes/carrot-cake-caramel-min",
     "title": "Tort carrot cu caramel",
     "desc": [
       "- Blat umed de morcov cu scorțișoară si nuca",
@@ -47,7 +47,7 @@
     "price": 130
   },
   {
-    "imageUrl": "/gallery/cakes/carrot-cake-fructe-min.jpg",
+    "imageUrl": "/gallery/cakes/carrot-cake-fructe-min",
     "title": "Tort carrot cu fructe",
     "desc": [
       "- Blat umed de morcov cu scorțișoară si nuca",
@@ -58,7 +58,7 @@
     "price": 130
   },
   {
-    "imageUrl": "/gallery/cakes/medovik-min.jpg",
+    "imageUrl": "/gallery/cakes/medovik-min",
     "title": "Tort Medovik",
     "desc": [
       "- Foi pufoase cu miere",
@@ -70,7 +70,7 @@
     "price": 140
   },
   {
-    "imageUrl": "/gallery/cakes/medovik-cifra-min.jpg",
+    "imageUrl": "/gallery/cakes/medovik-cifra-min",
     "title": "Tort cifră Medovik",
     "desc": [
       "- Foi pufoase cu miere",
@@ -82,7 +82,7 @@
     "price": 150
   },
   {
-    "imageUrl": "/gallery/cakes/diplomat-min.jpg",
+    "imageUrl": "/gallery/cakes/diplomat-min",
     "title": "Tort Elegant",
     "desc": [
       "- Blat pandișpan însiropat cu compot",
@@ -95,7 +95,7 @@
     "price": 130
   },
   {
-    "imageUrl": "/gallery/cakes/tort-mac-min.jpg",
+    "imageUrl": "/gallery/cakes/tort-mac-min",
     "title": "Summer Cake",
     "desc": [
       "- Blat cu mac",
@@ -108,7 +108,7 @@
     "price": 130
   },
   {
-    "imageUrl": "/gallery/cakes/tortul-casei-min.jpg",
+    "imageUrl": "/gallery/cakes/tortul-casei-min",
     "title": "Tortul casei",
     "desc": [
       "- Blat cacao însiropat",

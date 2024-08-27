@@ -24,23 +24,20 @@ onMounted(() => {
     <li
       v-for="tab in tabs"
       :key="tab.title"
-      :class="{ active: tab.title === selectedTabState.selectedTab }"
+      :class="[
+        'px-4 py-2 rounded-lg cursor-pointer transition-colors duration-200',
+        tab.title === selectedTabState.selectedTab
+          ? 'bg-pink-500 text-white'
+          : 'bg-pink-200 text-gray-700 hover:bg-pink-400 hover:text-white',
+      ]"
       @click="selectedTabState.selectedTab = tab.title"
     >
       {{ tab.title }}
     </li>
   </ul>
 
-  <hr class="mb-8 mx-auto w-full h-px bg-gray-200 rounded border-0" />
+  <!--  <hr class="mb-8 mx-auto w-full h-px bg-gray-200 rounded border-0" />-->
   <slot />
 </template>
 
-<style scoped>
-ul li {
-  @apply py-2 cursor-pointer transition-colors duration-200;
-}
-
-ul li.active {
-  @apply border-b-2 pb-2 border-accent;
-}
-</style>
+<style scoped></style>

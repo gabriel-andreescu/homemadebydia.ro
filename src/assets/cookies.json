@@ -1,6 +1,6 @@
 [
   {
-    "imageUrl": "/gallery/cookies/mini-tarte-min.jpg",
+    "imageUrl": "/gallery/cookies/mini-tarte-min",
     "title": "Mini Tarte",
     "assortments": "vanilie, fructe, lămâie și bezea, ciocolată, caramel",
     "min": 0,
@@ -8,7 +8,7 @@
     "price": 145
   },
   {
-    "imageUrl": "/gallery/cookies/maxi-choux-min.jpg",
+    "imageUrl": "/gallery/cookies/maxi-choux-min",
     "title": "Maxi Choux",
     "assortments": "vanilie și frișcă, ciocolată și pralină, fistic și zmeură",
     "min": 0,
@@ -16,7 +16,7 @@
     "price": 16
   },
   {
-    "imageUrl": "/gallery/cookies/mini-choux-min.jpg",
+    "imageUrl": "/gallery/cookies/mini-choux-min",
     "title": "Mini Choux",
     "assortments": "vanilie, ciocolată, caramel",
     "min": 0,
@@ -24,14 +24,14 @@
     "price": 135
   },
   {
-    "imageUrl": "/gallery/cookies/alba-ca-zapada-min.jpg",
+    "imageUrl": "/gallery/cookies/alba-ca-zapada-min",
     "title": "Albă ca zăpada",
     "min": 0.5,
     "unit": "kg",
     "price": 110
   },
   {
-    "imageUrl": "/gallery/cookies/medovik-min.jpg",
+    "imageUrl": "/gallery/cookies/medovik-min",
     "title": "Medovik",
     "desc": [
       "- Foi pufoase cu miere",
@@ -43,7 +43,7 @@
     "price": 16
   },
   {
-    "imageUrl": "/gallery/cookies/pavlova-min.jpg",
+    "imageUrl": "/gallery/cookies/pavlova-min",
     "title": "Pavlova",
     "desc": ["- Bezea crocantă", "- Cremă de mascarpone sau ciocolată"],
     "min": 0.5,
