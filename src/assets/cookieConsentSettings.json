@@ -1,0 +1,81 @@
+{
+  "current_lang": "ro",
+  "page_scripts": false,
+  "autoclear_cookies": true,
+  "gui_options": {
+    "consent_modal": {
+      "layout": "cloud",
+      "position": "bottom center",
+      "transition": "slide",
+      "swap_buttons": true
+    },
+    "settings_modal": {
+      "layout": "box",
+      "transition": "slide"
+    }
+  },
+  "languages": {
+    "ro": {
+      "consent_modal": {
+        "title": "Acest site folosește \"cookies\"!",
+        "description": "Acest site web folosește cookie-uri esențiale pentru a asigura funcționarea corectă și cookie-uri de urmărire pentru a înțelege modul în care interacționați cu el. Acestea din urmă vor fi stabilite numai după acordul dvs.",
+        "primary_btn": {
+          "text": "Da, accept",
+          "role": "accept_all"
+        },
+        "secondary_btn": {
+          "text": "Lasă-mă să aleg",
+          "role": "settings"
+        }
+      },
+      "settings_modal": {
+        "title": "Preferințe cookies",
+        "accept_all_btn": "Da, accept",
+        "save_settings_btn": "Salvează",
+        "close_btn_label": "Închide",
+        "cookie_table_headers": [
+          {
+            "col1": "Nume"
+          },
+          {
+            "col2": "Companie"
+          }
+        ],
+        "blocks": [
+          {
+            "title": "Cookie-uri strict necesare",
+            "description": "Aceste cookie-uri sunt esențiale pentru buna funcționare a site-ului. Fără aceste cookie-uri, site-ul web nu ar funcționa corect",
+            "toggle": {
+              "value": "necessary",
+              "enabled": true,
+              "readonly": true
+            }
+          },
+          {
+            "title": "Cookie-uri de performanță și analiză",
+            "description": "Aceste cookie-uri ne permit să analizăm modul de folosire a paginii web, putând astfel să ne adaptăm necesității userului prin îmbunătățirea permanentă a website-ului nostru.",
+            "toggle": {
+              "value": "analytics",
+              "enabled": true,
+              "readonly": false
+            },
+            "cookie_table": [
+              {
+                "col1": "_ga",
+                "col2": "Google Analytics"
+              },
+              {
+                "col1": "_ga_<container-id>",
+                "col2": "Google Analytics"
+              }
+            ]
+          },
+          {
+            "title": "Mai multe informații",
+            "description": "Pentru orice întrebări legate de politica noastră privind cookie-urile și opțiunile dvs., vă rugăm <a class=\"cc-link\" href=\"/contact\">să ne contactați</a>."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -6,6 +6,12 @@ import SectionCatalog from "./components/SectionCatalog.vue";
 import SectionWhyChooseUs from "./components/SectionWhyChooseUs.vue";
 import AppFooter from "./components/AppFooter.vue";
 import SectionGallery from "./components/SectionGallery.vue";
+import useCookieConsent from "./composables/useCookieConsent";
+import { onMounted } from "vue";
+
+onMounted(() => {
+  useCookieConsent();
+});
 </script>
 
 <template>
