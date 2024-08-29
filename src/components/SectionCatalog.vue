@@ -106,7 +106,7 @@ const closeModal = () => {
         <img
           :src="selectedImage + '.jpg'"
           alt="imagine mărită"
-          class="max-w-full max-h-full object-contain rounded-xl"
+          class="max-w-full max-h-screen object-contain rounded-xl"
         />
       </picture>
     </div>
