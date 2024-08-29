@@ -1,10 +1,35 @@
 [
   {
+    "imageUrl": "/gallery/cakes/tort-bere-min",
+    "title": "Tort de Bere",
+    "desc": [
+      "- Blaturi umede de ciocolată cu bere artizanală",
+      "- Cremă fină de mascarpone",
+      "- Inserție de nuci cu bere"
+    ],
+    "min": 1.5,
+    "unit": "kg",
+    "price": 150
+  },
+  {
+    "imageUrl": "/gallery/cakes/tort-exotic-min",
+    "title": "Tort Exotic",
+    "desc": [
+      "- Blaturi umede cu migdale și cocos",
+      "- Mousse fructul pasiunii",
+      "- Inserție de Mango",
+      "- Mousse de ciocolată albă"
+    ],
+    "min": 1.5,
+    "unit": "kg",
+    "price": 150
+  },
+  {
     "imageUrl": "/gallery/cakes/pavlova-min",
     "title": "Tort Pavlova",
-    "desc": ["Cu fistic și zmeură, cântărește aprox. 1 kg"],
+    "desc": ["- Cremă de fistic, zmeur și Namelaca", "cântărește aprox. 1 kg"],
     "unit": "buc",
-    "price": 160
+    "price": 180
   },
   {
     "imageUrl": "/gallery/cakes/tort-stil-snickers-min",
@@ -18,68 +43,60 @@
     ],
     "min": 1.7,
     "unit": "kg",
-    "price": 140
+    "price": 150
   },
   {
     "imageUrl": "/gallery/cakes/vanilla-fruit-min",
     "title": "Vanilla Fruit",
     "desc": [
       "- Blat alb cu merișoare",
-      "- Cremă frișcă si mascarpone",
+      "- Cremă frișcă și mascarpone",
       "- Inserție jeleu fructe",
       "- Salsa fructe pădure",
       "- Inserție lemon curd"
     ],
     "min": 1.7,
     "unit": "kg",
-    "price": 140
+    "price": 150
   },
   {
     "imageUrl": "/gallery/cakes/carrot-cake-caramel-min",
     "title": "Tort carrot cu caramel",
     "desc": [
-      "- Blat umed de morcov cu scorțișoară si nuca",
+      "- Blat umed de morcov cu scorțișoară și nuca",
       "- Cremă de brânză cu portocală",
       "- Inserție de caramel"
     ],
     "min": 1.5,
     "unit": "kg",
-    "price": 130
+    "price": 150
   },
   {
     "imageUrl": "/gallery/cakes/carrot-cake-fructe-min",
     "title": "Tort carrot cu fructe",
     "desc": [
-      "- Blat umed de morcov cu scorțișoară si nuca",
+      "- Blat umed de morcov cu scorțișoară și nuca",
       "- Cremă de brânză cu fructe de pădure"
     ],
     "min": 1.5,
     "unit": "kg",
-    "price": 130
+    "price": 150
   },
   {
     "imageUrl": "/gallery/cakes/medovik-min",
     "title": "Tort Medovik",
-    "desc": [
-      "- Foi pufoase cu miere",
-      "- Cremă de smântână cu cardamon",
-      "- Fructe de pădure"
-    ],
+    "desc": ["- Foi pufoase cu miere", "- Cremă de smântână cu cardamon", "- Fructe de pădure"],
     "min": 1,
     "unit": "kg",
-    "price": 140
+    "price": 150
   },
   {
     "imageUrl": "/gallery/cakes/medovik-cifra-min",
     "title": "Tort cifră Medovik",
-    "desc": [
-      "- Foi pufoase cu miere",
-      "- Cremă de smântână cu cardamon",
-      "- Fructe de pădure"
-    ],
+    "desc": ["- Foi pufoase cu miere", "- Cremă de smântână cu cardamon", "- Fructe de pădure"],
     "min": 1,
     "unit": "kg",
-    "price": 150
+    "price": 160
   },
   {
     "imageUrl": "/gallery/cakes/diplomat-min",
@@ -87,12 +104,12 @@
     "desc": [
       "- Blat pandișpan însiropat cu compot",
       "- Șarlotă de vanilie cu frișcă",
-      "- Fructe (ananas si piersica)",
+      "- Fructe (ananas și piersică)",
       "- Jeleu de căpșuni"
     ],
     "min": 1.6,
     "unit": "kg",
-    "price": 130
+    "price": 150
   },
   {
     "imageUrl": "/gallery/cakes/tort-mac-min",
@@ -105,7 +122,7 @@
     ],
     "min": 1.5,
     "unit": "kg",
-    "price": 130
+    "price": 150
   },
   {
     "imageUrl": "/gallery/cakes/tortul-casei-min",
@@ -119,6 +136,6 @@
     ],
     "min": 1.6,
     "unit": "kg",
-    "price": 130
+    "price": 150
   }
 ]

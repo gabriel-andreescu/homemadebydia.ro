@@ -15,35 +15,104 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
     />
-    <meta name="description" content="Descoperă cofetăria Homemade by Dia din Buftea, unde toate produsele sunt realizate din ingrediente naturale de calitate premium. Savurează gusturi autentice și delicioase!">
-    <title>Cofetăria Homemade by Dia - Delicii Naturale în Buftea</title>
+    <meta name="description" content="Descoperă cofetăria Homemade by Dia din Buftea, unde toate produsele sunt realizate din ingrediente naturale. Savurează gusturi autentice și delicioase!">
+    <link rel="canonical" href="https://homemadebydia.ro/" />
     <script type="application/ld+json">
       {
-        "@context": "https://schema.org/",
-        "@type": "LocalBusiness",
-        "name": "Homemade by Dia",
-        "description": "Laborator artizanal de cofetărie, oferim produse proaspete făcute la comandă, realizate cu cele mai calitative ingrediente după rețete proprii delicioase.",
-        "url" : "https://homemadebydia.ro",
-        "logo" : "https://homemadebydia.ro/logo.svg",
-        "image" : "https://homemadebydia.ro/logo.svg",
-        "telephone": "(+40) 787 283 917",
-        "priceRange": "$$",
-        "openingHours" : "Mo-Su 09:00-18:00",
-        "address":
-        {
-          "@type": "PostalAddress",
-          "streetAddress": "Cloșca 22a",
-          "addressLocality": "Buftea",
-          "addressRegion": "Ilfov",
-          "postalCode": "070000",
-          "addressCountry": "RO"
-        },
-        "sameAs":[
-          "https://www.facebook.com/homemadebyDia",
-          "https://www.instagram.com/homemade.by.dia"
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "LocalBusiness",
+            "name": "Homemade by Dia",
+            "description": "Laborator artizanal autorizat de cofetărie din Buftea, oferim produse proaspete făcute la comandă, realizate cu cele mai calitative ingrediente după rețete proprii delicioase.",
+            "url": "https://homemadebydia.ro",
+            "logo": "https://homemadebydia.ro/logo.svg",
+            "image": "https://homemadebydia.ro/logo.svg",
+            "telephone": "(+40) 787 283 917",
+            "priceRange": "$$",
+            "openingHours": "Mo-Su 09:00-18:00",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Cloșca 22a",
+              "addressLocality": "Buftea",
+              "addressRegion": "Ilfov",
+              "postalCode": "070000",
+              "addressCountry": "RO"
+            },
+            "sameAs": [
+              "https://www.facebook.com/homemadebyDia",
+              "https://www.instagram.com/homemade.by.dia"
+            ]
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://homemadebydia.ro",
+            "name": "Cofetăria Homemade by Dia",
+            "url": "https://homemadebydia.ro",
+            "description": "Descoperă cofetăria Homemade by Dia din Buftea, unde toate produsele sunt realizate din ingrediente naturale. Savurează gusturi autentice și delicioase!",
+            "mainEntity": [
+              {
+                "@type": "WebPageElement",
+                "name": "Catalog",
+                "url": "https://homemadebydia.ro/#catalog"
+              },
+              {
+                "@type": "WebPageElement",
+                "name": "Galerie",
+                "url": "https://homemadebydia.ro/#galerie"
+              },
+              {
+                "@type": "WebPageElement",
+                "name": "De ce noi?",
+                "url": "https://homemadebydia.ro/#de-ce-noi"
+              },
+              {
+                "@type": "WebPageElement",
+                "name": "Cum să comanzi",
+                "url": "https://homemadebydia.ro/#cum-sa-comanzi"
+              },
+              {
+                "@type": "WebPageElement",
+                "name": "Contact",
+                "url": "https://homemadebydia.ro/#contact"
+              }
+            ]
+          },
+          {
+            "@type": "HowTo",
+            "name": "Cum să comanzi de la Homemade by Dia",
+            "description": "Află cum să plasezi o comandă pentru torturi și prăjituri de la Homemade by Dia.",
+            "step": [
+              {
+                "@type": "HowToStep",
+                "name": "Alege un produs",
+                "text": "Selectează un produs potrivit gusturilor tale din catalogul nostru.",
+                "url": "https://homemadebydia.ro/#catalog"
+              },
+              {
+                "@type": "HowToStep",
+                "name": "Consultă-te cu noi",
+                "text": "Contactează-ne pentru a lua cea mai bună decizie.",
+                "url": "https://homemadebydia.ro/#contact"
+              },
+              {
+                "@type": "HowToStep",
+                "name": "Stabilește data și ora comenzii",
+                "text": "Programează împreună cu noi data și ora la care vrei să fie gata comanda ta.",
+                "url": "https://homemadebydia.ro/#contact"
+              },
+              {
+                "@type": "HowToStep",
+                "name": "Ridică comanda",
+                "text": "Te așteptăm la locația noastră să îți ridici comanda.",
+                "url": "https://homemadebydia.ro/#cum-sa-comanzi"
+              }
+            ]
+          }
         ]
       }
     </script>
+    <title>Cofetăria Homemade by Dia - Delicii Naturale în Buftea</title>
   </head>
   <body>
     <div id="app"></div>

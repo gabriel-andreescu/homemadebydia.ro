@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { ref } from "vue";
+
 interface CatalogGalleryDataItem {
-  imageUrl: string;
+  imageUrl: string | string[];
   title: string;
   assortments?: string;
   desc?: string | string[];
@@ -12,6 +14,19 @@ interface CatalogGalleryDataItem {
 defineProps<{
   data: CatalogGalleryDataItem[];
 }>();
+
+const isModalOpen = ref(false);
+const selectedImage = ref("");
+
+const openModal = (image: string) => {
+  selectedImage.value = image;
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  isModalOpen.value = false;
+  selectedImage.value = "";
+};
 </script>
 
 <template>
@@ -19,51 +34,83 @@ defineProps<{
     <div
       v-for="item in data"
       :key="item.title"
-      class="flex flex-col w-64 lg:w-96 m-4 items-center bg-pink-50"
+      class="flex flex-col w-64 lg:w-72 m-4 items-center bg-white rounded-lg shadow-lg overflow-hidden"
     >
-      <div class="lg:w-96 lg:h-96 w-64 h-64 mb-1 overflow-hidden">
+      <div class="relative lg:w-72 lg:h-72 w-64 max-h-64 mb-2 overflow-hidden cursor-pointer">
         <div v-if="Array.isArray(item.imageUrl)" class="grid grid-cols-2">
-          <div v-for="image in item.imageUrl" :key="image" class="">
-            <picture class="min-w-full object-cover">
+          <div
+            v-for="image in item.imageUrl"
+            :key="image"
+            class="overflow-hidden"
+            @click="openModal(image)"
+          >
+            <picture>
               <source :srcset="image + '.webp'" type="image/webp" />
               <source :srcset="image + '.jpg'" type="image/jpeg" />
               <img
                 :src="image + '.jpg'"
                 :alt="item.title + ' la cofetăria Homemade by Dia din Buftea'"
-                class="min-w-full object-cover"
+                class="w-full h-full object-center"
               />
             </picture>
           </div>
         </div>
-        <picture v-else class="lg:h-96 h-64 min-w-full object-cover">
+        <picture v-else @click="openModal(item.imageUrl)">
           <source :srcset="item.imageUrl + '.webp'" type="image/webp" />
           <source :srcset="item.imageUrl + '.jpg'" type="image/jpeg" />
           <img
             :src="item.imageUrl + '.jpg'"
             :alt="item.title + ' la cofetăria Homemade by Dia din Buftea'"
-            class="lg:h-96 h-64 min-w-full object-cover"
+            class="w-full h-full object-cover"
             loading="lazy"
           />
         </picture>
       </div>
 
-      <h2 class="text-xl w-64 mt-0.5 font-medium" :class="{ 'mb-1': !item.assortments }">
-        {{ item.title }}
-      </h2>
-      <h3 class="text-sm w-64 mb-1" v-if="item.assortments">
-        {{ item.assortments }}
-      </h3>
-      <div v-if="item.desc" class="text-sm font-light text-left mb-1 p-2">
-        <p v-for="desc in item.desc" :key="desc">
-          {{ desc }}
+      <div class="px-4 py-2">
+        <h3 class="text-xl font-medium text-gray-800 mb-1">
+          {{ item.title }}
+        </h3>
+        <p class="text-sm text-gray-600 mb-2" v-if="item.assortments">
+          {{ item.assortments }}
+        </p>
+        <div v-if="item.desc" class="text-sm font-light text-left text-gray-700 mb-2">
+          <p v-for="desc in item.desc" :key="desc">
+            {{ desc }}
+          </p>
+        </div>
+        <p class="text-md text-gray-800">
+          <span class="font-bold">{{ item.price }}</span>
+          lei
+          <span class="text-sm" v-if="item.unit">/{{ item.unit }}</span>
+        </p>
+        <p class="text-xs text-gray-600 mt-1" v-if="item.min">
+          (minim {{ item.min }} {{ item.unit }})
         </p>
       </div>
-      <p class="text-md" :class="{ 'mb-1': !item.min }">
-        <span class="font-bold">{{ item.price }}</span>
-        lei
-        <span class="text-sm" v-if="item.unit">/{{ item.unit }}</span>
-      </p>
-      <p class="text-xs mb-2" v-if="item.min">(minim {{ item.min }} {{ item.unit }})</p>
+    </div>
+  </div>
+  <div
+    v-if="isModalOpen"
+    class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+    @click="closeModal"
+  >
+    <div class="relative">
+      <button
+        @click="closeModal"
+        class="font-serif absolute top-2 right-2 flex items-center justify-center text-2xl pb-1.5 text-accent w-8 h-8 rounded-3xl bg-white"
+      >
+        &times;
+      </button>
+      <picture>
+        <source :srcset="selectedImage + '.webp'" type="image/webp" />
+        <source :srcset="selectedImage + '.jpeg'" type="image/jpeg" />
+        <img
+          :src="selectedImage + '.jpeg'"
+          alt="imagine mărită"
+          class="max-w-full max-h-full object-contain rounded-xl"
+        />
+      </picture>
     </div>
   </div>
 </template>

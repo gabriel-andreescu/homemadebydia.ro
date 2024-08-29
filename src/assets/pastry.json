@@ -1,24 +1,42 @@
 [
   {
     "imageUrl": "/gallery/pastry/tarta-min",
-    "title": "Tartă fistic și zmeură",
-    "assortments": "cântărește aprox. 600 g",
+    "title": "Tarta",
+    "assortments": "vanilie și zmeură, alune de pădure, afine",
+    "desc": ["cântărește aprox. 150 g"],
+    "min": 6,
     "unit": "buc",
-    "price": 80
+    "price": 25
+  },
+  {
+    "imageUrl": "/gallery/pastry/mini-tarte-min",
+    "title": "Mini Tarte",
+    "assortments": "vanilie, fructe, lămâie și bezea, ciocolată, caramel, fistic, alune",
+    "min": 0,
+    "unit": "kg",
+    "price": 155
+  },
+  {
+    "imageUrl": "/gallery/pastry/maxi-tarta-min",
+    "title": "Tartă Maxi",
+    "assortments": "cu fistic și zmeură",
+    "desc": ["cântărește aprox. 600 g"],
+    "unit": "buc",
+    "price": 90
   },
   {
     "imageUrl": "/gallery/pastry/saratele-min",
     "title": "Sărățele",
     "desc": ["- Parmezan", "- Parmezan și chimen"],
     "unit": "100 g",
-    "price": 11
+    "price": 13
   },
   {
     "imageUrl": "/gallery/pastry/cozonac-min",
     "title": "Cozonac Mini Glazurat",
     "assortments": "cântărește aprox. 650-700 g",
     "unit": "buc",
-    "price": 50
+    "price": 55
   },
   {
     "imageUrl": "/gallery/pastry/turta-min",
@@ -26,7 +44,7 @@
     "desc": ["- Aluat de cozonac", "- Umplutură cu nucă (+20 lei, opțional)"],
     "min": 1,
     "unit": "kg",
-    "price": 85
+    "price": 90
   },
   {
     "imageUrl": "/gallery/pastry/fursecuri-min",
@@ -35,5 +53,13 @@
     "min": 0.25,
     "unit": "kg",
     "price": 110
+  },
+  {
+    "imageUrl": "/gallery/pastry/nuci-min",
+    "title": "Nuci",
+    "desc": ["umplute cu crema de ciocolată"],
+    "min": 0.5,
+    "unit": "kg",
+    "price": 120
   }
 ]

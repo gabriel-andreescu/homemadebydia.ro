@@ -27,7 +27,7 @@ import AppSocialLinks from "./AppSocialLinks.vue";
         </section>
         <section id="contact" class="h-full flex flex-col lg:flex-row lg:items-end">
           <div>
-            <h1 class="text-2xl lg:text-4xl text-accent mt-10">Homemade by Dia</h1>
+            <span class="text-2xl lg:text-4xl text-accent mt-10">Homemade by Dia</span>
             <AppSocialLinks class="max-lg:h-auto max-lg:py-2 lg:justify-center" :center="false" />
           </div>
           <div class="mb-4 lg:h-32 lg:mb-0 flex lg:items-center">

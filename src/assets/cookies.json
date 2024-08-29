@@ -1,11 +1,23 @@
 [
   {
-    "imageUrl": "/gallery/cookies/mini-tarte-min",
-    "title": "Mini Tarte",
-    "assortments": "vanilie, fructe, lămâie și bezea, ciocolată, caramel",
+    "imageUrl": "/gallery/cookies/rulada-pavlova-min",
+    "title": "Ruladă Pavlova",
+    "desc": [
+      "- Foi pufoase de bezea",
+      "- Cremă de smântână și mascarpone",
+      "- Inserție fructe de pădure"
+    ],
     "min": 0,
+    "unit": "buc",
+    "price": 120
+  },
+  {
+    "imageUrl": "/gallery/cookies/ciocolata-de-casa-min",
+    "title": "Ciocolată de casă",
+    "desc": ["cu merișoare, nuci și migdale"],
+    "min": 0.5,
     "unit": "kg",
-    "price": 145
+    "price": 120
   },
   {
     "imageUrl": "/gallery/cookies/maxi-choux-min",
@@ -13,7 +25,7 @@
     "assortments": "vanilie și frișcă, ciocolată și pralină, fistic și zmeură",
     "min": 0,
     "unit": "buc",
-    "price": 16
+    "price": 21
   },
   {
     "imageUrl": "/gallery/cookies/mini-choux-min",
@@ -21,7 +33,7 @@
     "assortments": "vanilie, ciocolată, caramel",
     "min": 0,
     "unit": "kg",
-    "price": 135
+    "price": 155
   },
   {
     "imageUrl": "/gallery/cookies/alba-ca-zapada-min",
@@ -40,7 +52,7 @@
     ],
     "min": 0,
     "unit": "buc",
-    "price": 16
+    "price": 21
   },
   {
     "imageUrl": "/gallery/cookies/pavlova-min",
@@ -48,6 +60,6 @@
     "desc": ["- Bezea crocantă", "- Cremă de mascarpone sau ciocolată"],
     "min": 0.5,
     "unit": "kg",
-    "price": 135
+    "price": 155
   }
 ]
