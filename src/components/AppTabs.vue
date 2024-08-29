@@ -31,7 +31,7 @@ watch(
 </script>
 
 <template>
-  <ul class="flex justify-around w-screen sm:container sm:justify-evenly px-2">
+  <ul class="flex justify-around w-screen sm:container sm:justify-evenly px-2 mb-2">
     <li
       v-for="tab in tabs"
       :key="tab.tabKey"

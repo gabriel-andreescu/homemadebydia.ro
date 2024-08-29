@@ -30,13 +30,13 @@ const closeModal = () => {
 </script>
 
 <template>
-  <div class="flex flex-wrap justify-center text-center">
+  <div class="flex flex-wrap justify-center text-center gap-2 md:gap-4">
     <div
       v-for="item in data"
       :key="item.title"
-      class="flex flex-col w-64 lg:w-72 m-4 items-center bg-white rounded-lg shadow-lg overflow-hidden"
+      class="flex flex-col items-center bg-white rounded-lg shadow-lg overflow-hidden w-[calc(50%-0.3rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1rem)]"
     >
-      <div class="relative lg:w-72 lg:h-72 w-64 max-h-64 mb-2 overflow-hidden cursor-pointer">
+      <div class="relative lg:h-72 w-full h-48 mb-2 overflow-hidden cursor-pointer">
         <div v-if="Array.isArray(item.imageUrl)" class="grid grid-cols-2">
           <div
             v-for="image in item.imageUrl"
@@ -67,7 +67,7 @@ const closeModal = () => {
         </picture>
       </div>
 
-      <div class="px-4 py-2">
+      <div class="flex flex-col px-2 py-2">
         <h3 class="text-xl font-medium text-gray-800 mb-1">
           {{ item.title }}
         </h3>
