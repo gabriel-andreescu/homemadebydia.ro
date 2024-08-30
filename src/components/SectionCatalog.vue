@@ -7,19 +7,9 @@ import cookies from "../assets/cookies.json";
 import pastry from "../assets/pastry.json";
 import SectionCatalogEventsGallery from "./SectionCatalogEventsGallery.vue";
 import { ref } from "vue";
+import ImageModal from "./ImageModal.vue";
 
-const isModalOpen = ref(false);
-const selectedImage = ref("");
-
-const openModal = (image: string) => {
-  selectedImage.value = image;
-  isModalOpen.value = true;
-};
-
-const closeModal = () => {
-  isModalOpen.value = false;
-  selectedImage.value = "";
-};
+const imageModalRef = ref<InstanceType<typeof ImageModal>>();
 </script>
 
 <template>
@@ -80,7 +70,7 @@ const closeModal = () => {
               alt="Marturii"
               class="w-1/2 h-auto rounded-lg"
               loading="lazy"
-              @click="openModal('/gallery/marturii')"
+              @click="imageModalRef?.openModal('/gallery/marturii')"
             />
           </picture>
         </div>
@@ -88,27 +78,5 @@ const closeModal = () => {
       <SectionCatalogEventsGallery />
     </AppTab>
   </AppTabs>
-  <div
-    v-if="isModalOpen"
-    class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
-    @click="closeModal"
-  >
-    <div class="relative">
-      <button
-        @click="closeModal"
-        class="font-serif absolute top-2 right-2 flex items-center justify-center text-2xl pb-1.5 text-accent w-8 h-8 rounded-3xl bg-white"
-      >
-        &times;
-      </button>
-      <picture>
-        <source :srcset="selectedImage + '.webp'" type="image/webp" />
-        <source :srcset="selectedImage + '.jpg'" type="image/jpeg" />
-        <img
-          :src="selectedImage + '.jpg'"
-          alt="imagine mărită"
-          class="max-w-full max-h-screen object-contain rounded-xl"
-        />
-      </picture>
-    </div>
-  </div>
+  <ImageModal ref="imageModalRef" />
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import GalleryItem from "./GalleryItem.vue";
 
 interface CatalogGalleryDataItem {
   imageUrl: string | string[];
@@ -14,19 +14,6 @@ interface CatalogGalleryDataItem {
 defineProps<{
   data: CatalogGalleryDataItem[];
 }>();
-
-const isModalOpen = ref(false);
-const selectedImage = ref("");
-
-const openModal = (image: string) => {
-  selectedImage.value = image;
-  isModalOpen.value = true;
-};
-
-const closeModal = () => {
-  isModalOpen.value = false;
-  selectedImage.value = "";
-};
 </script>
 
 <template>
@@ -38,33 +25,19 @@ const closeModal = () => {
     >
       <div class="relative lg:h-72 w-full h-48 mb-2 overflow-hidden cursor-pointer">
         <div v-if="Array.isArray(item.imageUrl)" class="grid grid-cols-2">
-          <div
-            v-for="image in item.imageUrl"
-            :key="image"
-            class="overflow-hidden"
-            @click="openModal(image)"
-          >
-            <picture>
-              <source :srcset="image + '.webp'" type="image/webp" />
-              <source :srcset="image + '.jpg'" type="image/jpeg" />
-              <img
-                :src="image + '.jpg'"
-                :alt="item.title + ' la cofetăria Homemade by Dia din Buftea'"
-                class="w-full h-full object-center"
-              />
-            </picture>
+          <div v-for="imagePath in item.imageUrl" :key="imagePath" class="overflow-hidden">
+            <GalleryItem
+              :image-path="imagePath"
+              :alt="item.title + ' la Homemade by Dia - cofetărie din Buftea'"
+              :rounded="false"
+            />
           </div>
         </div>
-        <picture v-else @click="openModal(item.imageUrl)">
-          <source :srcset="item.imageUrl + '.webp'" type="image/webp" />
-          <source :srcset="item.imageUrl + '.jpg'" type="image/jpeg" />
-          <img
-            :src="item.imageUrl + '.jpg'"
-            :alt="item.title + ' la cofetăria Homemade by Dia din Buftea'"
-            class="w-full h-full object-cover"
-            loading="lazy"
-          />
-        </picture>
+        <GalleryItem
+          v-else
+          :image-path="item.imageUrl"
+          :alt="item.title + ' la Homemade by Dia - cofetărie din Buftea'"
+        />
       </div>
 
       <div class="flex flex-col px-2 py-2">
@@ -88,29 +61,6 @@ const closeModal = () => {
           (minim {{ item.min }} {{ item.unit }})
         </p>
       </div>
-    </div>
-  </div>
-  <div
-    v-if="isModalOpen"
-    class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
-    @click="closeModal"
-  >
-    <div class="relative">
-      <button
-        @click="closeModal"
-        class="font-serif absolute top-2 right-2 flex items-center justify-center text-2xl pb-1.5 text-accent w-8 h-8 rounded-3xl bg-white"
-      >
-        &times;
-      </button>
-      <picture>
-        <source :srcset="selectedImage + '.webp'" type="image/webp" />
-        <source :srcset="selectedImage + '.jpeg'" type="image/jpeg" />
-        <img
-          :src="selectedImage + '.jpeg'"
-          alt="imagine mărită"
-          class="max-w-full max-h-screen object-contain rounded-xl"
-        />
-      </picture>
     </div>
   </div>
 </template>

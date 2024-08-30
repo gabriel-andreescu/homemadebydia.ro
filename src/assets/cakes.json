@@ -1,6 +1,6 @@
 [
   {
-    "imageUrl": "/gallery/cakes/tort-bere-min",
+    "imageUrl": "/gallery/cakes/tort-bere",
     "title": "Tort de Bere",
     "desc": [
       "- Blaturi umede de ciocolată cu bere artizanală",
@@ -13,7 +13,7 @@
     "price": 150
   },
   {
-    "imageUrl": "/gallery/cakes/tort-exotic-min",
+    "imageUrl": "/gallery/cakes/tort-exotic",
     "title": "Tort Exotic",
     "desc": [
       "- Blaturi umede cu migdale și cocos",
@@ -26,14 +26,14 @@
     "price": 150
   },
   {
-    "imageUrl": "/gallery/cakes/pavlova-min",
+    "imageUrl": "/gallery/cakes/pavlova",
     "title": "Tort Pavlova",
     "desc": ["- Cremă de fistic, zmeur și Namelaca", "cântărește aprox. 1 kg"],
     "unit": "buc",
     "price": 180
   },
   {
-    "imageUrl": "/gallery/cakes/tort-stil-snickers-min",
+    "imageUrl": "/gallery/cakes/tort-stil-snickers",
     "title": "Tort stil Snickers",
     "desc": [
       "- Blat cacao",
@@ -47,7 +47,7 @@
     "price": 150
   },
   {
-    "imageUrl": "/gallery/cakes/vanilla-fruit-min",
+    "imageUrl": "/gallery/cakes/vanilla-fruit",
     "title": "Vanilla Fruit",
     "desc": [
       "- Blat alb cu merișoare",
@@ -61,7 +61,7 @@
     "price": 150
   },
   {
-    "imageUrl": "/gallery/cakes/carrot-cake-caramel-min",
+    "imageUrl": "/gallery/cakes/carrot-cake-caramel",
     "title": "Tort carrot cu caramel",
     "desc": [
       "- Blat umed de morcov cu scorțișoară și nuca",
@@ -73,7 +73,7 @@
     "price": 150
   },
   {
-    "imageUrl": "/gallery/cakes/carrot-cake-fructe-min",
+    "imageUrl": "/gallery/cakes/carrot-cake-fructe",
     "title": "Tort carrot cu fructe",
     "desc": [
       "- Blat umed de morcov cu scorțișoară și nuca",
@@ -84,7 +84,7 @@
     "price": 150
   },
   {
-    "imageUrl": "/gallery/cakes/medovik-min",
+    "imageUrl": "/gallery/cakes/medovik",
     "title": "Tort Medovik",
     "desc": ["- Foi pufoase cu miere", "- Cremă de smântână cu cardamon", "- Fructe de pădure"],
     "min": 1,
@@ -92,7 +92,7 @@
     "price": 150
   },
   {
-    "imageUrl": "/gallery/cakes/medovik-cifra-min",
+    "imageUrl": "/gallery/cakes/medovik-cifra",
     "title": "Tort cifră Medovik",
     "desc": ["- Foi pufoase cu miere", "- Cremă de smântână cu cardamon", "- Fructe de pădure"],
     "min": 1,
@@ -100,7 +100,7 @@
     "price": 160
   },
   {
-    "imageUrl": "/gallery/cakes/diplomat-min",
+    "imageUrl": "/gallery/cakes/diplomat",
     "title": "Tort Elegant",
     "desc": [
       "- Blat pandișpan însiropat cu compot",
@@ -113,7 +113,7 @@
     "price": 150
   },
   {
-    "imageUrl": "/gallery/cakes/tort-mac-min",
+    "imageUrl": "/gallery/cakes/tort-mac",
     "title": "Summer Cake",
     "desc": [
       "- Blat cu mac",
@@ -126,7 +126,7 @@
     "price": 150
   },
   {
-    "imageUrl": "/gallery/cakes/tortul-casei-min",
+    "imageUrl": "/gallery/cakes/tortul-casei",
     "title": "Tortul casei",
     "desc": [
       "- Blat cacao însiropat",

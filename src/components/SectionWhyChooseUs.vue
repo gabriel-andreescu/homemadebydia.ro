@@ -5,9 +5,9 @@
     <div class="flex flex-col m-4 items-center">
       <picture class="w-64 h-64 rounded-full">
         <source srcset="/gallery/calitate.webp" type="image/webp" />
-        <source srcset="/gallery/calitate.jpeg" type="image/jpeg" />
+        <source srcset="/gallery/calitate.jpg" type="image/jpeg" />
         <img
-          src="/gallery/calitate.jpeg"
+          src="/gallery/calitate.jpg"
           alt="poza care reprezinta calitatea serviciilor noastre"
           class="w-64 h-64 rounded-full"
         />
@@ -18,9 +18,9 @@
     <div class="flex flex-col m-4 items-center">
       <picture class="lg:w-72 lg:h-72 w-64 h-64 rounded-full">
         <source srcset="/gallery/unicitate.webp" type="image/webp" />
-        <source srcset="/gallery/unicitate.jpeg" type="image/jpeg" />
+        <source srcset="/gallery/unicitate.jpg" type="image/jpeg" />
         <img
-          src="/gallery/unicitate.jpeg"
+          src="/gallery/unicitate.jpg"
           alt="poza care reprezinta unicitatea serviciilor noastre"
           class="lg:w-72 lg:h-72 w-64 h-64 rounded-full"
         />
@@ -32,9 +32,9 @@
     <div class="flex flex-col m-4 items-center">
       <picture class="w-64 h-64 rounded-full">
         <source srcset="/gallery/profesionalism.webp" type="image/webp" />
-        <source srcset="/gallery/profesionalism.jpeg" type="image/jpeg" />
+        <source srcset="/gallery/profesionalism.jpg" type="image/jpeg" />
         <img
-          src="/gallery/profesionalism.jpeg"
+          src="/gallery/profesionalism.jpg"
           alt="poza care reprezinta profesionalism-ul serviciilor noastre"
           class="w-64 h-64 rounded-full"
         />

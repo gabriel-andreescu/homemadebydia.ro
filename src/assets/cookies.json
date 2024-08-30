@@ -1,6 +1,6 @@
 [
   {
-    "imageUrl": "/gallery/cookies/rulada-pavlova-min",
+    "imageUrl": "/gallery/cookies/rulada-pavlova",
     "title": "Ruladă Pavlova",
     "desc": [
       "- Foi pufoase de bezea",
@@ -12,7 +12,7 @@
     "price": 120
   },
   {
-    "imageUrl": "/gallery/cookies/ciocolata-de-casa-min",
+    "imageUrl": "/gallery/cookies/ciocolata-de-casa",
     "title": "Ciocolată de casă",
     "desc": ["cu merișoare, nuci și migdale"],
     "min": 0.5,
@@ -20,7 +20,7 @@
     "price": 120
   },
   {
-    "imageUrl": "/gallery/cookies/maxi-choux-min",
+    "imageUrl": "/gallery/cookies/maxi-choux",
     "title": "Maxi Choux",
     "assortments": "vanilie și frișcă, ciocolată și pralină, fistic și zmeură",
     "min": 0,
@@ -28,7 +28,7 @@
     "price": 21
   },
   {
-    "imageUrl": "/gallery/cookies/mini-choux-min",
+    "imageUrl": "/gallery/cookies/mini-choux",
     "title": "Mini Choux",
     "assortments": "vanilie, ciocolată, caramel",
     "min": 0,
@@ -36,14 +36,14 @@
     "price": 155
   },
   {
-    "imageUrl": "/gallery/cookies/alba-ca-zapada-min",
+    "imageUrl": "/gallery/cookies/alba-ca-zapada",
     "title": "Albă ca zăpada",
     "min": 0.5,
     "unit": "kg",
     "price": 110
   },
   {
-    "imageUrl": "/gallery/cookies/medovik-min",
+    "imageUrl": "/gallery/cookies/medovik",
     "title": "Medovik",
     "desc": [
       "- Foi pufoase cu miere",
@@ -55,7 +55,7 @@
     "price": 21
   },
   {
-    "imageUrl": "/gallery/cookies/pavlova-min",
+    "imageUrl": "/gallery/cookies/pavlova",
     "title": "Pavlova",
     "desc": ["- Bezea crocantă", "- Cremă de mascarpone sau ciocolată"],
     "min": 0.5,
