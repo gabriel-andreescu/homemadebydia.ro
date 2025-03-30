@@ -1,5 +1,42 @@
 [
   {
+    "imageUrl": "/gallery/cakes/tort-fistic-zmeura",
+    "title": "Tort Fistic și Zmeură",
+    "desc": [
+      "- Foi fragede cu fistic",
+      "- Cremă de mascarpone",
+      "- Jeleu de zmeură și căpșuni",
+      "- Strat cremos de namelaka fistic"
+    ],
+    "min": 1.8,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cakes/tort-aluna-caramel",
+    "title": "Tort Alună Caramel",
+    "desc": ["- Foi fragede cu alune", "- Cremă fină de caramel", "- Namelaka de alune și pralină"],
+    "min": 1.8,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cakes/tort-cioco-visina",
+    "title": "Tort Cioco-Visină",
+    "desc": ["- Foi fragede de cacao", "- Cremă ciocolată cu mascarpone", "- Jeleu de vișine"],
+    "min": 1.8,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cakes/tort-lapte",
+    "title": "Tort de Lapte",
+    "desc": ["- Foi fragede de cacao", "- Cremă fină de lapte", "- Sos de zmeură"],
+    "min": 1.8,
+    "unit": "kg",
+    "price": 170
+  },
+  {
     "imageUrl": "/gallery/cakes/tort-bere",
     "title": "Tort de Bere",
     "desc": [
@@ -10,31 +47,11 @@
     ],
     "min": 1.5,
     "unit": "kg",
-    "price": 150
-  },
-  {
-    "imageUrl": "/gallery/cakes/tort-exotic",
-    "title": "Tort Exotic",
-    "desc": [
-      "- Blaturi umede cu migdale și cocos",
-      "- Mousse fructul pasiunii",
-      "- Inserție de Mango",
-      "- Mousse de ciocolată albă"
-    ],
-    "min": 1.5,
-    "unit": "kg",
-    "price": 150
-  },
-  {
-    "imageUrl": "/gallery/cakes/pavlova",
-    "title": "Tort Pavlova",
-    "desc": ["- Cremă de fistic, zmeur și Namelaca", "cântărește aprox. 1 kg"],
-    "unit": "buc",
-    "price": 180
+    "price": 170
   },
   {
     "imageUrl": "/gallery/cakes/tort-stil-snickers",
-    "title": "Tort stil Snickers",
+    "title": "Tort Stil Snickers",
     "desc": [
       "- Blat cacao",
       "- Cremă de brânză",
@@ -44,7 +61,7 @@
     ],
     "min": 1.7,
     "unit": "kg",
-    "price": 150
+    "price": 170
   },
   {
     "imageUrl": "/gallery/cakes/vanilla-fruit",
@@ -58,76 +75,31 @@
     ],
     "min": 1.7,
     "unit": "kg",
-    "price": 150
+    "price": 170
   },
   {
     "imageUrl": "/gallery/cakes/carrot-cake-caramel",
-    "title": "Tort carrot cu caramel",
+    "title": "Tort Carrot cu Caramel",
     "desc": [
       "- Blat umed de morcov cu scorțișoară și nuca",
       "- Cremă de brânză cu portocală",
-      "- Inserție de caramel"
+      "- Spumă de caramel"
     ],
     "min": 1.5,
     "unit": "kg",
-    "price": 150
+    "price": 170
   },
   {
-    "imageUrl": "/gallery/cakes/carrot-cake-fructe",
-    "title": "Tort carrot cu fructe",
-    "desc": [
-      "- Blat umed de morcov cu scorțișoară și nuca",
-      "- Cremă de brânză cu fructe de pădure"
-    ],
+    "imageUrl": "/gallery/cakes/carrot-cake-afine",
+    "title": "Tort Carrot cu Afine",
+    "desc": ["- Blat umed de morcov cu scorțișoară și nuca", "- Cremă de brânză cu afine"],
     "min": 1.5,
     "unit": "kg",
-    "price": 150
-  },
-  {
-    "imageUrl": "/gallery/cakes/medovik",
-    "title": "Tort Medovik",
-    "desc": ["- Foi pufoase cu miere", "- Cremă de smântână cu cardamon", "- Fructe de pădure"],
-    "min": 1,
-    "unit": "kg",
-    "price": 150
-  },
-  {
-    "imageUrl": "/gallery/cakes/medovik-cifra",
-    "title": "Tort cifră Medovik",
-    "desc": ["- Foi pufoase cu miere", "- Cremă de smântână cu cardamon", "- Fructe de pădure"],
-    "min": 1,
-    "unit": "kg",
-    "price": 160
-  },
-  {
-    "imageUrl": "/gallery/cakes/diplomat",
-    "title": "Tort Elegant",
-    "desc": [
-      "- Blat pandișpan însiropat cu compot",
-      "- Șarlotă de vanilie cu frișcă",
-      "- Fructe (ananas și piersică)",
-      "- Jeleu de căpșuni"
-    ],
-    "min": 1.6,
-    "unit": "kg",
-    "price": 150
-  },
-  {
-    "imageUrl": "/gallery/cakes/tort-mac",
-    "title": "Summer Cake",
-    "desc": [
-      "- Blat cu mac",
-      "- Inserție lemon curd",
-      "- Inserție jeleu căpșuni",
-      "- Cremă de frișcă cu mascarpone"
-    ],
-    "min": 1.5,
-    "unit": "kg",
-    "price": 150
+    "price": 170
   },
   {
     "imageUrl": "/gallery/cakes/tortul-casei",
-    "title": "Tortul casei",
+    "title": "Tortul Casei",
     "desc": [
       "- Blat cacao însiropat",
       "- Cremă de ciocolată neagră cu mascarpone",
@@ -137,6 +109,35 @@
     ],
     "min": 1.6,
     "unit": "kg",
-    "price": 150
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cakes/medovik",
+    "title": "Tort Medovik",
+    "desc": ["- Foi pufoase cu miere", "- Cremă de smântână cu cardamon", "- Fructe de pădure"],
+    "min": 1,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cakes/medovik-cifra",
+    "title": "Tort Cifră Medovik",
+    "desc": ["- Foi pufoase cu miere", "- Cremă de smântână cu cardamon", "- Fructe de pădure"],
+    "min": 1,
+    "unit": "kg",
+    "price": 180
+  },
+  {
+    "imageUrl": "/gallery/cakes/tort-exotic",
+    "title": "Tort Exotic",
+    "desc": [
+      "- Blaturi umede cu migdale și cocos",
+      "- Mousse fructul pasiunii",
+      "- Inserție de Mango",
+      "- Mousse de ciocolată albă"
+    ],
+    "min": 1.5,
+    "unit": "kg",
+    "price": 170
   }
 ]

@@ -6,6 +6,7 @@ defineProps<{
   imagePath: string;
   alt?: string;
   rounded?: boolean;
+  cover?: boolean;
 }>();
 
 const imageModalRef = ref<InstanceType<typeof ImageModal>>();
@@ -18,8 +19,8 @@ const imageModalRef = ref<InstanceType<typeof ImageModal>>();
     <img
       :src="imagePath + '.jpg'"
       :alt="$props.alt ?? 'imagine din galerie'"
-      class="w-full h-full object-cover"
-      :class="{ 'rounded-lg': rounded }"
+      class="w-full h-full"
+      :class="{ 'rounded-lg': rounded, 'object-cover': cover }"
       loading="lazy"
       @click="imageModalRef?.openModal(imagePath)"
     />

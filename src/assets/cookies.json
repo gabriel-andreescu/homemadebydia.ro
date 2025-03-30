@@ -5,42 +5,20 @@
     "desc": [
       "- Foi pufoase de bezea",
       "- Cremă de smântână și mascarpone",
-      "- Inserție fructe de pădure"
+      "- Inserție fructe de pădure",
+      "cântărește aprox. 1 kg"
     ],
     "min": 0,
     "unit": "buc",
-    "price": 120
+    "price": 160
   },
   {
-    "imageUrl": "/gallery/cookies/ciocolata-de-casa",
-    "title": "Ciocolată de casă",
-    "desc": ["cu merișoare, nuci și migdale"],
-    "min": 0.5,
-    "unit": "kg",
-    "price": 120
-  },
-  {
-    "imageUrl": "/gallery/cookies/maxi-choux",
-    "title": "Maxi Choux",
-    "assortments": "vanilie și frișcă, ciocolată și pralină, fistic și zmeură",
-    "min": 0,
-    "unit": "buc",
-    "price": 21
-  },
-  {
-    "imageUrl": "/gallery/cookies/mini-choux",
-    "title": "Mini Choux",
-    "assortments": "vanilie, ciocolată, caramel",
+    "imageUrl": "/gallery/cookies/mini-prajituri",
+    "title": "Mini Prăjituri",
+    "assortments": "Choux fistic și zmeură, Choux alune de pădure, Pavlova, Tarte ciocolată",
     "min": 0,
     "unit": "kg",
-    "price": 155
-  },
-  {
-    "imageUrl": "/gallery/cookies/alba-ca-zapada",
-    "title": "Albă ca zăpada",
-    "min": 0.5,
-    "unit": "kg",
-    "price": 110
+    "price": 170
   },
   {
     "imageUrl": "/gallery/cookies/medovik",
@@ -57,9 +35,9 @@
   {
     "imageUrl": "/gallery/cookies/pavlova",
     "title": "Pavlova",
-    "desc": ["- Bezea crocantă", "- Cremă de mascarpone sau ciocolată"],
+    "desc": ["- Bezea crocantă", "- Cremă de mascarpone și fructe"],
     "min": 0.5,
     "unit": "kg",
-    "price": 155
+    "price": 170
   }
 ]

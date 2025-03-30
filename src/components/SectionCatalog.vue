@@ -27,54 +27,97 @@ const imageModalRef = ref<InstanceType<typeof ImageModal>>();
     </AppTab>
     <AppTab title="Prăjituri" tab-key="prajituri">
       <SectionCatalogGallery :data="cookies" />
+      <section class="mt-10">
+        <h2 class="text-lg font-semibold text-gray-800 mb-2">Sortimente disponibile</h2>
+        <ul class="list-disc list-inside ml-4">
+          <li>Choux: fistic și zmeură, alune de pădure, ciocolată, lămâie și bezea, exotic</li>
+          <li>
+            Tarte: fructe, caramel, fistic și zmeură, alune de pădure, ciocolată, lămâie și bezea,
+            exotic
+          </li>
+          <li>
+            Prajituri mini: pavlova, carrot, medovik, sneakers, savarină clasică, savarină cu fistic
+          </li>
+        </ul>
+      </section>
     </AppTab>
     <AppTab title="Patiserie" tab-key="patiserie">
       <SectionCatalogGallery :data="pastry" />
     </AppTab>
     <AppTab title="Evenimente" tab-key="evenimente" class="container">
-      <div class="p-4">
-        <p class="text-gray-600 leading-relaxed">
-          Oferta pentru candy bar pornește de la 24 lei/persoană, se poate personaliza în funcție de
-          preferințe. Ofertă valabilă pentru minim 30 de persoane.
-        </p>
+      <div class="p-4 space-y-6 text-gray-600 leading-relaxed">
+        <!-- Oferta standard -->
+        <section>
+          <h2 class="text-lg font-semibold text-gray-800 mb-2">Oferta standard</h2>
+          <p>
+            Oferta candy bar este de
+            <strong>40 lei/persoană</strong>
+            și include 4 prăjituri dintr-un total de 6 sortimente, plus
+            <strong>bezele</strong>
+            și
+            <strong>fursecuri cadou</strong>
+            . Poate fi personalizată în funcție de preferințe. Ofertă valabilă pentru minim 25 de
+            persoane.
+          </p>
+        </section>
 
-        <div class="ml-6 mt-4">
-          <ul class="list-disc list-inside text-gray-600 leading-relaxed">
-            <li>24 lei include 3 prăjituri/persoană, 5 sortimente</li>
-            <li>32 lei include 4 prăjituri/persoană, 7 sortimente</li>
+        <section>
+          <h2 class="text-lg font-semibold text-gray-800 mb-2">Sortimente disponibile</h2>
+          <ul class="list-disc list-inside ml-4">
+            <li>Choux: fistic și zmeură, alune de pădure, ciocolată, lămâie și bezea, exotic</li>
+            <li>
+              Tarte: fructe, caramel, fistic și zmeură, alune de pădure, ciocolată, lămâie și bezea,
+              exotic
+            </li>
+            <li>
+              Desert la pahar: mousse de ciocolată, fructe de pădure, exotic, panna cotta,
+              cheesecake
+            </li>
+            <li>
+              Prajituri mini: pavlova, carrot, medovik, sneakers, savarină clasică, savarină cu
+              fistic
+            </li>
           </ul>
-          <span class="font-light text-gray-500 block mt-2">
-            * Ambele oferte includ bezele colorate și fursecuri. Decor doar cromatic.
-          </span>
-        </div>
+        </section>
 
-        <p class="mt-4 text-gray-600 leading-relaxed">
-          Pentru optare tematică candy bar +3 lei/persoană (include toppere, numele copilului,
-          imagini comestibile, etc).
-        </p>
+        <section>
+          <h2 class="text-lg font-semibold text-gray-800 mb-2">Tematică personalizată</h2>
+          <p>
+            Pentru tematică personalizată se adaugă
+            <strong>+3 lei/persoană</strong>
+            (include toppere, numele copilului, imagini comestibile etc.).
+          </p>
+        </section>
 
-        <p class="font-light mt-4 text-gray-500">Opțional</p>
-        <div class="ml-6 mt-2 mb-8">
-          <ul class="list-disc list-inside text-gray-600 leading-relaxed">
-            <li>Chirie vase - începând de la 150 lei</li>
-            <li>Montaj candy bar - 150 lei</li>
-            <li>Preluare vase - începând de la 50 lei</li>
-            <li>Livrare - începând de la 120 lei (mașină frigorifică)</li>
-            <li>Mărturii - începând de la 7 lei</li>
+        <section>
+          <h2 class="text-lg font-semibold text-gray-800 mb-2">Opțional</h2>
+          <ul class="list-disc list-inside ml-4">
+            <li>Chirie vase – începând de la 150 lei</li>
+            <li>Montaj candy bar – 150 lei</li>
+            <li>Preluare vase – începând de la 50 lei</li>
+            <li>Livrare – începând de la 250 lei (mașină frigorifică)</li>
+            <li>Mărturii – începând de la 10 lei</li>
           </ul>
-          <picture>
-            <source srcset="/gallery/marturii.webp" type="image/webp" />
-            <source srcset="/gallery/marturii.jpg" type="image/jpeg" />
-            <img
-              src="/gallery/marturii.jpg"
-              alt="Marturii"
-              class="w-1/2 h-auto rounded-lg"
-              loading="lazy"
-              @click="imageModalRef?.openModal('/gallery/marturii')"
-            />
-          </picture>
-        </div>
+
+          <figure class="mt-4">
+            <picture>
+              <source srcset="/gallery/marturii.webp" type="image/webp" />
+              <source srcset="/gallery/marturii.jpg" type="image/jpeg" />
+              <img
+                src="/gallery/marturii.jpg"
+                alt="Mărturii"
+                class="w-1/2 h-auto rounded-lg cursor-pointer"
+                loading="lazy"
+                @click="imageModalRef?.openModal('/gallery/marturii')"
+              />
+            </picture>
+            <figcaption class="text-sm text-gray-500 mt-1">
+              Exemplu de mărturii disponibile
+            </figcaption>
+          </figure>
+        </section>
       </div>
+
       <SectionCatalogEventsGallery />
     </AppTab>
   </AppTabs>

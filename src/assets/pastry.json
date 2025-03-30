@@ -1,20 +1,11 @@
 [
   {
-    "imageUrl": "/gallery/pastry/tarta",
-    "title": "Tarta",
-    "assortments": "vanilie și zmeură, alune de pădure, afine",
-    "desc": ["cântărește aprox. 150 g"],
-    "min": 6,
-    "unit": "buc",
-    "price": 25
-  },
-  {
     "imageUrl": "/gallery/pastry/mini-tarte",
     "title": "Mini Tarte",
     "assortments": "vanilie, fructe, lămâie și bezea, ciocolată, caramel, fistic, alune",
     "min": 0,
     "unit": "kg",
-    "price": 155
+    "price": 170
   },
   {
     "imageUrl": "/gallery/pastry/maxi-tarta",
@@ -22,7 +13,7 @@
     "assortments": "cu fistic și zmeură",
     "desc": ["cântărește aprox. 600 g"],
     "unit": "buc",
-    "price": 90
+    "price": 100
   },
   {
     "imageUrl": "/gallery/pastry/saratele",
@@ -30,6 +21,18 @@
     "desc": ["- Parmezan", "- Parmezan și chimen"],
     "unit": "100 g",
     "price": 13
+  },
+  {
+    "imageUrl": "/gallery/pastry/mini-babka",
+    "title": "Mini Babka",
+    "desc": [
+      "- Însiropat cu aromă delicioasă de portocală și rom",
+      "- Cremă de nuci cu cacao și portocală confiata",
+      "- Însiropat cu vinars (+10 lei, opțional)",
+      "cântărește aprox. 650-700 g"
+    ],
+    "unit": "buc",
+    "price": 100
   },
   {
     "imageUrl": "/gallery/pastry/cozonac",
@@ -60,6 +63,6 @@
     "desc": ["umplute cu crema de ciocolată"],
     "min": 0.5,
     "unit": "kg",
-    "price": 120
+    "price": 160
   }
 ]
