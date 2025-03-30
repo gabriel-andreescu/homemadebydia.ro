@@ -36,7 +36,7 @@ const imageModalRef = ref<InstanceType<typeof ImageModal>>();
             exotic
           </li>
           <li>
-            Prajituri mini: pavlova, carrot, medovik, sneakers, savarină clasică, savarină cu fistic
+            Prajituri mini: pavlova, carrot, medovik, snickers, savarină clasică, savarină cu fistic
           </li>
         </ul>
       </section>
@@ -52,7 +52,7 @@ const imageModalRef = ref<InstanceType<typeof ImageModal>>();
           <p>
             Oferta candy bar este de
             <strong>40 lei/persoană</strong>
-            și include 4 prăjituri dintr-un total de 6 sortimente, plus
+            și include 4 prăjituri/persoană dintr-un total de 6 sortimente, plus
             <strong>bezele</strong>
             și
             <strong>fursecuri cadou</strong>
@@ -74,7 +74,7 @@ const imageModalRef = ref<InstanceType<typeof ImageModal>>();
               cheesecake
             </li>
             <li>
-              Prajituri mini: pavlova, carrot, medovik, sneakers, savarină clasică, savarină cu
+              Prajituri mini: pavlova, carrot, medovik, snickers, savarină clasică, savarină cu
               fistic
             </li>
           </ul>
