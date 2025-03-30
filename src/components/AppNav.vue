@@ -10,7 +10,7 @@ const { emit } = useEventsBus();
 
 <template>
   <nav>
-    <button class="relative lg:hidden" @click="navOpen = !navOpen" aria-label="Menu">
+    <button type="button" class="relative lg:hidden" @click="navOpen = !navOpen" aria-label="Menu">
       <span
         class="ripple-container overflow-hidden pointer-events-none absolute inset-0 flex justify-center items-center"
       >
@@ -21,8 +21,12 @@ const { emit } = useEventsBus();
       </svg>
     </button>
     <ul
-      class="fixed left-0 right-0 min-h-screen top-0 px-4 pt-8 space-y-4 bg-white transform transition duration-300 translate-x-full lg:relative lg:flex lg:space-x-10 lg:min-h-0 lg:px-0 lg:py-0 lg:space-y-0 lg:translate-x-0"
-      :class="{ 'translate-x-full': !navOpen, 'translate-x-0': navOpen }"
+      :class="[
+        'fixed left-0 right-0 min-h-screen top-0 px-4 pt-8 space-y-4 bg-white transition duration-300',
+        'lg:relative lg:flex lg:space-x-10 lg:min-h-0 lg:px-0 lg:py-0 lg:space-y-0 lg:translate-x-0',
+        navOpen ? 'translate-x-0' : 'translate-x-full',
+        'transform',
+      ]"
       @click="navOpen = false"
     >
       <li class="menu-item"><a href="#" @click="navOpen = false">Acasă</a></li>
