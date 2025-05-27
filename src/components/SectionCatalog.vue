@@ -52,7 +52,7 @@ const imageModalRef = ref<InstanceType<typeof ImageModal>>();
           <p>
             Oferta candy bar este de
             <strong>40 lei/persoană</strong>
-            și include 4 prăjituri/persoană dintr-un total de 6 sortimente, plus
+            și include 3 prăjituri/persoană dintr-un total de 6 sortimente, plus
             <strong>bezele</strong>
             și
             <strong>fursecuri cadou</strong>
