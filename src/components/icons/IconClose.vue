@@ -1,7 +1,7 @@
 <template>
   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
     <g fill="none">
-      <circle cx="12" cy="12" r="9" fill="currentColor" fill-opacity="0.25" />
+      <circle cx="12" cy="12" r="9" fill="black" fill-opacity="0.5" />
       <path
         stroke="currentColor"
         stroke-linecap="square"
@@ -12,3 +12,4 @@
     </g>
   </svg>
 </template>
+

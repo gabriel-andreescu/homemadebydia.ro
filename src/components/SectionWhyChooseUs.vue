@@ -1,46 +1,39 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useI18n } from "vue-i18n";
+import AppPicture from "./AppPicture.vue";
+
+const { t } = useI18n();
+</script>
 
 <template>
   <div class="flex flex-wrap justify-center items-end">
     <div class="flex flex-col m-4 items-center">
-      <picture class="w-64 h-64 rounded-full">
-        <source srcset="/gallery/calitate.webp" type="image/webp" />
-        <source srcset="/gallery/calitate.jpg" type="image/jpeg" />
-        <img
-          src="/gallery/calitate.jpg"
-          alt="poza care reprezinta calitatea serviciilor noastre"
-          class="w-64 h-64 rounded-full"
-        />
-      </picture>
-      <h3 class="text-2xl text-bold mb-2 mt-2">Calitate</h3>
-      <p class="text-lg w-64 text-center">Produse artizanale concepute cu ingrediente naturale</p>
+      <AppPicture
+        src="/gallery/calitate"
+        :alt="t('whyUs.qualityAlt')"
+        img-class="w-64 h-64 rounded-full"
+      />
+      <h3 class="text-2xl font-bold mb-2 mt-2">{{ t('whyUs.quality') }}</h3>
+      <p class="text-lg w-64 text-center">{{ t('whyUs.qualityDesc') }}</p>
     </div>
     <div class="flex flex-col m-4 items-center">
-      <picture class="lg:w-72 lg:h-72 w-64 h-64 rounded-full">
-        <source srcset="/gallery/unicitate.webp" type="image/webp" />
-        <source srcset="/gallery/unicitate.jpg" type="image/jpeg" />
-        <img
-          src="/gallery/unicitate.jpg"
-          alt="poza care reprezinta unicitatea serviciilor noastre"
-          class="lg:w-72 lg:h-72 w-64 h-64 rounded-full"
-        />
-      </picture>
-      <h3 class="text-2xl text-bold mb-2 mt-2">Unicitate</h3>
-      <p class="text-lg w-64 text-center">Folosim rețete proprii, pline de savoare</p>
+      <AppPicture
+        src="/gallery/unicitate"
+        :alt="t('whyUs.uniquenessAlt')"
+        img-class="w-64 h-64 rounded-full"
+      />
+      <h3 class="text-2xl font-bold mb-2 mt-2">{{ t('whyUs.uniqueness') }}</h3>
+      <p class="text-lg w-64 text-center">{{ t('whyUs.uniquenessDesc') }}</p>
     </div>
 
     <div class="flex flex-col m-4 items-center">
-      <picture class="w-64 h-64 rounded-full">
-        <source srcset="/gallery/profesionalism.webp" type="image/webp" />
-        <source srcset="/gallery/profesionalism.jpg" type="image/jpeg" />
-        <img
-          src="/gallery/profesionalism.jpg"
-          alt="poza care reprezinta profesionalism-ul serviciilor noastre"
-          class="w-64 h-64 rounded-full"
-        />
-      </picture>
-      <h3 class="text-2xl text-bold mb-2 mt-2">Profesionalism</h3>
-      <p class="text-lg w-64 text-center">Comunicarea cu clienții este prioritatea noastră</p>
+      <AppPicture
+        src="/gallery/profesionalism"
+        :alt="t('whyUs.professionalismAlt')"
+        img-class="w-64 h-64 rounded-full"
+      />
+      <h3 class="text-2xl font-bold mb-2 mt-2">{{ t('whyUs.professionalism') }}</h3>
+      <p class="text-lg w-64 text-center">{{ t('whyUs.professionalismDesc') }}</p>
     </div>
   </div>
 </template>

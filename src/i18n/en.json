@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "title": "Homemade by Dia Pastry Shop - Natural Delights in Buftea"
+  },
+  "nav": {
+    "aboutUs": "About Us",
+    "catalog": "Catalog",
+    "cakes": "Cakes",
+    "pastries": "Pastries",
+    "bakery": "Bakery",
+    "events": "Events",
+    "gallery": "Gallery",
+    "whyUs": "Why Us?",
+    "testimonials": "Reviews",
+    "howToOrder": "How to Order",
+    "contact": "Contact",
+    "menu": "Menu"
+  },
+  "sections": {
+    "aboutUs": "About Us",
+    "catalog": "Catalog",
+    "gallery": "Gallery",
+    "whyUs": "Why Us?",
+    "testimonials": "What Our Clients Say"
+  },
+  "gallery": {
+    "events": "Events"
+  },
+  "home": {
+    "title": "Licensed pastry workshop,",
+    "titleLine2": "custom cakes and desserts made to order",
+    "naturalIngredients": "✓ Natural ingredients",
+    "licensedWorkshop": "✓ Licensed workshop in Buftea",
+    "madeToOrder": "✓ Freshly made to order",
+    "viewCatalog": "View catalog"
+  },
+  "aboutUs": {
+    "intro": "Hi there! 😊 For those who don't know me yet, I'm Diana.",
+    "p1": "My passion for sweets began many years ago when I was looking for a stable job and ended up, by chance, working as a pastry assistant at a bakery in Bucharest. I was deeply impressed to discover the process of making creams (the natural ones, of course - no premixes here), sponge cakes, and other sweet delights.",
+    "p2": "I decided to develop my skills and completed a specialized course in pastry and confectionery.",
+    "p3": "Making cakes from classic recipes wasn't enough for me, so I experimented and adapted many elements to turn my desserts into something truly special. 💕",
+    "p4": "I followed my passion and managed to open my own small pastry workshop, Homemade by Dia, here in Buftea, where I create premium, always-fresh products made to order: custom cakes, delicious pastries, and candy bars for special events.",
+    "p5": "I'm thrilled to be part of your celebrations through my sweet creations, whether it's birthdays, family gatherings, weddings, christenings, or other special occasions.",
+    "p6": "Thank you all for your support and your kind and constructive feedback!",
+    "imageAlt": "Diana, founder of Homemade by Dia, at an event candy bar with a variety of artisan desserts.",
+    "readMore": "See more",
+    "readLess": "Hide"
+  },
+  "whyUs": {
+    "quality": "Quality",
+    "qualityDesc": "Artisan products made with natural ingredients",
+    "qualityAlt": "image representing the quality of our services",
+    "uniqueness": "Uniqueness",
+    "uniquenessDesc": "We use our own recipes, full of flavor",
+    "uniquenessAlt": "image representing the uniqueness of our services",
+    "professionalism": "Professionalism",
+    "professionalismDesc": "Customer communication is our priority",
+    "professionalismAlt": "image representing the professionalism of our services"
+  },
+  "howToOrder": {
+    "title": "How to Order",
+    "step1": "― Add products to your cart",
+    "step2": "― Adjust quantities and send your order via WhatsApp",
+    "step3": "― We'll confirm the details together (date, customizations, final price)",
+    "step4": "― Pick up your order at our location"
+  },
+  "catalog": {
+    "cakes": "Cakes",
+    "pastries": "Pastries",
+    "bakery": "Bakery",
+    "events": "Events",
+    "decorNote": "Custom decorations are charged separately, starting from {decorMin} lei up to {decorMax} lei depending on complexity",
+    "allergyNote": "If you have any allergies or food intolerances, please contact us for more information before placing your order",
+    "availableAssortments": "Available varieties",
+    "chouxList": "Choux: pistachio & raspberry, hazelnut, chocolate, lemon meringue, exotic",
+    "tarteList": "Tarts: fruit, caramel, pistachio & raspberry, hazelnut, chocolate, lemon meringue, exotic",
+    "miniPastriesList": "Mini pastries: pavlova, carrot, medovik, snickers, classic savarin, pistachio savarin",
+    "standardOffer": "Standard package",
+    "standardOfferDesc": "The candy bar package is {price} lei/person and includes {pastriesPerPerson} pastries per person from a selection of {varietiesCount} varieties, plus complimentary meringues and cookies. Can be customized to your preferences. Valid for minimum {minimumGuests} guests.",
+    "dessertsGlassList": "Desserts in glass: chocolate mousse, forest fruits, exotic, panna cotta, cheesecake",
+    "customTheme": "Custom theme",
+    "customThemeDesc": "For a custom theme add +{customThemeSurcharge} lei/person (includes toppers, child's name, edible images, etc.).",
+    "optional": "Optional services",
+    "dishRental": "Dish rental - starting from {dishRental} lei",
+    "candyBarSetup": "Candy bar setup - {candyBarSetup} lei",
+    "dishPickup": "Dish collection - starting from {dishPickup} lei",
+    "delivery": "Delivery - starting from {delivery} lei (refrigerated vehicle)",
+    "favors": "Party favors - starting from {favors} lei",
+    "favorsCaption": "Example of available party favors",
+    "favorsAlt": "Party favors"
+  },
+  "product": {
+    "addToCart": "Add to cart",
+    "inCart": "In cart",
+    "removeFromCart": "Remove from cart",
+    "seeMore": "see more",
+    "seeLess": "hide",
+    "minimum": "minimum",
+    "pricePerUnit": "lei"
+  },
+  "cart": {
+    "myCart": "My Cart",
+    "product": "item",
+    "products": "items",
+    "emptyCart": "Your cart is empty",
+    "addFromCatalog": "Add products from the catalog",
+    "closeCart": "Close cart",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "delete": "Remove",
+    "estimate": "Estimated total",
+    "sendOnWhatsApp": "Send order on WhatsApp",
+    "clearCart": "Clear cart",
+    "addedToCart": "Added to cart"
+  },
+  "accessibility": {
+    "callNow": "Call now",
+    "sendWhatsApp": "Send message on WhatsApp",
+    "quickContact": "Quick contact",
+    "cartItems": "Cart ({count} items)",
+    "toggleLightMode": "Switch to light mode",
+    "toggleDarkMode": "Switch to dark mode",
+    "galleryImage": "gallery image",
+    "heroShowcase": "product from our showcase",
+    "enlargedImage": "enlarged image",
+    "eventsGalleryImage": "image from events gallery",
+    "productAltSuffix": "at Homemade by Dia - pastry shop in Buftea",
+    "visitFacebook": "Visit our Facebook page",
+    "sendMessenger": "Send us a message on Messenger",
+    "visitInstagram": "Visit our Instagram profile",
+    "chatWhatsApp": "Chat with us on WhatsApp",
+    "logo": "Homemade by Dia logo",
+    "switchToEnglish": "Switch to English",
+    "switchToRomanian": "Switch to Romanian",
+    "closeGallery": "Close gallery",
+    "prevImage": "Previous image",
+    "nextImage": "Next image"
+  },
+  "footer": {
+    "cakeTopViewAlt": "top view of a cake",
+    "didYouLike": "Did you like it?",
+    "leaveReview": "Leave a review"
+  },
+  "testimonials": {
+    "rating": "{count} out of 5 stars",
+    "source": "Reviews from Google",
+    "imageAlt": "Photo attached by {name}"
+  }
+}

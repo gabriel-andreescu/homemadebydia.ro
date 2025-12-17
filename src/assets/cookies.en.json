@@ -1,0 +1,47 @@
+[
+  {
+    "imageUrl": "/gallery/cookies/rulada-pavlova",
+    "title": "Pavlova Roll",
+    "desc": [
+      "Fluffy meringue layers",
+      "Sour cream & mascarpone filling",
+      "Forest berry insert",
+      "weighs approx. 1 kg"
+    ],
+    "min": 0,
+    "unit": "pc",
+    "price": 160
+  },
+  {
+    "imageUrl": "/gallery/cookies/mini-prajituri",
+    "title": "Mini Pastries",
+    "assortments": "Pistachio raspberry choux, Hazelnut choux, Pavlova, Chocolate tarts",
+    "min": 0,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cookies/medovik",
+    "title": "Medovik",
+    "desc": [
+      "Fluffy honey sponge layers",
+      "Cardamom sour cream",
+      "Forest berry or caramel insert"
+    ],
+    "min": 0,
+    "unit": "pc",
+    "price": 21
+  },
+  {
+    "imageUrl": "/gallery/cookies/pavlova",
+    "title": "Pavlova",
+    "desc": [
+      "Crispy meringue base",
+      "Mascarpone cream & fresh fruit"
+    ],
+    "min": 0.5,
+    "unit": "kg",
+    "price": 170
+  }
+]
+

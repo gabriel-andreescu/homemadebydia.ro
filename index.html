@@ -1,9 +1,26 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ro">
   <head>
+    <script>
+      // Prevent FOUC by applying dark mode and locale before page render
+      (function () {
+        // Dark mode
+        const storedTheme = localStorage.getItem("theme-preference");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (storedTheme === "dark" || (storedTheme !== "light" && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+        // Locale
+        const storedLocale = localStorage.getItem("locale-preference");
+        const browserLocale = navigator.language.split("-")[0];
+        const locale = storedLocale || (browserLocale === "en" ? "en" : "ro");
+        document.documentElement.lang = locale;
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="msapplication-TileColor" content="#e20076" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1" />
@@ -15,8 +32,34 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
     />
-    <meta name="description" content="Descoperă cofetăria Homemade by Dia din Buftea, unde toate produsele sunt realizate din ingrediente naturale. Savurează gusturi autentice și delicioase!">
+    <meta
+      name="description"
+      content="Descoperă cofetăria Homemade by Dia din Buftea, unde toate produsele sunt realizate din ingrediente naturale. Savurează gusturi autentice și delicioase!"
+    />
+    <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://homemadebydia.ro/" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ro_RO" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:url" content="https://homemadebydia.ro/" />
+    <meta property="og:title" content="Cofetăria Homemade by Dia - Delicii Naturale în Buftea" />
+    <meta
+      property="og:description"
+      content="Laborator artizanal de cofetărie în Buftea. Torturi personalizate, prăjituri și candy bar pentru evenimente, toate din ingrediente naturale."
+    />
+    <meta property="og:image" content="https://homemadebydia.ro/gallery/about-us.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Homemade by Dia" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cofetăria Homemade by Dia - Delicii Naturale în Buftea" />
+    <meta
+      name="twitter:description"
+      content="Laborator artizanal de cofetărie în Buftea. Torturi personalizate, prăjituri și candy bar pentru evenimente."
+    />
+    <meta name="twitter:image" content="https://homemadebydia.ro/gallery/about-us.jpg" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -27,7 +70,7 @@
             "description": "Laborator artizanal autorizat de cofetărie din Buftea, oferim produse proaspete făcute la comandă, realizate cu cele mai calitative ingrediente după rețete proprii delicioase.",
             "url": "https://homemadebydia.ro",
             "logo": "https://homemadebydia.ro/logo.svg",
-            "image": "https://homemadebydia.ro/logo.svg",
+            "image": "https://homemadebydia.ro/gallery/about-us.jpg",
             "telephone": "(+40) 787 283 917",
             "priceRange": "$$",
             "openingHours": "Mo-Su 09:00-18:00",
