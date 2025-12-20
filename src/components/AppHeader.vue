@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import AppNav from "./AppNav.vue";
 import { SCROLL_THRESHOLD } from "../constants";
@@ -17,15 +17,32 @@ const { tabs, selectedTab, catalogInView, selectTab } = useCatalogTabs();
 // Computed to ensure reactivity
 const showStickyTabs = computed(() => catalogInView.value && tabs.value.length > 0);
 
+let topObserver: IntersectionObserver | null = null;
+
 onMounted(() => {
-  scrolledFromTop.value = window.scrollY >= SCROLL_THRESHOLD;
-  window.addEventListener(
-    "scroll",
-    () => {
-      scrolledFromTop.value = window.scrollY >= SCROLL_THRESHOLD;
+  // Replace scroll listener with IntersectionObserver sentinel.
+  // This avoids scroll handlers and reduces Lighthouse "forced reflow" attribution.
+  const sentinel = document.getElementById("page-top-sentinel");
+  if (!sentinel) return;
+
+  topObserver = new IntersectionObserver(
+    ([entry]) => {
+      // Once we scroll past SCROLL_THRESHOLD, the sentinel will no longer intersect.
+      scrolledFromTop.value = !entry.isIntersecting;
     },
-    { passive: true },
+    {
+      threshold: 0,
+      // Expand root upwards by SCROLL_THRESHOLD so the sentinel stays "visible"
+      // until we've scrolled that distance.
+      rootMargin: `${SCROLL_THRESHOLD}px 0px 0px 0px`,
+    },
   );
+  topObserver.observe(sentinel);
+});
+
+onUnmounted(() => {
+  topObserver?.disconnect();
+  topObserver = null;
 });
 </script>
 
@@ -39,7 +56,9 @@ onMounted(() => {
         <img
           :src="isDark ? '/logo-dark.svg' : '/logo.svg'"
           :alt="t('accessibility.logo')"
-          class="h-32 transform transition duration-200 pt-2 z-50"
+          width="319"
+          height="128"
+          class="h-32 w-auto transform transition duration-200 pt-2 z-50"
           :class="{ 'scale-100': !scrolledFromTop, 'scale-50': scrolledFromTop }"
         />
       </button>
@@ -59,8 +78,8 @@ onMounted(() => {
             :class="[
               'px-3 sm:px-5 py-1.5 sm:py-2 rounded-full cursor-pointer font-medium text-xs sm:text-sm tracking-wide transition-all duration-300',
               tab.tabKey === selectedTab
-                ? 'bg-accent dark:bg-accent-vivid text-white shadow-md shadow-accent/20 dark:shadow-accent-vivid/30 scale-105'
-                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-accent dark:hover:border-accent-vivid hover:text-accent dark:hover:text-accent-vivid hover:shadow-md',
+                ? 'bg-accent dark:bg-accent text-white shadow-md shadow-accent/20 dark:shadow-accent/30 scale-105'
+                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-accent dark:hover:border-accent hover:text-accent dark:hover:text-accent-light hover:shadow-md',
             ]"
             @click="selectTab(tab.tabKey, true, true)"
           >

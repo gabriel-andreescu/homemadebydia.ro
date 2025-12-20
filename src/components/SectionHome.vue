@@ -35,10 +35,10 @@ onUnmounted(() => {
   <section class="w-full min-h-[calc(100svh-8rem)] flex items-center relative overflow-visible">
     <!-- Floating decorative elements (outside overflow containers) -->
     <div
-      class="absolute top-[15%] right-[15%] w-64 h-64 bg-accent/[0.15] lg:bg-accent/25 dark:bg-accent-vivid/20 dark:lg:bg-accent-vivid/35 rounded-full blur-3xl pointer-events-none animate-float-slow"
+      class="absolute top-[15%] right-[15%] w-64 h-64 bg-accent/[0.15] lg:bg-accent/25 dark:bg-accent/20 dark:lg:bg-accent/35 rounded-full blur-3xl pointer-events-none animate-float-slow"
     ></div>
     <div
-      class="absolute bottom-[15%] right-[25%] w-80 h-80 bg-accent/10 lg:bg-accent/20 dark:bg-accent-vivid/15 dark:lg:bg-accent-vivid/30 rounded-full blur-3xl pointer-events-none animate-float-slower"
+      class="absolute bottom-[15%] right-[25%] w-80 h-80 bg-accent/10 lg:bg-accent/20 dark:bg-accent/15 dark:lg:bg-accent/30 rounded-full blur-3xl pointer-events-none animate-float-slower"
     ></div>
 
     <div
@@ -62,7 +62,7 @@ onUnmounted(() => {
 
         <button
           @click="scrollTo('catalog')"
-          class="mb-6 px-8 py-3 bg-accent dark:bg-accent-vivid text-white text-lg font-medium tracking-wide rounded-full shadow-md shadow-accent/20 dark:shadow-accent-vivid/30 hover:scale-105 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent-vivid focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 transition-all duration-300"
+          class="mb-6 px-8 py-3 bg-accent dark:bg-accent text-white text-lg font-medium tracking-wide rounded-full shadow-md shadow-accent/20 dark:shadow-accent/30 hover:scale-105 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 transition-all duration-300"
         >
           {{ t("home.viewCatalog") }}
         </button>
@@ -85,29 +85,34 @@ onUnmounted(() => {
               :alt="t('accessibility.heroShowcase')"
               img-class="absolute inset-0 w-full h-full object-cover"
               eager
+              sizes="(max-width: 1024px) 100vw, min(50vw, 640px)"
             />
           </TransitionGroup>
 
           <!-- Decorative frame -->
           <div
-            class="absolute inset-0 rounded-3xl ring-4 ring-accent/20 dark:ring-accent-vivid/30 pointer-events-none"
+            class="absolute inset-0 rounded-3xl ring-4 ring-accent/20 dark:ring-accent/30 pointer-events-none"
           ></div>
         </div>
 
         <!-- Dots indicator -->
-        <div class="flex justify-center gap-2 mt-4">
+        <div class="flex justify-center gap-1 mt-4">
           <button
             v-for="(_, index) in showcaseImages"
             :key="index"
             @click="currentImageIndex = index"
-            class="w-2 h-2 rounded-full transition-all duration-300"
-            :class="
-              currentImageIndex === index
-                ? 'bg-accent dark:bg-accent-vivid w-6'
-                : 'bg-gray-300 dark:bg-gray-600 hover:bg-accent/50 dark:hover:bg-accent-vivid/50'
-            "
+            class="p-3 group"
             :aria-label="`Image ${index + 1}`"
-          />
+          >
+            <span
+              class="block h-2 rounded-full transition-all duration-300"
+              :class="
+                currentImageIndex === index
+                  ? 'bg-accent dark:bg-accent w-6'
+                  : 'w-2 bg-gray-300 dark:bg-gray-600 group-hover:bg-accent/50 dark:group-hover:bg-accent/50'
+              "
+            />
+          </button>
         </div>
       </div>
     </div>

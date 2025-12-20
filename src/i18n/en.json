@@ -28,9 +28,9 @@
   },
   "home": {
     "title": "Licensed pastry workshop,",
-    "titleLine2": "custom cakes and desserts made to order",
+    "titleLine2": "custom cakes and desserts made to order in Buftea (Ilfov)",
     "naturalIngredients": "✓ Natural ingredients",
-    "licensedWorkshop": "✓ Licensed workshop in Buftea",
+    "licensedWorkshop": "✓ Licensed workshop",
     "madeToOrder": "✓ Freshly made to order",
     "viewCatalog": "View catalog"
   },
@@ -115,7 +115,9 @@
   },
   "accessibility": {
     "callNow": "Call now",
+    "sendEmail": "Send email",
     "sendWhatsApp": "Send message on WhatsApp",
+    "openInMaps": "Open in Google Maps",
     "quickContact": "Quick contact",
     "cartItems": "Cart ({count} items)",
     "toggleLightMode": "Switch to light mode",
@@ -135,6 +137,11 @@
     "closeGallery": "Close gallery",
     "prevImage": "Previous image",
     "nextImage": "Next image"
+  },
+  "contact": {
+    "addressLabel": "Address",
+    "mapsQuery": "Homemade by Dia, Str. Cloșca 22A, Buftea, Ilfov 070000, Romania",
+    "address": "Str. Cloșca 22A, Buftea (Ilfov), 070000, Romania"
   },
   "footer": {
     "cakeTopViewAlt": "top view of a cake",

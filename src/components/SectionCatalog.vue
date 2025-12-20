@@ -34,13 +34,13 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
         class="mt-6 mb-8 p-4 bg-gray-50 dark:bg-gray-800/70 rounded-xl shadow-sm text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-3"
       >
         <p class="flex gap-2">
-          <span class="text-accent dark:text-accent-vivid shrink-0">●</span>
+          <span class="text-accent dark:text-accent-light shrink-0">●</span>
           <span>
             {{ t("catalog.decorNote", { decorMin: PRICES.decorMin, decorMax: PRICES.decorMax }) }}
           </span>
         </p>
         <p class="flex gap-2">
-          <span class="text-accent dark:text-accent-vivid shrink-0">●</span>
+          <span class="text-accent dark:text-accent-light shrink-0">●</span>
           <span>{{ t("catalog.allergyNote") }}</span>
         </p>
       </div>
@@ -54,7 +54,7 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
           {{ t("catalog.availableAssortments") }}
         </h3>
         <p class="flex gap-2">
-          <span class="text-accent dark:text-accent-vivid shrink-0">●</span>
+          <span class="text-accent dark:text-accent-light shrink-0">●</span>
           <span>
             <strong class="text-gray-800 dark:text-gray-100">
               {{ t("catalog.chouxList").split(":")[0] }}:
@@ -63,7 +63,7 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
           </span>
         </p>
         <p class="flex gap-2">
-          <span class="text-accent dark:text-accent-vivid shrink-0">●</span>
+          <span class="text-accent dark:text-accent-light shrink-0">●</span>
           <span>
             <strong class="text-gray-800 dark:text-gray-100">
               {{ t("catalog.tarteList").split(":")[0] }}:
@@ -72,7 +72,7 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
           </span>
         </p>
         <p class="flex gap-2">
-          <span class="text-accent dark:text-accent-vivid shrink-0">●</span>
+          <span class="text-accent dark:text-accent-light shrink-0">●</span>
           <span>
             <strong class="text-gray-800 dark:text-gray-100">
               {{ t("catalog.miniPastriesList").split(":")[0] }}:
@@ -112,7 +112,7 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
           </h3>
           <div class="space-y-1.5">
             <p class="flex gap-2">
-              <span class="text-accent dark:text-accent-vivid shrink-0">●</span>
+              <span class="text-accent dark:text-accent-light shrink-0">●</span>
               <span>
                 <strong class="text-gray-800 dark:text-gray-100">
                   {{ t("catalog.chouxList").split(":")[0] }}:
@@ -121,7 +121,7 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
               </span>
             </p>
             <p class="flex gap-2">
-              <span class="text-accent dark:text-accent-vivid shrink-0">●</span>
+              <span class="text-accent dark:text-accent-light shrink-0">●</span>
               <span>
                 <strong class="text-gray-800 dark:text-gray-100">
                   {{ t("catalog.tarteList").split(":")[0] }}:
@@ -130,7 +130,7 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
               </span>
             </p>
             <p class="flex gap-2">
-              <span class="text-accent dark:text-accent-vivid shrink-0">●</span>
+              <span class="text-accent dark:text-accent-light shrink-0">●</span>
               <span>
                 <strong class="text-gray-800 dark:text-gray-100">
                   {{ t("catalog.dessertsGlassList").split(":")[0] }}:
@@ -139,7 +139,7 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
               </span>
             </p>
             <p class="flex gap-2">
-              <span class="text-accent dark:text-accent-vivid shrink-0">●</span>
+              <span class="text-accent dark:text-accent-light shrink-0">●</span>
               <span>
                 <strong class="text-gray-800 dark:text-gray-100">
                   {{ t("catalog.miniPastriesList").split(":")[0] }}:
@@ -167,23 +167,23 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
           </h3>
           <div class="space-y-1.5">
             <p class="flex gap-2">
-              <span class="text-accent dark:text-accent-vivid shrink-0">●</span>
+              <span class="text-accent dark:text-accent-light shrink-0">●</span>
               <span>{{ t("catalog.dishRental", { dishRental: PRICES.dishRental }) }}</span>
             </p>
             <p class="flex gap-2">
-              <span class="text-accent dark:text-accent-vivid shrink-0">●</span>
+              <span class="text-accent dark:text-accent-light shrink-0">●</span>
               <span>{{ t("catalog.candyBarSetup", { candyBarSetup: PRICES.candyBarSetup }) }}</span>
             </p>
             <p class="flex gap-2">
-              <span class="text-accent dark:text-accent-vivid shrink-0">●</span>
+              <span class="text-accent dark:text-accent-light shrink-0">●</span>
               <span>{{ t("catalog.dishPickup", { dishPickup: PRICES.dishPickup }) }}</span>
             </p>
             <p class="flex gap-2">
-              <span class="text-accent dark:text-accent-vivid shrink-0">●</span>
+              <span class="text-accent dark:text-accent-light shrink-0">●</span>
               <span>{{ t("catalog.delivery", { delivery: PRICES.delivery }) }}</span>
             </p>
             <p class="flex gap-2">
-              <span class="text-accent dark:text-accent-vivid shrink-0">●</span>
+              <span class="text-accent dark:text-accent-light shrink-0">●</span>
               <span>{{ t("catalog.favors", { favors: PRICES.favors }) }}</span>
             </p>
           </div>
@@ -194,6 +194,7 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
               :alt="t('catalog.favorsAlt')"
               img-class="w-1/2 h-auto rounded-lg cursor-pointer"
               @click="favorsModalRef?.openAt(0)"
+              sizes="(max-width: 768px) 50vw, 384px"
             />
             <figcaption class="text-sm text-gray-500 dark:text-gray-400 mt-1">
               {{ t("catalog.favorsCaption") }}

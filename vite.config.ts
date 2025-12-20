@@ -46,10 +46,28 @@ export default defineConfig({
     validateProductUnits(),
     vue(),
     ViteImageOptimizer({
-      /* pass your config */
+      // We generate optimized responsive gallery variants ourselves,
+      // so exclude the source `public/gallery/**` from this optimizer pass.
+      includePublic: true,
+      exclude: /[\\/]public[\\/]gallery[\\/]/i,
+      logStats: true,
     }),
     Sitemap({
       hostname: "https://homemadebydia.ro",
+      dynamicRoutes: [
+        "/#catalog",
+        "/#torturi",
+        "/#prajituri",
+        "/#patiserie",
+        "/#evenimente",
+        "/#galerie",
+        "/#despre-noi",
+        "/#de-ce-noi",
+        "/#testimoniale",
+        "/#cum-sa-comanzi",
+        "/#contact",
+      ],
+      readable: true,
     }),
   ],
 });

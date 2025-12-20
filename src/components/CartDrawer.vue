@@ -87,6 +87,7 @@ const isEmpty = computed(() => cart.count.value === 0);
                 :src="item.id"
                 :alt="item.title"
                 img-class="w-16 h-16 rounded-xl object-cover"
+                sizes="64px"
               />
 
               <!-- Product details -->
@@ -124,7 +125,7 @@ const isEmpty = computed(() => cart.count.value === 0);
                     <p class="font-semibold text-gray-800 dark:text-gray-100">{{ Math.round(item.price * item.quantity) }} lei</p>
                     <button
                       @click="cart.remove(item.id)"
-                      class="text-xs text-gray-400 dark:text-gray-500 hover:text-accent dark:hover:text-accent-vivid transition-colors"
+                      class="text-xs text-gray-400 dark:text-gray-500 hover:text-accent dark:hover:text-accent-light transition-colors"
                       :aria-label="t('product.removeFromCart')"
                     >
                       {{ t('cart.delete') }}
@@ -152,7 +153,7 @@ const isEmpty = computed(() => cart.count.value === 0);
             </a>
             <button
               @click="cart.clear()"
-              class="w-full mt-2 py-2 text-sm text-gray-500 dark:text-gray-400 hover:text-accent dark:hover:text-accent-vivid transition-colors"
+              class="w-full mt-2 py-2 text-sm text-gray-500 dark:text-gray-400 hover:text-accent dark:hover:text-accent-light transition-colors"
             >
               {{ t('cart.clearCart') }}
             </button>

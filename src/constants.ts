@@ -6,6 +6,7 @@ export const CONTACT = {
   facebook: "https://www.facebook.com/homemadebyDia",
   messenger: "https://m.me/homemadebyDia",
   instagram: "https://www.instagram.com/homemade.by.dia",
+  maps: "https://maps.app.goo.gl/HwjenXZkkT33KwWq8",
   googleReview: "https://g.page/r/CfsLVETol7P7EBM/review",
 } as const;
 

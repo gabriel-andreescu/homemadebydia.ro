@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import { useScrollTo } from "./useScrollTo";
+import { setHash } from "./useHash";
 
 interface Tab {
   title: string;
@@ -26,10 +27,11 @@ export function useCatalogTabs() {
   function selectTab(tabKey: string, updateHash = true, scrollToTop = false) {
     selectedTab.value = tabKey;
     if (updateHash) {
-      history.replaceState(null, "", `#${tabKey}`);
+      setHash(tabKey);
     }
     if (scrollToTop) {
-      scrollTo("catalog");
+      // Don't update hash again, we just did it above
+      scrollTo("catalog", false);
     }
   }
 

@@ -6,10 +6,9 @@ module.exports = {
     extend: {
       colors: {
         accent: {
-          light: "#ee66ad",
+          light: "#FF80B8", // bright pink for dark mode text
           DEFAULT: "#E20076",
           dark: "#880047",
-          vivid: "#FF1493", // brighter for dark mode
         },
         nude: "#D1D0CE",
         whatsapp: {

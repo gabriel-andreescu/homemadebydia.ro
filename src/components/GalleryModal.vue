@@ -290,6 +290,7 @@ defineExpose({ openAt });
                 :src="prevImage"
                 :alt="t('accessibility.enlargedImage')"
                 img-class="max-w-full max-h-[70vh] object-contain rounded-lg"
+                sizes="100vw"
               />
             </div>
 
@@ -303,6 +304,7 @@ defineExpose({ openAt });
                 :src="currentImage"
                 :alt="t('accessibility.enlargedImage')"
                 img-class="max-w-full max-h-[70vh] object-contain rounded-lg"
+                sizes="100vw"
               />
             </div>
 
@@ -316,6 +318,7 @@ defineExpose({ openAt });
                 :src="nextImage"
                 :alt="t('accessibility.enlargedImage')"
                 img-class="max-w-full max-h-[70vh] object-contain rounded-lg"
+                sizes="100vw"
               />
             </div>
           </div>
@@ -345,7 +348,7 @@ defineExpose({ openAt });
               class="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden transition-all duration-200"
               :class="
                 index === targetIndex
-                  ? 'ring-2 ring-accent dark:ring-accent-vivid ring-offset-2 ring-offset-black scale-105'
+                  ? 'ring-2 ring-accent dark:ring-accent ring-offset-2 ring-offset-black scale-105'
                   : 'opacity-50 hover:opacity-80'
               "
             >
@@ -353,6 +356,7 @@ defineExpose({ openAt });
                 :src="image"
                 :alt="t('accessibility.galleryImage')"
                 img-class="w-full h-full object-cover"
+                sizes="64px"
               />
             </button>
           </div>

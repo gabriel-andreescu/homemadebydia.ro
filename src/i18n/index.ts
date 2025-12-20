@@ -32,17 +32,10 @@ export const i18n = createI18n({
   },
 });
 
-// Set initial document title after i18n is created
-if (typeof window !== "undefined") {
-  document.title = i18n.global.t("meta.title");
-}
-
 export function setLocale(locale: Locale) {
   i18n.global.locale.value = locale;
   localStorage.setItem(STORAGE_KEY, locale);
   document.documentElement.lang = locale;
-  // Update document title
-  document.title = i18n.global.t("meta.title");
 }
 
 export function toggleLocale() {

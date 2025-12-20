@@ -28,9 +28,9 @@
   },
   "home": {
     "title": "Laborator autorizat de cofetărie,",
-    "titleLine2": "torturi personalizate și prăjituri la comandă",
+    "titleLine2": "torturi personalizate și prăjituri la comandă în Buftea (Ilfov)",
     "naturalIngredients": "✓ Ingrediente naturale",
-    "licensedWorkshop": "✓ Laborator autorizat Buftea",
+    "licensedWorkshop": "✓ Laborator autorizat",
     "madeToOrder": "✓ Făcut la comandă",
     "viewCatalog": "Vezi catalogul"
   },
@@ -115,7 +115,9 @@
   },
   "accessibility": {
     "callNow": "Sună acum",
+    "sendEmail": "Trimite email",
     "sendWhatsApp": "Trimite mesaj pe WhatsApp",
+    "openInMaps": "Deschide în Google Maps",
     "quickContact": "Contact rapid",
     "cartItems": "Coș ({count} produse)",
     "toggleLightMode": "Comută la modul luminos",
@@ -135,6 +137,11 @@
     "closeGallery": "Închide galeria",
     "prevImage": "Imaginea anterioară",
     "nextImage": "Imaginea următoare"
+  },
+  "contact": {
+    "addressLabel": "Adresă",
+    "mapsQuery": "Homemade by Dia, Str. Cloșca 22A, Buftea, Ilfov 070000, România",
+    "address": "Str. Cloșca 22A, Buftea (Ilfov), 070000, România"
   },
   "footer": {
     "cakeTopViewAlt": "poză cu un tort văzut de sus",

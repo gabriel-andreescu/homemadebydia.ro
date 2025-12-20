@@ -14,6 +14,7 @@ import CartDrawer from "./components/CartDrawer.vue";
 import CartToast from "./components/CartToast.vue";
 import { useCart } from "./composables/useCart";
 import { useCatalogTabs } from "./composables/useCatalogTabs";
+import { useDocumentTitle } from "./composables/useDocumentTitle";
 import { CONTACT } from "./constants";
 import IconPhone from "./components/icons/IconPhone.vue";
 import IconWhatsappBrand from "./components/icons/IconWhatsappBrand.vue";
@@ -21,6 +22,7 @@ import IconWhatsappBrand from "./components/icons/IconWhatsappBrand.vue";
 const { t } = useI18n();
 const cart = useCart();
 const { setCatalogInView } = useCatalogTabs();
+useDocumentTitle();
 
 const catalogReached = ref(false);
 const contactInView = ref(false);
@@ -28,29 +30,45 @@ const showFloatingCTA = computed(() => catalogReached.value && !contactInView.va
 
 let catalogObserver: IntersectionObserver | null = null;
 let contactObserver: IntersectionObserver | null = null;
-
-// Scroll handler for sticky tabs
-function handleScroll() {
-  const catalogSection = document.getElementById("catalog");
-  if (!catalogSection) return;
-
-  const rect = catalogSection.getBoundingClientRect();
-  // Threshold: lower value = sticky hides sooner when scrolling up
-  // This prevents overlap with original tabs (~120px below catalog top)
-  const threshold = -20;
-
-  const showStickyTabs = rect.top < threshold && rect.bottom > 150;
-  setCatalogInView(showStickyTabs);
-}
+let stickyTabsCatalogObserver: IntersectionObserver | null = null;
+let stickyTabsTopObserver: IntersectionObserver | null = null;
 
 onMounted(() => {
-  // Scroll listener for sticky tabs
-  window.addEventListener("scroll", handleScroll, { passive: true });
-  handleScroll(); // Initial check
+  // Sticky tabs: IntersectionObserver (avoids scroll + getBoundingClientRect forced reflow)
+  const catalogSection = document.getElementById("catalog");
+  const catalogTopSentinel = document.getElementById("catalog-top-sentinel");
+
+  const catalogVisible = ref(false);
+  const topSentinelVisible = ref(true);
+  const updateStickyTabs = () => setCatalogInView(catalogVisible.value && !topSentinelVisible.value);
+
+  if (catalogSection) {
+    stickyTabsCatalogObserver = new IntersectionObserver(
+      ([entry]) => {
+        catalogVisible.value = entry.isIntersecting;
+        updateStickyTabs();
+      },
+      { threshold: 0 },
+    );
+    stickyTabsCatalogObserver.observe(catalogSection);
+  }
+
+  if (catalogTopSentinel) {
+    stickyTabsTopObserver = new IntersectionObserver(
+      ([entry]) => {
+        topSentinelVisible.value = entry.isIntersecting;
+        updateStickyTabs();
+      },
+      // Account for the fixed header so "top sentinel visible" means "you are still at the top of catalog"
+      // even when the header overlaps the page.
+      { threshold: 0, rootMargin: "-140px 0px 0px 0px" },
+    );
+    stickyTabsTopObserver.observe(catalogTopSentinel);
+  }
 
   // Track when catalog section has been reached (for floating CTA)
-  const catalogSection = document.getElementById("catalog");
-  if (catalogSection) {
+  const catalogSectionForCta = document.getElementById("catalog");
+  if (catalogSectionForCta) {
     catalogObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -62,7 +80,7 @@ onMounted(() => {
       },
       { threshold: 0.1 },
     );
-    catalogObserver.observe(catalogSection);
+    catalogObserver.observe(catalogSectionForCta);
   }
 
   // Track contact section visibility
@@ -79,17 +97,20 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  window.removeEventListener("scroll", handleScroll);
   catalogObserver?.disconnect();
   contactObserver?.disconnect();
+  stickyTabsCatalogObserver?.disconnect();
+  stickyTabsTopObserver?.disconnect();
 });
 </script>
 
 <template>
+  <div id="page-top-sentinel" class="h-0" aria-hidden="true"></div>
   <AppHeader />
   <main class="container mx-auto pt-32">
     <SectionHome />
     <AppSection :title="t('sections.catalog')" id="catalog">
+      <div id="catalog-top-sentinel" class="h-0" aria-hidden="true"></div>
       <SectionCatalog />
     </AppSection>
     <AppSection :title="t('sections.gallery')" id="galerie" class="px-2">
@@ -121,7 +142,7 @@ onUnmounted(() => {
       <!-- Phone -->
       <a
         :href="`tel:${CONTACT.phone}`"
-        class="flex items-center justify-center w-12 h-12 bg-accent dark:bg-accent-vivid text-white rounded-full shadow-md active:scale-95 transition-all"
+        class="flex items-center justify-center w-12 h-12 bg-accent dark:bg-accent text-white rounded-full shadow-md active:scale-95 transition-all"
         :aria-label="t('accessibility.callNow')"
       >
         <IconPhone class="w-5 h-5" />

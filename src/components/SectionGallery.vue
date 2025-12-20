@@ -41,12 +41,13 @@ const openEventsGallery = (index: number) => {
       v-for="(imagePath, index) in generalImages"
       :key="imagePath"
       @click="openGallery(index)"
-      class="flex-shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent-vivid focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+      class="flex-shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent focus:ring-offset-2 dark:focus:ring-offset-gray-900"
     >
       <AppPicture
         :src="imagePath"
         :alt="t('accessibility.galleryImage')"
         img-class="w-full h-full object-cover"
+        sizes="(max-width: 768px) 192px, 224px"
       />
     </button>
   </HorizontalScroller>
@@ -60,12 +61,13 @@ const openEventsGallery = (index: number) => {
       v-for="(imagePath, index) in eventsImages"
       :key="imagePath"
       @click="openEventsGallery(index)"
-      class="flex-shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent-vivid focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+      class="flex-shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent focus:ring-offset-2 dark:focus:ring-offset-gray-900"
     >
       <AppPicture
         :src="imagePath"
         :alt="t('accessibility.eventsGalleryImage')"
         img-class="w-full h-full object-cover"
+        sizes="(max-width: 768px) 192px, 224px"
       />
     </button>
   </HorizontalScroller>

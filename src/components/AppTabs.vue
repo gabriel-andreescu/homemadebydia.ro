@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, provide, reactive, ref, useSlots, watch, computed } from "vue";
-import useEventsBus from "../composables/eventBus";
+import { onMounted, onUnmounted, provide, reactive, ref, useSlots, watch } from "vue";
 import { useCatalogTabs } from "../composables/useCatalogTabs";
+import { getHash, onHashUpdate } from "../composables/useHash";
 
 const slots = useSlots().default?.();
 const localTabs = ref<{ title: string; tabKey: string }[]>([]);
 
 const {
   selectedTab: sharedSelectedTab,
-  catalogInView,
   registerTabs,
   setSelectedTab,
   selectTab: sharedSelectTab,
@@ -23,7 +22,7 @@ watch(sharedSelectedTab, (val) => {
 });
 
 function getHashTab(): string | null {
-  const hash = window.location.hash.slice(1);
+  const hash = getHash();
   return localTabs.value.find((t) => t.tabKey === hash)?.tabKey ?? null;
 }
 
@@ -38,6 +37,8 @@ function onHashChange() {
     selectTab(hashTab, false);
   }
 }
+
+let cleanupHashListener: (() => void) | null = null;
 
 onMounted(() => {
   if (slots) {
@@ -58,24 +59,12 @@ onMounted(() => {
     setSelectedTab(initialTab);
   }
 
-  window.addEventListener("hashchange", onHashChange);
+  cleanupHashListener = onHashUpdate(onHashChange);
 });
 
 onUnmounted(() => {
-  window.removeEventListener("hashchange", onHashChange);
+  cleanupHashListener?.();
 });
-
-const { bus } = useEventsBus();
-watch(
-  () => bus.value.get("switchCatalogTab"),
-  (data) => {
-    const [tabKey] = data ?? [];
-    selectTab(tabKey);
-  },
-);
-
-// Hide original tabs when sticky header tabs are showing
-const showTabs = computed(() => !catalogInView.value);
 </script>
 
 <template>
@@ -86,8 +75,8 @@ const showTabs = computed(() => !catalogInView.value);
       :class="[
         'px-3 sm:px-5 py-2 sm:py-2.5 rounded-full cursor-pointer font-medium text-xs sm:text-sm tracking-wide transition-all duration-300',
         tab.tabKey === selectedTabState.selectedTab
-          ? 'bg-accent dark:bg-accent-vivid text-white shadow-md shadow-accent/20 dark:shadow-accent-vivid/30 scale-105'
-          : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-accent dark:hover:border-accent-vivid hover:text-accent dark:hover:text-accent-vivid hover:shadow-md',
+          ? 'bg-accent dark:bg-accent text-white shadow-md shadow-accent/20 dark:shadow-accent/30 scale-105'
+          : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-accent dark:hover:border-accent hover:text-accent dark:hover:text-accent-light hover:shadow-md',
       ]"
       @click="selectTab(tab.tabKey)"
     >

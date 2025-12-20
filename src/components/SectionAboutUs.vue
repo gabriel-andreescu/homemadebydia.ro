@@ -35,6 +35,7 @@ function toggle() {
         :alt="t('aboutUs.imageAlt')"
         img-class="w-full h-full object-cover"
         eager
+        sizes="(max-width: 768px) 100vw, 768px"
       />
     </div>
 
@@ -80,7 +81,7 @@ function toggle() {
       <!-- Read more button -->
       <button
         @click="toggle"
-        class="relative z-10 mt-4 group flex items-center gap-2 mx-auto px-5 py-2.5 text-sm font-medium bg-accent dark:bg-accent-vivid text-white rounded-full shadow-md shadow-accent/20 dark:shadow-accent-vivid/30 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] transition-all duration-300"
+        class="relative z-10 mt-4 group flex items-center gap-2 mx-auto px-5 py-2.5 text-sm font-medium bg-accent dark:bg-accent text-white rounded-full shadow-md shadow-accent/20 dark:shadow-accent/30 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] transition-all duration-300"
       >
         <span>{{ expanded ? t("aboutUs.readLess") : t("aboutUs.readMore") }}</span>
         <svg

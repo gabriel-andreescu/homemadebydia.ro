@@ -167,7 +167,7 @@ const testimonials = computed<Testimonial[]>(() =>
     >
       <!-- Quote icon -->
       <IconQuote
-        class="absolute top-4 right-4 w-8 h-8 text-accent/40 dark:text-accent-vivid/40"
+        class="absolute top-4 right-4 w-8 h-8 text-accent/40 dark:text-accent-light/40"
         aria-hidden="true"
       />
 
@@ -182,7 +182,7 @@ const testimonials = computed<Testimonial[]>(() =>
         />
         <div
           v-else
-          class="w-10 h-10 rounded-full bg-accent/10 dark:bg-accent-vivid/10 flex items-center justify-center text-accent dark:text-accent-vivid font-semibold"
+          class="w-10 h-10 rounded-full bg-accent/10 dark:bg-accent-light/10 flex items-center justify-center text-accent dark:text-accent-light font-semibold"
         >
           {{ testimonial.name.charAt(0).toUpperCase() }}
         </div>
@@ -193,6 +193,7 @@ const testimonials = computed<Testimonial[]>(() =>
 
       <!-- Stars -->
       <div
+        role="img"
         class="flex gap-0.5 mb-3"
         :aria-label="t('testimonials.rating', { count: testimonial.rating })"
       >
@@ -225,6 +226,7 @@ const testimonials = computed<Testimonial[]>(() =>
             :src="img.thumb"
             :alt="t('testimonials.imageAlt', { name: testimonial.name })"
             img-class="w-full h-full object-cover"
+            sizes="128px"
           />
         </button>
       </div>
@@ -247,6 +249,7 @@ const testimonials = computed<Testimonial[]>(() =>
             :src="img.thumb"
             :alt="t('testimonials.imageAlt', { name: testimonial.name })"
             img-class="w-full h-full object-cover"
+            sizes="128px"
           />
         </button>
       </HorizontalScroller>

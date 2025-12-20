@@ -44,7 +44,7 @@ const toggleExpand = (id: string) => {
       class="card-stagger flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden"
       :style="{ animationDelay: `${index * 40}ms` }"
     >
-      <div class="relative w-full h-48 lg:h-72 overflow-hidden cursor-pointer">
+      <div class="relative w-full aspect-square overflow-hidden cursor-pointer">
         <div v-if="Array.isArray(item.imageUrl)" class="grid grid-cols-2 h-full">
           <div v-for="imagePath in item.imageUrl" :key="imagePath" class="overflow-hidden">
             <GalleryItem
@@ -52,6 +52,7 @@ const toggleExpand = (id: string) => {
               :alt="item.title + ' ' + t('accessibility.productAltSuffix')"
               :rounded="false"
               :cover="true"
+              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, min(25vw, 384px)"
             />
           </div>
         </div>
@@ -60,6 +61,7 @@ const toggleExpand = (id: string) => {
           :image-path="item.imageUrl"
           :alt="item.title + ' ' + t('accessibility.productAltSuffix')"
           :cover="true"
+          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, min(25vw, 384px)"
         />
       </div>
 
@@ -87,7 +89,7 @@ const toggleExpand = (id: string) => {
           >
             <ul class="text-left text-xs text-gray-600 dark:text-gray-300 leading-snug space-y-0.5">
               <li v-for="desc in item.desc" :key="desc" class="flex items-start gap-1.5">
-                <span class="text-accent dark:text-accent-vivid shrink-0 text-[10px] mt-0.5">
+                <span class="text-accent dark:text-accent-light shrink-0 text-[10px] mt-0.5">
                   ●
                 </span>
                 <span>{{ desc.replace(/^-\s*/, "").replace(/^\*\s*/, "") }}</span>
@@ -114,7 +116,7 @@ const toggleExpand = (id: string) => {
         <!-- Price + Button pushed to bottom -->
         <div class="mt-auto pt-3 border-t border-gray-100 dark:border-gray-700">
           <div class="flex items-baseline gap-1">
-            <span class="text-2xl font-bold text-accent dark:text-accent-vivid">
+            <span class="text-2xl font-bold text-accent dark:text-accent-light">
               {{ item.price }}
             </span>
             <span class="text-xs text-gray-500 dark:text-gray-400 font-medium">
@@ -129,13 +131,13 @@ const toggleExpand = (id: string) => {
           <button
             v-if="!cart.has(getItemId(item))"
             @click="cart.add(item)"
-            class="mt-2.5 w-full py-2 bg-accent dark:bg-accent-vivid text-white text-sm font-medium tracking-wide rounded-full shadow-md shadow-accent/20 dark:shadow-accent-vivid/30 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] transition-all"
+            class="mt-2.5 w-full py-2 bg-accent dark:bg-accent text-white text-sm font-medium tracking-wide rounded-full shadow-md shadow-accent/20 dark:shadow-accent/30 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] transition-all"
           >
             {{ t("product.addToCart") }}
           </button>
           <div v-else class="mt-2.5 flex gap-1.5">
             <div
-              class="flex-1 py-2 bg-accent/10 dark:bg-accent-vivid/20 text-accent dark:text-accent-vivid text-sm font-medium tracking-wide rounded-full flex items-center justify-center gap-1.5"
+              class="flex-1 py-2 bg-accent/10 dark:bg-accent/20 text-accent dark:text-accent-light text-sm font-medium tracking-wide rounded-full flex items-center justify-center gap-1.5"
             >
               <IconCheck class="w-4 h-4" />
               {{ t("product.inCart") }}
