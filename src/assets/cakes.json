@@ -21,14 +21,6 @@
     "price": 170
   },
   {
-    "imageUrl": "/gallery/cakes/tort-cioco-visina",
-    "title": "Tort Cioco-Visină",
-    "desc": ["- Foi fragede de cacao", "- Cremă ciocolată cu mascarpone", "- Jeleu de vișine"],
-    "min": 1.8,
-    "unit": "kg",
-    "price": 170
-  },
-  {
     "imageUrl": "/gallery/cakes/tort-lapte",
     "title": "Tort de Lapte",
     "desc": ["- Foi fragede de cacao", "- Cremă fină de lapte", "- Sos de zmeură"],
@@ -91,8 +83,8 @@
   },
   {
     "imageUrl": "/gallery/cakes/carrot-cake-afine",
-    "title": "Tort Carrot cu Afine",
-    "desc": ["- Blat umed de morcov cu scorțișoară și nuca", "- Cremă de brânză cu afine"],
+    "title": "Tort Carrot cu Fructe",
+    "desc": ["- Blat umed de morcov cu scorțișoară și nuca", "- Cremă de brânză cu fructe"],
     "min": 1.5,
     "unit": "kg",
     "price": 170
