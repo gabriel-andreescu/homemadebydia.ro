@@ -17,6 +17,7 @@ const showcaseImages = [
   "/gallery/gallery/20",
 ];
 
+const heroRef = ref<HTMLElement | null>(null);
 const currentImageIndex = ref(0);
 
 let intervalId: number | undefined;
@@ -25,8 +26,28 @@ const rotateToNextImage = () => {
   currentImageIndex.value = (currentImageIndex.value + 1) % showcaseImages.length;
 };
 
+const isHeroInViewport = () => {
+  const hero = heroRef.value;
+  if (!hero) return true;
+
+  const rect = hero.getBoundingClientRect();
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  return rect.bottom > 0 && rect.top < viewportHeight;
+};
+
+const tickAutoplay = () => {
+  const tabVisible = !document.hidden;
+  const heroVisible = isHeroInViewport();
+
+  if (!tabVisible || !heroVisible) {
+    return;
+  }
+
+  rotateToNextImage();
+};
+
 onMounted(() => {
-  intervalId = window.setInterval(rotateToNextImage, 4000);
+  intervalId = window.setInterval(tickAutoplay, 4000);
 });
 
 onUnmounted(() => {
@@ -37,7 +58,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section class="w-full min-h-[calc(100svh-8rem)] flex items-center relative overflow-visible">
+  <section ref="heroRef" class="w-full min-h-[calc(100svh-8rem)] flex items-center relative overflow-visible">
     <!-- Floating decorative elements (outside overflow containers) -->
     <div
       class="absolute top-[15%] right-[15%] w-64 h-64 bg-accent/[0.15] lg:bg-accent/25 dark:bg-accent/20 dark:lg:bg-accent/35 rounded-full blur-3xl pointer-events-none animate-float-slow"
