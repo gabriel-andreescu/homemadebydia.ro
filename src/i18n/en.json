@@ -136,7 +136,8 @@
     "switchToRomanian": "Switch to Romanian",
     "closeGallery": "Close gallery",
     "prevImage": "Previous image",
-    "nextImage": "Next image"
+    "nextImage": "Next image",
+    "closeDialog": "Close dialog"
   },
   "contact": {
     "addressLabel": "Address",

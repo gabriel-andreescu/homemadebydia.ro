@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import AppHeader from "./components/AppHeader.vue";
 import AppSection from "./components/AppSection.vue";
@@ -16,8 +16,10 @@ import { useCart } from "./composables/useCart";
 import { useCatalogTabs } from "./composables/useCatalogTabs";
 import { useDocumentTitle } from "./composables/useDocumentTitle";
 import { CONTACT } from "./constants";
+import IconClose from "./components/icons/IconClose.vue";
 import IconPhone from "./components/icons/IconPhone.vue";
 import IconWhatsappBrand from "./components/icons/IconWhatsappBrand.vue";
+import { useDialogA11y } from "./composables/useDialogA11y";
 
 const { t } = useI18n();
 const cart = useCart();
@@ -27,6 +29,16 @@ useDocumentTitle();
 const catalogReached = ref(false);
 const contactInView = ref(false);
 const showFloatingCTA = computed(() => catalogReached.value && !contactInView.value);
+const phoneDialogOpen = ref(false);
+const phoneDialogRef = ref<HTMLElement | null>(null);
+
+useDialogA11y(phoneDialogOpen, phoneDialogRef, () => {
+  phoneDialogOpen.value = false;
+});
+
+watch(phoneDialogOpen, (open) => {
+  document.body.style.overflow = open ? "hidden" : "";
+});
 
 let catalogObserver: IntersectionObserver | null = null;
 let contactObserver: IntersectionObserver | null = null;
@@ -136,17 +148,29 @@ onUnmounted(() => {
   <Transition name="fade-slide-right">
     <nav
       v-if="showFloatingCTA"
-      class="fixed bottom-4 right-4 z-50 flex flex-col-reverse items-center gap-3 lg:hidden"
+      class="fixed bottom-4 right-4 z-50 flex flex-col-reverse items-center gap-3"
       :aria-label="t('accessibility.quickContact')"
     >
-      <!-- Phone -->
+      <!-- Phone (mobile direct call) -->
       <a
         :href="`tel:${CONTACT.phone}`"
-        class="flex items-center justify-center w-12 h-12 bg-accent dark:bg-accent text-white rounded-full shadow-md active:scale-95 transition-all"
+        class="flex lg:hidden items-center justify-center w-12 h-12 bg-accent dark:bg-accent text-white rounded-full shadow-md active:scale-95 transition-all"
         :aria-label="t('accessibility.callNow')"
       >
         <IconPhone class="w-5 h-5" />
       </a>
+
+      <!-- Phone (desktop opens number modal) -->
+      <button
+        type="button"
+        class="hidden lg:flex items-center justify-center w-12 h-12 bg-accent dark:bg-accent text-white rounded-full shadow-md active:scale-95 transition-all"
+        :aria-label="t('accessibility.callNow')"
+        aria-haspopup="dialog"
+        :aria-expanded="phoneDialogOpen ? 'true' : 'false'"
+        @click="phoneDialogOpen = true"
+      >
+        <IconPhone class="w-5 h-5" />
+      </button>
 
       <!-- WhatsApp -->
       <a
@@ -159,6 +183,42 @@ onUnmounted(() => {
       </a>
     </nav>
   </Transition>
+
+  <Teleport to="body">
+    <Transition name="phone-dialog">
+      <div
+        v-if="phoneDialogOpen"
+        class="fixed inset-0 z-[80] bg-black/50 backdrop-blur-[2px] flex items-center justify-center p-4"
+        @click.self="phoneDialogOpen = false"
+      >
+        <div
+          ref="phoneDialogRef"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="phone-dialog-title"
+          tabindex="-1"
+          class="relative w-full max-w-xs rounded-2xl bg-white dark:bg-gray-900 p-6 shadow-2xl text-center"
+        >
+          <button
+            type="button"
+            class="absolute top-2 right-2 grid place-items-center w-9 h-9 text-gray-700 dark:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent-light focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 transition-colors"
+            :aria-label="t('accessibility.closeDialog')"
+            @click="phoneDialogOpen = false"
+          >
+            <IconClose class="w-7 h-7" />
+          </button>
+          <h2 id="phone-dialog-title" class="sr-only">{{ t("accessibility.callNow") }}</h2>
+          <a
+            :href="`tel:${CONTACT.phone}`"
+            class="inline-flex items-center justify-center text-2xl font-medium tracking-wide underline decoration-2 underline-offset-4 text-accent dark:text-accent-light hover:text-accent-dark dark:hover:text-white transition-colors"
+            @click="phoneDialogOpen = false"
+          >
+            {{ CONTACT.phoneDisplay }}
+          </a>
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
 </template>
 
 <style scoped>
@@ -186,5 +246,28 @@ onUnmounted(() => {
 .fade-slide-right-leave-to {
   opacity: 0;
   transform: translateX(1rem);
+}
+
+.phone-dialog-enter-active,
+.phone-dialog-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.phone-dialog-enter-active > div,
+.phone-dialog-leave-active > div {
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.phone-dialog-enter-from,
+.phone-dialog-leave-to {
+  opacity: 0;
+}
+
+.phone-dialog-enter-from > div,
+.phone-dialog-leave-to > div {
+  transform: translateY(8px) scale(0.98);
+  opacity: 0;
 }
 </style>

@@ -70,10 +70,10 @@ const isEmpty = computed(() => cart.count.value === 0);
             <button
               type="button"
               @click="cart.closeDrawer()"
-              class="flex items-center justify-center w-9 h-9 rounded-full text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent-light"
+              class="grid place-items-center w-9 h-9 text-gray-700 dark:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent-light focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-800 transition-colors"
               :aria-label="t('cart.closeCart')"
             >
-              <IconClose class="w-6 h-6" />
+              <IconClose class="w-7 h-7" />
             </button>
           </div>
 

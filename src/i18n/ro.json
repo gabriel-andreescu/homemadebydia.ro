@@ -136,7 +136,8 @@
     "switchToRomanian": "Schimbă în Română",
     "closeGallery": "Închide galeria",
     "prevImage": "Imaginea anterioară",
-    "nextImage": "Imaginea următoare"
+    "nextImage": "Imaginea următoare",
+    "closeDialog": "Închide fereastra"
   },
   "contact": {
     "addressLabel": "Adresă",

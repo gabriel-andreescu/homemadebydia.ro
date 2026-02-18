@@ -1,15 +1,13 @@
 <template>
   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-    <g fill="none">
-      <circle cx="12" cy="12" r="9" fill="black" fill-opacity="0.5" />
-      <path
-        stroke="currentColor"
-        stroke-linecap="square"
-        stroke-linejoin="round"
-        stroke-width="1.2"
-        d="m16 8l-8 8m0-8l8 8"
-      />
-    </g>
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="m16 8l-8 8m0-8l8 8"
+    />
   </svg>
 </template>
 
