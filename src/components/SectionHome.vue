@@ -4,6 +4,7 @@ import { useI18n } from "vue-i18n";
 import AppSocialLinks from "./AppSocialLinks.vue";
 import AppPicture from "./AppPicture.vue";
 import { useScrollTo } from "../composables/useScrollTo";
+import { useHorizontalSwipe } from "../composables/useHorizontalSwipe";
 
 const { t } = useI18n();
 const { scrollTo } = useScrollTo();
@@ -19,11 +20,27 @@ const showcaseImages = [
 
 const heroRef = ref<HTMLElement | null>(null);
 const currentImageIndex = ref(0);
+const AUTOPLAY_INTERVAL_MS = 4000;
 
 let intervalId: number | undefined;
 
-const rotateToNextImage = () => {
-  currentImageIndex.value = (currentImageIndex.value + 1) % showcaseImages.length;
+const setImageIndex = (index: number, resetAutoplay = false) => {
+  currentImageIndex.value = (index + showcaseImages.length) % showcaseImages.length;
+  if (resetAutoplay) {
+    restartAutoplay();
+  }
+};
+
+const goToImage = (index: number) => {
+  setImageIndex(index, true);
+};
+
+const goToNextImage = (resetAutoplay = true) => {
+  setImageIndex(currentImageIndex.value + 1, resetAutoplay);
+};
+
+const goToPrevImage = (resetAutoplay = true) => {
+  setImageIndex(currentImageIndex.value - 1, resetAutoplay);
 };
 
 const isHeroInViewport = () => {
@@ -43,17 +60,40 @@ const tickAutoplay = () => {
     return;
   }
 
-  rotateToNextImage();
+  goToNextImage(false);
 };
 
+const stopAutoplay = () => {
+  if (intervalId !== undefined) {
+    clearInterval(intervalId);
+    intervalId = undefined;
+  }
+};
+
+const startAutoplay = () => {
+  stopAutoplay();
+  intervalId = window.setInterval(tickAutoplay, AUTOPLAY_INTERVAL_MS);
+};
+
+const restartAutoplay = () => {
+  startAutoplay();
+};
+
+const { onTouchStart, onTouchMove, onTouchEnd, onTouchCancel } = useHorizontalSwipe({
+  onSwipeLeft: () => {
+    goToNextImage();
+  },
+  onSwipeRight: () => {
+    goToPrevImage();
+  },
+});
+
 onMounted(() => {
-  intervalId = window.setInterval(tickAutoplay, 4000);
+  startAutoplay();
 });
 
 onUnmounted(() => {
-  if (intervalId !== undefined) {
-    clearInterval(intervalId);
-  }
+  stopAutoplay();
 });
 </script>
 
@@ -99,7 +139,11 @@ onUnmounted(() => {
       <!-- Right: Image showcase -->
       <div class="flex-1 relative w-full max-w-md lg:max-w-none">
         <div
-          class="relative aspect-[3/4] lg:aspect-auto lg:h-[calc(100svh-12rem)] rounded-3xl overflow-hidden shadow-2xl"
+          class="hero-carousel relative aspect-[3/4] lg:aspect-auto lg:h-[calc(100svh-12rem)] rounded-3xl overflow-hidden shadow-2xl"
+          @touchstart="onTouchStart"
+          @touchmove="onTouchMove"
+          @touchend="onTouchEnd"
+          @touchcancel="onTouchCancel"
         >
           <!-- Images with crossfade -->
           <TransitionGroup name="fade">
@@ -126,7 +170,7 @@ onUnmounted(() => {
           <button
             v-for="(_, index) in showcaseImages"
             :key="index"
-            @click="currentImageIndex = index"
+            @click="goToImage(index)"
             class="p-3 group"
             :aria-label="`Image ${index + 1}`"
           >
@@ -189,5 +233,10 @@ onUnmounted(() => {
 
 .animate-float-slower {
   animation: float-slower 20s ease-in-out infinite;
+}
+
+.hero-carousel {
+  touch-action: pan-y;
+  user-select: none;
 }
 </style>

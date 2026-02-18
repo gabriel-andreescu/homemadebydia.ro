@@ -6,6 +6,7 @@ import IconChevronLeft from "./icons/IconChevronLeft.vue";
 import IconChevronRight from "./icons/IconChevronRight.vue";
 import AppPicture from "./AppPicture.vue";
 import { useDialogA11y } from "../composables/useDialogA11y";
+import { useHorizontalSwipe } from "../composables/useHorizontalSwipe";
 
 const props = defineProps<{
   images: string[];
@@ -26,17 +27,9 @@ const hasNext = computed(() => currentIndex.value < props.images.length - 1);
 const hasPrev = computed(() => currentIndex.value > 0);
 const isSingleImage = computed(() => props.images.length === 1);
 
-// Touch swipe handling with velocity
-const touchStartX = ref(0);
-const touchStartTime = ref(0);
-const isDragging = ref(false);
-const dragOffset = ref(0);
 const slideOffset = ref(0); // -1, 0, or 1 for slide animation
 const isAnimating = ref(false);
 const skipTransition = ref(false); // Skip transition during index swap
-
-const SWIPE_THRESHOLD = 80;
-const VELOCITY_THRESHOLD = 0.3; // px/ms
 
 // Elastic resistance when dragging past bounds
 const getElasticOffset = (offset: number): number => {
@@ -58,6 +51,21 @@ const carouselTransform = computed(() => {
   const basePercent = -100 + slideOffset.value * -100;
   return `translateX(calc(${basePercent}% + ${dragOffset.value}px))`;
 });
+
+const { isDragging, dragOffset, onTouchStart, onTouchMove, onTouchEnd, onTouchCancel } =
+  useHorizontalSwipe({
+    isEnabled: () => isOpen.value,
+    isInteractionBlocked: () => isAnimating.value,
+    canSwipeLeft: () => hasNext.value,
+    canSwipeRight: () => hasPrev.value,
+    mapOffset: getElasticOffset,
+    onSwipeLeft: () => {
+      next();
+    },
+    onSwipeRight: () => {
+      prev();
+    },
+  });
 
 const openAt = (index: number) => {
   currentIndex.value = index;
@@ -146,43 +154,6 @@ const goTo = (index: number) => {
   setTimeout(() => {
     isAnimating.value = false;
   }, 100);
-};
-
-// Touch handlers
-const onTouchStart = (e: TouchEvent) => {
-  if (isAnimating.value) return;
-  touchStartX.value = e.touches[0].clientX;
-  touchStartTime.value = Date.now();
-  isDragging.value = true;
-  dragOffset.value = 0;
-};
-
-const onTouchMove = (e: TouchEvent) => {
-  if (!isDragging.value || isAnimating.value) return;
-  const currentX = e.touches[0].clientX;
-  const rawOffset = currentX - touchStartX.value;
-  dragOffset.value = getElasticOffset(rawOffset);
-};
-
-const onTouchEnd = () => {
-  if (!isDragging.value) return;
-  isDragging.value = false;
-
-  const elapsed = Date.now() - touchStartTime.value;
-  const velocity = Math.abs(dragOffset.value) / elapsed;
-  const isQuickSwipe = velocity > VELOCITY_THRESHOLD;
-  const threshold = isQuickSwipe ? SWIPE_THRESHOLD * 0.5 : SWIPE_THRESHOLD;
-
-  if (dragOffset.value > threshold && hasPrev.value) {
-    dragOffset.value = 0;
-    prev();
-  } else if (dragOffset.value < -threshold && hasNext.value) {
-    dragOffset.value = 0;
-    next();
-  } else {
-    // Spring back to center
-    dragOffset.value = 0;
-  }
 };
 
 // Keyboard handlers
@@ -275,6 +246,7 @@ defineExpose({ openAt });
           @touchstart="onTouchStart"
           @touchmove="onTouchMove"
           @touchend="onTouchEnd"
+          @touchcancel="onTouchCancel"
         >
           <!-- Prev button (desktop) -->
           <button
