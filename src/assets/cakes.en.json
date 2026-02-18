@@ -25,18 +25,6 @@
     "price": 170
   },
   {
-    "imageUrl": "/gallery/cakes/tort-cioco-visina",
-    "title": "Chocolate Sour Cherry Cake",
-    "desc": [
-      "Delicate cocoa sponge layers",
-      "Chocolate mascarpone cream",
-      "Sour cherry jelly"
-    ],
-    "min": 1.8,
-    "unit": "kg",
-    "price": 170
-  },
-  {
     "imageUrl": "/gallery/cakes/tort-lapte",
     "title": "Milk Cake",
     "desc": [
@@ -103,10 +91,10 @@
   },
   {
     "imageUrl": "/gallery/cakes/carrot-cake-afine",
-    "title": "Carrot Cake with Blueberries",
+    "title": "Carrot Cake with Fruits",
     "desc": [
       "Moist carrot sponge with cinnamon & walnuts",
-      "Blueberry cream cheese frosting"
+      "Fruit cream cheese frosting"
     ],
     "min": 1.5,
     "unit": "kg",
