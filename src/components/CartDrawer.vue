@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import IconClose from "./icons/IconClose.vue";
 import IconCart from "./icons/IconCart.vue";
@@ -7,14 +7,15 @@ import IconMinus from "./icons/IconMinus.vue";
 import IconPlus from "./icons/IconPlus.vue";
 import IconWhatsappBrand from "./icons/IconWhatsappBrand.vue";
 import AppPicture from "./AppPicture.vue";
-import { useEscapeKey } from "../composables/useEscapeKey";
+import { useDialogA11y } from "../composables/useDialogA11y";
 import { useCart } from "../composables/useCart";
 import { UNIT_STEPS, DEFAULT_UNIT_STEP } from "../constants";
 
 const { t } = useI18n();
 const cart = useCart();
+const dialogRef = ref<HTMLElement | null>(null);
 
-useEscapeKey(cart.drawerOpen, cart.closeDrawer);
+useDialogA11y(cart.drawerOpen, dialogRef, cart.closeDrawer);
 
 const formatPrice = (price: number) => {
   return Math.round(price);
@@ -49,23 +50,31 @@ const isEmpty = computed(() => cart.count.value === 0);
         @click="cart.closeDrawer()"
       >
         <div
+          id="cart-drawer"
+          ref="dialogRef"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="cart-drawer-title"
+          tabindex="-1"
           class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 rounded-t-2xl shadow-2xl max-h-[85vh] flex flex-col"
           @click.stop
         >
           <!-- Header -->
           <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-gray-700">
-            <h2 class="text-lg font-medium text-gray-800 dark:text-gray-100">
+            <h2 id="cart-drawer-title" class="text-lg font-medium text-gray-800 dark:text-gray-100">
               {{ t('cart.myCart') }}
               <span v-if="!isEmpty" class="text-sm font-normal text-gray-500 dark:text-gray-400">
                 ({{ cart.count.value }} {{ cart.count.value === 1 ? t('cart.product') : t('cart.products') }})
               </span>
             </h2>
-            <IconClose
+            <button
+              type="button"
               @click="cart.closeDrawer()"
-              class="cursor-pointer w-9 h-9 text-white drop-shadow-lg"
-              role="button"
+              class="flex items-center justify-center w-9 h-9 rounded-full text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent-light"
               :aria-label="t('cart.closeCart')"
-            />
+            >
+              <IconClose class="w-6 h-6" />
+            </button>
           </div>
 
           <!-- Empty state -->

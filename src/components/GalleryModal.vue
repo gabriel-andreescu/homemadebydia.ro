@@ -5,6 +5,7 @@ import IconClose from "./icons/IconClose.vue";
 import IconChevronLeft from "./icons/IconChevronLeft.vue";
 import IconChevronRight from "./icons/IconChevronRight.vue";
 import AppPicture from "./AppPicture.vue";
+import { useDialogA11y } from "../composables/useDialogA11y";
 
 const props = defineProps<{
   images: string[];
@@ -16,6 +17,7 @@ const isOpen = ref(false);
 const currentIndex = ref(0);
 const targetIndex = ref(0); // For immediate thumbnail highlight
 const thumbnailsRef = ref<HTMLElement | null>(null);
+const dialogRef = ref<HTMLElement | null>(null);
 
 const currentImage = computed(() => props.images[currentIndex.value]);
 const prevImage = computed(() => props.images[currentIndex.value - 1]);
@@ -185,7 +187,6 @@ const onTouchEnd = () => {
 
 // Keyboard handlers
 const onKeydown = (e: KeyboardEvent) => {
-  if (e.key === "Escape") close();
   if (e.key === "ArrowRight") next();
   if (e.key === "ArrowLeft") prev();
 };
@@ -221,6 +222,7 @@ watch(isOpen, (open) => {
 });
 
 watch(currentIndex, scrollToActiveThumbnail);
+useDialogA11y(isOpen, dialogRef, close);
 
 onUnmounted(() => {
   window.removeEventListener("keydown", onKeydown);
@@ -238,9 +240,19 @@ defineExpose({ openAt });
     <Transition name="gallery-modal">
       <div
         v-if="isOpen"
+        id="gallery-modal"
+        ref="dialogRef"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="gallery-modal-title"
+        tabindex="-1"
         class="fixed inset-0 z-[70] flex flex-col bg-black/95 backdrop-blur-sm"
         @click.self="close"
       >
+        <h2 id="gallery-modal-title" class="sr-only">
+          {{ t("sections.gallery") }}
+        </h2>
+
         <!-- Header -->
         <div class="flex justify-between items-center p-4">
           <span v-if="!isSingleImage" class="text-white/70 text-sm">
