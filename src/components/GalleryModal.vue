@@ -68,8 +68,11 @@ const { isDragging, dragOffset, onTouchStart, onTouchMove, onTouchEnd, onTouchCa
   });
 
 const openAt = (index: number) => {
-  currentIndex.value = index;
-  targetIndex.value = index;
+  if (props.images.length === 0) return;
+
+  const safeIndex = Math.min(Math.max(index, 0), props.images.length - 1);
+  currentIndex.value = safeIndex;
+  targetIndex.value = safeIndex;
   slideOffset.value = 0;
   dragOffset.value = 0;
   isOpen.value = true;

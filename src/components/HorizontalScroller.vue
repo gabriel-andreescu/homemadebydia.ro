@@ -6,29 +6,49 @@ defineProps<{
   gradientHeight?: string;
 }>();
 
+const emit = defineEmits<{
+  (e: "end-visible"): void;
+}>();
+
 const scrollerRef = ref<HTMLElement | null>(null);
 let isScrolling = false;
 
 // Hide the right gradient "glow" when the last item is fully visible
 const isAtEnd = ref(false);
 let endObserver: IntersectionObserver | null = null;
+let observedLastElement: HTMLElement | null = null;
 
 function setupEndObserver() {
-  endObserver?.disconnect();
-  endObserver = null;
-
   const root = scrollerRef.value;
   const last = root?.lastElementChild as HTMLElement | null;
 
   if (!root || !last) {
     isAtEnd.value = true;
+    observedLastElement = null;
+    endObserver?.disconnect();
+    endObserver = null;
     return;
   }
 
+  const didLastElementChange = observedLastElement !== last;
+  observedLastElement = last;
+
+  // Only reset when the actual tail item changes; this avoids re-observe loops on normal updates.
+  if (didLastElementChange) {
+    isAtEnd.value = false;
+  }
+
+  endObserver?.disconnect();
+  endObserver = null;
+
   endObserver = new IntersectionObserver(
     ([entry]) => {
-      // 0.99 avoids flaky "never hits 1.0" due to subpixel rounding
-      isAtEnd.value = entry.isIntersecting && entry.intersectionRatio >= 0.99;
+      // 0.99 avoids flaky "never hits 1.0" due to subpixel rounding.
+      const nextIsAtEnd = entry.isIntersecting && entry.intersectionRatio >= 0.99;
+      if (nextIsAtEnd && !isAtEnd.value) {
+        emit("end-visible");
+      }
+      isAtEnd.value = nextIsAtEnd;
     },
     { root, threshold: [0, 0.5, 0.99] },
   );
