@@ -1,8 +1,12 @@
 import { ref, computed, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import { CONTACT } from "../constants";
-import cakes from "../assets/cakes.json";
-import cookies from "../assets/cookies.json";
-import pastry from "../assets/pastry.json";
+import cakesRo from "../assets/cakes.json";
+import cakesEn from "../assets/cakes.en.json";
+import cookiesRo from "../assets/cookies.json";
+import cookiesEn from "../assets/cookies.en.json";
+import pastryRo from "../assets/pastry.json";
+import pastryEn from "../assets/pastry.en.json";
 
 // What we store in localStorage (minimal)
 interface StoredCartItem {
@@ -32,14 +36,12 @@ const STORAGE_KEY = "homemadebydia_cart";
 const drawerOpen = ref(false);
 const lastAdded = ref<string | null>(null);
 
-// Build lookup map from all catalogs
-const allProducts = [...cakes, ...cookies, ...pastry] as CatalogProduct[];
-
 function getProductId(product: CatalogProduct): string {
-  return Array.isArray(product.imageUrl) ? product.imageUrl[0] : product.imageUrl;
+  if (Array.isArray(product.imageUrl)) {
+    return product.imageUrl[0] ?? "";
+  }
+  return product.imageUrl;
 }
-
-const productMap = new Map<string, CatalogProduct>(allProducts.map((p) => [getProductId(p), p]));
 
 function loadFromStorage(): StoredCartItem[] {
   try {
@@ -61,11 +63,24 @@ watch(
 );
 
 export function useCart() {
+  const { locale } = useI18n();
+
+  // Match the same locale-specific catalog data used in SectionCatalog.
+  const allProducts = computed<CatalogProduct[]>(() =>
+    locale.value === "en"
+      ? ([...cakesEn, ...cookiesEn, ...pastryEn] as CatalogProduct[])
+      : ([...cakesRo, ...cookiesRo, ...pastryRo] as CatalogProduct[]),
+  );
+
+  const productMap = computed(
+    () => new Map<string, CatalogProduct>(allProducts.value.map((p) => [getProductId(p), p])),
+  );
+
   // Resolve stored items with fresh catalog data, filtering out missing products
   const items = computed<CartItem[]>(() => {
     return storedItems.value
       .map((stored) => {
-        const product = productMap.get(stored.id);
+        const product = productMap.value.get(stored.id);
         if (!product) return null;
 
         return {
@@ -116,7 +131,7 @@ export function useCart() {
 
   function update(id: string, quantity: number) {
     const stored = storedItems.value.find((i) => i.id === id);
-    const product = productMap.get(id);
+    const product = productMap.value.get(id);
     if (stored && product) {
       stored.quantity = Math.max(product.min ?? 1, quantity);
     }
