@@ -18,16 +18,21 @@ const showcaseImages = [
 ];
 
 const currentImageIndex = ref(0);
+
 let intervalId: number | undefined;
 
+const rotateToNextImage = () => {
+  currentImageIndex.value = (currentImageIndex.value + 1) % showcaseImages.length;
+};
+
 onMounted(() => {
-  intervalId = window.setInterval(() => {
-    currentImageIndex.value = (currentImageIndex.value + 1) % showcaseImages.length;
-  }, 4000);
+  intervalId = window.setInterval(rotateToNextImage, 4000);
 });
 
 onUnmounted(() => {
-  if (intervalId) clearInterval(intervalId);
+  if (intervalId !== undefined) {
+    clearInterval(intervalId);
+  }
 });
 </script>
 
@@ -84,7 +89,7 @@ onUnmounted(() => {
               :src="img"
               :alt="t('accessibility.heroShowcase')"
               img-class="absolute inset-0 w-full h-full object-cover"
-              eager
+              :eager="index === 0"
               sizes="(max-width: 1024px) 100vw, min(50vw, 640px)"
             />
           </TransitionGroup>
