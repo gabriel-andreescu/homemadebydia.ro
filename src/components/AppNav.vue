@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useEscapeKey } from "../composables/useEscapeKey";
 import { useScrollTo } from "../composables/useScrollTo";
@@ -17,12 +17,105 @@ const { selectTab } = useCatalogTabs();
 
 useEscapeKey(navOpen, () => (navOpen.value = false));
 
+const bodyStyleSnapshot = {
+  position: "",
+  top: "",
+  left: "",
+  right: "",
+  width: "",
+};
+let savedScrollY = 0;
+let isBodyScrollLocked = false;
+let shouldRestoreScrollOnUnlock = true;
+let removeDesktopBreakpointListener: (() => void) | null = null;
+
+function lockBodyScroll() {
+  if (isBodyScrollLocked) return;
+
+  const body = document.body;
+  savedScrollY = window.scrollY;
+  bodyStyleSnapshot.position = body.style.position;
+  bodyStyleSnapshot.top = body.style.top;
+  bodyStyleSnapshot.left = body.style.left;
+  bodyStyleSnapshot.right = body.style.right;
+  bodyStyleSnapshot.width = body.style.width;
+
+  body.style.position = "fixed";
+  body.style.top = `-${savedScrollY}px`;
+  body.style.left = "0";
+  body.style.right = "0";
+  body.style.width = "100%";
+  isBodyScrollLocked = true;
+  shouldRestoreScrollOnUnlock = true;
+}
+
+function unlockBodyScroll() {
+  if (!isBodyScrollLocked) return;
+
+  const body = document.body;
+  body.style.position = bodyStyleSnapshot.position;
+  body.style.top = bodyStyleSnapshot.top;
+  body.style.left = bodyStyleSnapshot.left;
+  body.style.right = bodyStyleSnapshot.right;
+  body.style.width = bodyStyleSnapshot.width;
+  if (shouldRestoreScrollOnUnlock) {
+    window.scrollTo(0, savedScrollY);
+  }
+  isBodyScrollLocked = false;
+  shouldRestoreScrollOnUnlock = true;
+}
+
+watch(navOpen, (open) => {
+  if (open) {
+    lockBodyScroll();
+    return;
+  }
+
+  unlockBodyScroll();
+});
+
+onMounted(() => {
+  const desktopBreakpoint = window.matchMedia("(min-width: 1024px)");
+  const onDesktop = (matches: boolean) => {
+    if (!matches) return;
+    navOpen.value = false;
+    unlockBodyScroll();
+  };
+
+  const handleChange = (event: MediaQueryListEvent) => {
+    onDesktop(event.matches);
+  };
+
+  onDesktop(desktopBreakpoint.matches);
+
+  if (typeof desktopBreakpoint.addEventListener === "function") {
+    desktopBreakpoint.addEventListener("change", handleChange);
+    removeDesktopBreakpointListener = () => {
+      desktopBreakpoint.removeEventListener("change", handleChange);
+    };
+    return;
+  }
+
+  desktopBreakpoint.addListener(handleChange);
+  removeDesktopBreakpointListener = () => {
+    desktopBreakpoint.removeListener(handleChange);
+  };
+});
+
+onUnmounted(() => {
+  removeDesktopBreakpointListener?.();
+  removeDesktopBreakpointListener = null;
+  unlockBodyScroll();
+});
+
 function navigate(id: string) {
+  shouldRestoreScrollOnUnlock = false;
   navOpen.value = false;
   scrollTo(id);
 }
 
 function navigateToTab(tab: string) {
+  shouldRestoreScrollOnUnlock = false;
   navOpen.value = false;
   selectTab(tab, true, true); // updateHash=true, scrollToTop=true
 }
