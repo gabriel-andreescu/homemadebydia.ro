@@ -47,7 +47,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="fixed bg-white dark:bg-gray-900 w-full px-4 lg:px-12 z-10">
+  <header class="fixed bg-white dark:bg-gray-900 w-full px-4 lg:px-12 z-30">
     <div
       class="container mx-auto flex justify-between items-center transition-[height] duration-200"
       :class="{ 'h-32': !scrolledFromTop, 'h-16': scrolledFromTop }"
