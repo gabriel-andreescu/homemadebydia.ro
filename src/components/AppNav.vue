@@ -108,16 +108,30 @@ onUnmounted(() => {
   unlockBodyScroll();
 });
 
-function navigate(id: string) {
+function runAfterClosingMobileMenu(action: () => void) {
+  if (!navOpen.value) {
+    action();
+    return;
+  }
+
   shouldRestoreScrollOnUnlock = false;
   navOpen.value = false;
-  scrollTo(id);
+
+  window.requestAnimationFrame(() => {
+    action();
+  });
+}
+
+function navigate(id: string) {
+  runAfterClosingMobileMenu(() => {
+    void scrollTo(id);
+  });
 }
 
 function navigateToTab(tab: string) {
-  shouldRestoreScrollOnUnlock = false;
-  navOpen.value = false;
-  selectTab(tab, true, true); // updateHash=true, scrollToTop=true
+  runAfterClosingMobileMenu(() => {
+    selectTab(tab, true, true); // updateHash=true, scrollToTop=true
+  });
 }
 </script>
 
