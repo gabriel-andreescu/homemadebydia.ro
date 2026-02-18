@@ -257,8 +257,15 @@ const testimonials = computed<Testimonial[]>(() =>
   </div>
 
   <!-- Google attribution -->
-  <p class="text-center text-sm text-neutral-500 dark:text-neutral-400 mt-8">
-    {{ t("testimonials.source") }}
+  <p class="text-center mt-8">
+    <a
+      href="https://share.google/hPCdZDLQpELxqblGd"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center gap-1 text-sm font-medium text-neutral-600 dark:text-neutral-300 underline decoration-neutral-400/70 underline-offset-4 hover:text-accent dark:hover:text-accent-light hover:decoration-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-sm transition-colors"
+    >
+      {{ t("testimonials.source") }}
+    </a>
   </p>
 
   <GalleryModal ref="galleryModalRef" :images="currentOriginalImage" />

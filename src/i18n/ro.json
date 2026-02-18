@@ -151,7 +151,7 @@
   },
   "testimonials": {
     "rating": "{count} stele din 5",
-    "source": "Recenzii de pe Google",
+    "source": "Vezi mai multe recenzii pe Google",
     "imageAlt": "Fotografie atașată de {name}"
   }
 }

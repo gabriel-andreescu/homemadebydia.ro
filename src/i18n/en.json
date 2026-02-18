@@ -151,7 +151,7 @@
   },
   "testimonials": {
     "rating": "{count} out of 5 stars",
-    "source": "Reviews from Google",
+    "source": "See more reviews on Google",
     "imageAlt": "Photo attached by {name}"
   }
 }
