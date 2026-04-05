@@ -147,7 +147,11 @@
   "footer": {
     "cakeTopViewAlt": "poză cu un tort văzut de sus",
     "didYouLike": "Ți-a plăcut?",
-    "leaveReview": "Lasă o recenzie"
+    "leaveReview": "Lasă o recenzie",
+    "salEyebrow": "ANPC · SAL",
+    "salDescription": "Accesează platforma ANPC pentru soluționarea alternativă a litigiilor.",
+    "salBadgeAlt": "Pictograma ANPC pentru soluționarea alternativă a litigiilor",
+    "salLinkLabel": "Deschide platforma ANPC pentru soluționarea alternativă a litigiilor"
   },
   "testimonials": {
     "rating": "{count} stele din 5",

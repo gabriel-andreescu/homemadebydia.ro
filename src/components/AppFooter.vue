@@ -15,7 +15,7 @@ const { t } = useI18n();
   <footer class="mt-16 lg:mt-32">
     <section class="flex flex-col xl:flex-row">
       <section
-        class="flex flex-col w-full xl:w-1/2 pt-16 lg:pl-8 px-2 bg-gradient-to-r from-transparent to-nude dark:bg-none"
+        class="flex flex-col w-full xl:w-1/2 px-2 pt-16 pb-8 lg:pl-8 sm:pb-10 xl:pb-0 bg-gradient-to-r from-transparent to-nude dark:bg-none"
       >
         <h2 id="cum-sa-comanzi" class="text-4xl lg:text-6xl font-serif mb-10">
           {{ t("howToOrder.title") }}
@@ -79,6 +79,29 @@ const { t } = useI18n();
               </a>
             </div>
           </div>
+          <a
+            href="https://reclamatiisal.anpc.ro/"
+            target="_blank"
+            rel="noopener noreferrer"
+            :aria-label="t('footer.salLinkLabel')"
+            class="inline-flex w-full max-w-md items-center gap-4 rounded-3xl border border-black/10 bg-white/85 px-4 py-3 text-left shadow-sm shadow-black/5 backdrop-blur-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-white/10 dark:bg-white/5 dark:shadow-black/20"
+          >
+            <img
+              src="/SAL-PICTOGRAMA.png"
+              :alt="t('footer.salBadgeAlt')"
+              class="h-12 w-auto shrink-0 object-contain sm:h-14"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="flex min-w-0 flex-col">
+              <span class="text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-accent-dark dark:text-accent-light">
+                {{ t("footer.salEyebrow") }}
+              </span>
+              <span class="mt-1 text-sm leading-5 text-gray-700 dark:text-gray-300">
+                {{ t("footer.salDescription") }}
+              </span>
+            </span>
+          </a>
         </section>
       </section>
       <section class="hidden xl:block xl:w-1/2 bg-nude dark:bg-none self-end">

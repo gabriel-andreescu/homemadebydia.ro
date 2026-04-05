@@ -147,7 +147,11 @@
   "footer": {
     "cakeTopViewAlt": "top view of a cake",
     "didYouLike": "Did you like it?",
-    "leaveReview": "Leave a review"
+    "leaveReview": "Leave a review",
+    "salEyebrow": "ANPC · ADR",
+    "salDescription": "Open the ANPC platform for alternative dispute resolution.",
+    "salBadgeAlt": "ANPC alternative dispute resolution pictogram",
+    "salLinkLabel": "Open the ANPC alternative dispute resolution platform"
   },
   "testimonials": {
     "rating": "{count} out of 5 stars",
