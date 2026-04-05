@@ -10,26 +10,7 @@ const selectedTabState: { selectedTab: string } | undefined = inject("selectedTa
 </script>
 
 <template>
-  <Transition name="slide-fade">
-    <div v-show="selectedTabState?.selectedTab === tabKey" class="p-2">
-      <slot></slot>
-    </div>
-  </Transition>
+  <div v-if="selectedTabState?.selectedTab === tabKey" class="w-full p-2">
+    <slot></slot>
+  </div>
 </template>
-
-<!--suppress CssUnusedSymbol -->
-<style scoped>
-.slide-fade-enter-active {
-  transition: all 0.1s ease-out;
-}
-
-.slide-fade-leave-active {
-  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateX(40px);
-  opacity: 0;
-}
-</style>

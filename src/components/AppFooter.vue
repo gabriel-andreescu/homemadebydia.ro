@@ -1,22 +1,44 @@
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
 import AppSocialLinks from "./AppSocialLinks.vue";
+import AppPicture from "./AppPicture.vue";
+import IconGoogle from "./icons/IconGoogle.vue";
+import IconMail from "./icons/IconMail.vue";
+import IconMapPin from "./icons/IconMapPin.vue";
+import IconPhone from "./icons/IconPhone.vue";
+import { CONTACT } from "../constants";
+
+const { t } = useI18n();
 </script>
 
 <template>
   <footer class="mt-16 lg:mt-32">
-    <section class="flex justify-between">
+    <section class="flex flex-col xl:flex-row">
       <section
-        id="cum-sa-comanzi"
-        class="flex flex-col pt-16 lg:pt-32 lg:pl-8 px-2 grow bg-gradient-to-r from-transparent to-nude"
+        class="flex flex-col w-full xl:w-1/2 px-2 pt-16 pb-8 lg:pl-8 sm:pb-10 xl:pb-0 bg-gradient-to-r from-transparent to-nude dark:bg-none"
       >
-        <h2 class="text-4xl lg:text-6xl mb-10">Cum să comanzi</h2>
+        <h2 id="cum-sa-comanzi" class="text-4xl lg:text-6xl font-serif mb-10">
+          {{ t("howToOrder.title") }}
+        </h2>
         <div class="how-to-order-paragraphs">
-          <p>― Alege un produs potrivit gusturilor tale</p>
-          <p>― Consultă-ne pentru a lua cea mai bună decizie</p>
-          <p>― Stabilește împreună cu noi data și ora la care vrei să fie gata comanda</p>
-          <p>― Te așteptăm la locația noastră să îți ridici comanda</p>
+          <p>{{ t("howToOrder.step1") }}</p>
+          <p>{{ t("howToOrder.step2") }}</p>
+          <p>{{ t("howToOrder.step3") }}</p>
+          <p>{{ t("howToOrder.step4") }}</p>
         </div>
-        <section class="flex h-full mt-2 md:w-1/2 lg:mt-8">
+        <div class="flex items-center gap-3 my-6">
+          <span class="text-sm text-gray-600 dark:text-gray-400">{{ t("footer.didYouLike") }}</span>
+          <a
+            :href="CONTACT.googleReview"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-accent dark:bg-accent text-white rounded-full shadow-md shadow-accent/20 dark:shadow-accent/30 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] transition-all duration-300"
+          >
+            <IconGoogle class="w-4 h-4" />
+            {{ t("footer.leaveReview") }}
+          </a>
+        </div>
+        <section class="flex h-80">
           <iframe
             title="Google Maps"
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11370.733221679735!2d25.9309805!3d44.562586!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xfbb397e844540bfb!2sHomemade%20by%20Dia!5e0!3m2!1sro!2sro!4v1670659460931!5m2!1sro!2sro"
@@ -25,46 +47,86 @@ import AppSocialLinks from "./AppSocialLinks.vue";
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
         </section>
-        <section id="contact" class="h-full flex flex-col lg:flex-row lg:items-end">
-          <div>
-            <span class="text-2xl lg:text-4xl text-accent mt-10">Homemade by Dia</span>
-            <AppSocialLinks class="max-lg:h-auto max-lg:py-2 lg:justify-center" :center="false" />
-          </div>
-          <div class="mb-4 lg:h-32 lg:mb-0 flex lg:items-center">
-            <p class="text-2xl flex flex-col items-start">
+        <section id="contact" class="mt-6 flex flex-col">
+          <AppSocialLinks class="h-auto mb-2" :center="false" />
+          <div class="mb-4 flex">
+            <div class="lg:text-lg flex flex-col gap-2">
               <a
-                href="tel:+40787283917"
-                class="mb-2 underline hover:text-accent-dark cursor-pointer transition-colors duration-200"
+                :href="`tel:${CONTACT.phone}`"
+                class="inline-flex items-center gap-2 underline hover:text-accent-dark dark:hover:text-accent-light cursor-pointer transition-colors duration-300"
               >
-                +0787 283 917
+                <IconPhone class="w-5 h-5 shrink-0" aria-hidden="true" />
+                <span class="sr-only">{{ t("accessibility.callNow") }}:</span>
+                {{ CONTACT.phoneDisplay }}
               </a>
               <a
-                href="mailto:diana@homemadebydia.ro"
-                class="underline hover:text-accent-dark cursor-pointer transition-colors duration-200"
+                :href="`mailto:${CONTACT.email}`"
+                class="inline-flex items-center gap-2 underline hover:text-accent-dark dark:hover:text-accent-light cursor-pointer transition-colors duration-300"
               >
-                diana@homemadebydia.ro
+                <IconMail class="w-5 h-5 shrink-0" aria-hidden="true" />
+                <span class="sr-only">{{ t("accessibility.sendEmail") }}:</span>
+                {{ CONTACT.email }}
               </a>
-            </p>
+              <a
+                :href="CONTACT.maps"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 underline hover:text-accent-dark dark:hover:text-accent-light cursor-pointer transition-colors duration-300"
+              >
+                <IconMapPin class="w-5 h-5 shrink-0" aria-hidden="true" />
+                <span class="sr-only">{{ t("accessibility.openInMaps") }}:</span>
+                {{ t("contact.address") }}
+              </a>
+            </div>
           </div>
+          <a
+            href="https://reclamatiisal.anpc.ro/"
+            target="_blank"
+            rel="noopener noreferrer"
+            :aria-label="t('footer.salLinkLabel')"
+            class="inline-flex w-full max-w-md items-center gap-4 rounded-3xl border border-black/10 bg-white/85 px-4 py-3 text-left shadow-sm shadow-black/5 backdrop-blur-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-white/10 dark:bg-white/5 dark:shadow-black/20"
+          >
+            <img
+              src="/SAL-PICTOGRAMA.png"
+              :alt="t('footer.salBadgeAlt')"
+              class="h-12 w-auto shrink-0 object-contain sm:h-14"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="flex min-w-0 flex-col">
+              <span class="text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-accent-dark dark:text-accent-light">
+                {{ t("footer.salEyebrow") }}
+              </span>
+              <span class="mt-1 text-sm leading-5 text-gray-700 dark:text-gray-300">
+                {{ t("footer.salDescription") }}
+              </span>
+            </span>
+          </a>
         </section>
       </section>
-      <div class="bg-nude">
-        <picture class="hidden 2xl:block max-h-screen">
-          <source srcset="/gallery/footer.webp" type="image/webp" />
-          <source srcset="/gallery/footer.jpg" type="image/jpeg" />
-          <img
-            src="/gallery/footer.jpg"
-            alt="poză cu un tort văzut de sus"
-            class="hidden 2xl:block max-h-screen"
-          />
-        </picture>
-      </div>
+      <section class="hidden xl:block xl:w-1/2 bg-nude dark:bg-none self-end">
+        <!-- Footer images are gradient-heavy; keep them as hand-tuned originals (no responsive variants). -->
+        <img
+          src="/gallery/footer.jpg"
+          :alt="t('footer.cakeTopViewAlt')"
+          class="w-full max-w-full h-auto object-cover dark:hidden max-h-[min(100vh,1284px)]"
+          loading="lazy"
+          decoding="async"
+        />
+        <img
+          src="/gallery/footer-dark.min.png"
+          :alt="t('footer.cakeTopViewAlt')"
+          class="hidden dark:block w-full max-w-full h-auto object-cover max-h-[min(100vh,1284px)]"
+          loading="lazy"
+          decoding="async"
+        />
+      </section>
     </section>
   </footer>
 </template>
 
 <style scoped>
 .how-to-order-paragraphs p {
-  @apply text-lg lg:text-xl mb-4;
+  @apply lg:text-lg mb-4;
 }
 </style>

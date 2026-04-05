@@ -1,0 +1,161 @@
+{
+  "meta": {
+    "title": "Cofetăria Homemade by Dia - Delicii Naturale în Buftea"
+  },
+  "nav": {
+    "aboutUs": "Despre noi",
+    "catalog": "Catalog",
+    "cakes": "Torturi",
+    "pastries": "Prăjituri",
+    "bakery": "Patiserie",
+    "events": "Evenimente",
+    "gallery": "Galerie",
+    "whyUs": "De ce noi?",
+    "testimonials": "Recenzii",
+    "howToOrder": "Cum comand",
+    "contact": "Contact",
+    "menu": "Menu"
+  },
+  "sections": {
+    "aboutUs": "Despre noi",
+    "catalog": "Catalog",
+    "gallery": "Galerie",
+    "whyUs": "De ce noi?",
+    "testimonials": "Ce spun clienții"
+  },
+  "gallery": {
+    "events": "Evenimente"
+  },
+  "home": {
+    "title": "Laborator autorizat de cofetărie,",
+    "titleLine2": "torturi personalizate și prăjituri la comandă în Buftea (Ilfov)",
+    "naturalIngredients": "✓ Ingrediente naturale",
+    "licensedWorkshop": "✓ Laborator autorizat",
+    "madeToOrder": "✓ Făcut la comandă",
+    "viewCatalog": "Vezi catalogul"
+  },
+  "aboutUs": {
+    "intro": "Bună!😊 Pentru cei care nu mă cunosc deja, eu sunt Diana.",
+    "p1": "Pasiunea mea pentru dulciuri a început acum mulți ani, când îmi căutam un loc de muncă stabil și am ajuns, din întâmplare, să lucrez ca ajutor de cofetar într-o cofetărie din București. Am fost profund impresionată să descopăr procesul de preparare a cremelor (cele naturale, desigur, nu vorbim de premixuri), a blaturilor și a altor delicii dulci.",
+    "p2": "Am decis să îmi dezvolt abilitățile și am urmat un curs specializat de cofetar-patiser.",
+    "p3": "Nu mi-a fost suficient să fac doar torturi după rețete clasice, așa că am experimentat și am adaptat multe elemente pentru a transforma dulciurile într-o adevărată poveste. 💕",
+    "p4": "Mi-am urmat pasiunea și am reușit să deschid micul meu laborator de cofetărie, Homemade by Dia, aici, în Buftea, unde, la comandă, creez produse de calitate superioară și mereu proaspete: torturi personalizate, prăjituri delicioase și Candy Bar pentru evenimente speciale.",
+    "p5": "Mă bucur enorm să particip la evenimentele voastre prin creațiile mele dulci, fie că este vorba de aniversări, reuniuni de familie, nunți, botezuri sau alte ocazii speciale.",
+    "p6": "Vă mulțumesc tuturor pentru susținere și pentru feedback-urile voastre pozitive și constructive!",
+    "imageAlt": "Diana, fondatoarea Homemade by Dia, la un candy bar de eveniment, cu o varietate de deserturi artizanale.",
+    "readMore": "Vezi mai mult",
+    "readLess": "Ascunde"
+  },
+  "whyUs": {
+    "quality": "Calitate",
+    "qualityDesc": "Produse artizanale concepute cu ingrediente naturale",
+    "qualityAlt": "poza care reprezinta calitatea serviciilor noastre",
+    "uniqueness": "Unicitate",
+    "uniquenessDesc": "Folosim rețete proprii, pline de savoare",
+    "uniquenessAlt": "poza care reprezinta unicitatea serviciilor noastre",
+    "professionalism": "Profesionalism",
+    "professionalismDesc": "Comunicarea cu clienții este prioritatea noastră",
+    "professionalismAlt": "poza care reprezinta profesionalism-ul serviciilor noastre"
+  },
+  "howToOrder": {
+    "title": "Cum să comanzi",
+    "step1": "― Adaugă în coș produsele dorite",
+    "step2": "― Ajustează cantitățile și trimite comanda pe WhatsApp",
+    "step3": "― Confirmăm împreună detaliile (dată, personalizări, preț final)",
+    "step4": "― Te așteptăm la locația noastră să îți ridici comanda"
+  },
+  "catalog": {
+    "cakes": "Torturi",
+    "pastries": "Prăjituri",
+    "bakery": "Patiserie",
+    "events": "Evenimente",
+    "decorNote": "Decorurile personalizate se achită separat, prețul începând de la {decorMin} lei până la {decorMax} lei in funcție de complexitate",
+    "allergyNote": "În cazul în care suferiţi de o alergie / sunteți intolerant la un ingredient, vă rugăm să solicitaţi informaţii suplimentare înainte de efectuarea comenzii",
+    "availableAssortments": "Sortimente disponibile",
+    "chouxList": "Choux: fistic și zmeură, alune de pădure, ciocolată, lămâie și bezea, exotic",
+    "tarteList": "Tarte: fructe, caramel, fistic și zmeură, alune de pădure, ciocolată, lămâie și bezea, exotic",
+    "miniPastriesList": "Prajituri mini: pavlova, carrot, medovik, snickers, savarină clasică, savarină cu fistic",
+    "standardOffer": "Oferta standard",
+    "standardOfferDesc": "Oferta candy bar este de {price} lei/persoană și include {pastriesPerPerson} prăjituri/persoană dintr-un total de {varietiesCount} sortimente, plus bezele și fursecuri cadou. Poate fi personalizată în funcție de preferințe. Ofertă valabilă pentru minim {minimumGuests} de persoane.",
+    "dessertsGlassList": "Desert la pahar: mousse de ciocolată, fructe de pădure, exotic, panna cotta, cheesecake",
+    "customTheme": "Tematică personalizată",
+    "customThemeDesc": "Pentru tematică personalizată se adaugă +{customThemeSurcharge} lei/persoană (include toppere, numele copilului, imagini comestibile etc.).",
+    "optional": "Opțional",
+    "dishRental": "Chirie vase - începând de la {dishRental} lei",
+    "candyBarSetup": "Montaj candy bar - {candyBarSetup} lei",
+    "dishPickup": "Preluare vase - începând de la {dishPickup} lei",
+    "delivery": "Livrare - începând de la {delivery} lei (mașină frigorifică)",
+    "favors": "Mărturii - începând de la {favors} lei",
+    "favorsCaption": "Exemplu de mărturii disponibile",
+    "favorsAlt": "Mărturii"
+  },
+  "product": {
+    "addToCart": "Adaugă în coș",
+    "inCart": "În coș",
+    "removeFromCart": "Elimină din coș",
+    "seeMore": "vezi mai mult",
+    "seeLess": "ascunde",
+    "minimum": "minim",
+    "pricePerUnit": "lei"
+  },
+  "cart": {
+    "myCart": "Coșul meu",
+    "product": "produs",
+    "products": "produse",
+    "emptyCart": "Coșul tău este gol",
+    "addFromCatalog": "Adaugă produse din catalog",
+    "closeCart": "Închide coșul",
+    "decreaseQuantity": "Scade cantitatea",
+    "increaseQuantity": "Crește cantitatea",
+    "delete": "Șterge",
+    "estimate": "Estimare",
+    "sendOnWhatsApp": "Trimite comanda pe WhatsApp",
+    "clearCart": "Golește coșul",
+    "addedToCart": "Adăugat în coș"
+  },
+  "accessibility": {
+    "callNow": "Sună acum",
+    "sendEmail": "Trimite email",
+    "sendWhatsApp": "Trimite mesaj pe WhatsApp",
+    "openInMaps": "Deschide în Google Maps",
+    "quickContact": "Contact rapid",
+    "cartItems": "Coș ({count} produse)",
+    "toggleLightMode": "Comută la modul luminos",
+    "toggleDarkMode": "Comută la modul întunecat",
+    "galleryImage": "imagine din galerie",
+    "heroShowcase": "produs din vitrina noastră",
+    "enlargedImage": "imagine mărită",
+    "eventsGalleryImage": "imagine din galeria de evenimente",
+    "productAltSuffix": "la Homemade by Dia - cofetărie din Buftea",
+    "visitFacebook": "Vizitați pagina noastră de Facebook",
+    "sendMessenger": "Trimiteți-ne un mesaj pe Messenger",
+    "visitInstagram": "Vizitați profilul nostru de Instagram",
+    "chatWhatsApp": "Discutați cu noi pe WhatsApp",
+    "logo": "Logo Homemade by Dia",
+    "switchToEnglish": "Schimbă în Engleză",
+    "switchToRomanian": "Schimbă în Română",
+    "closeGallery": "Închide galeria",
+    "prevImage": "Imaginea anterioară",
+    "nextImage": "Imaginea următoare",
+    "closeDialog": "Închide fereastra"
+  },
+  "contact": {
+    "addressLabel": "Adresă",
+    "mapsQuery": "Homemade by Dia, Str. Cloșca 22A, Buftea, Ilfov 070000, România",
+    "address": "Str. Cloșca 22A, Buftea (Ilfov), 070000, România"
+  },
+  "footer": {
+    "cakeTopViewAlt": "poză cu un tort văzut de sus",
+    "didYouLike": "Ți-a plăcut?",
+    "leaveReview": "Lasă o recenzie",
+    "salEyebrow": "ANPC · SAL",
+    "salDescription": "Accesează platforma ANPC pentru soluționarea alternativă a litigiilor.",
+    "salBadgeAlt": "Pictograma ANPC pentru soluționarea alternativă a litigiilor",
+    "salLinkLabel": "Deschide platforma ANPC pentru soluționarea alternativă a litigiilor"
+  },
+  "testimonials": {
+    "rating": "{count} stele din 5",
+    "source": "Vezi mai multe recenzii pe Google",
+    "imageAlt": "Fotografie atașată de {name}"
+  }
+}

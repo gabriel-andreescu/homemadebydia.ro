@@ -1,0 +1,75 @@
+[
+  {
+    "imageUrl": "/gallery/pastry/mini-tarte",
+    "title": "Mini Tarts",
+    "assortments": "vanilla, fruit, lemon meringue, chocolate, caramel, pistachio, hazelnut",
+    "min": 0,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/pastry/maxi-tarta",
+    "title": "Large Tart",
+    "assortments": "pistachio & raspberry",
+    "desc": ["weighs approx. 600 g"],
+    "unit": "pc",
+    "price": 100
+  },
+  {
+    "imageUrl": "/gallery/pastry/saratele",
+    "title": "Savory Sticks",
+    "desc": [
+      "Parmesan",
+      "Parmesan & caraway"
+    ],
+    "unit": "100 g",
+    "price": 13
+  },
+  {
+    "imageUrl": "/gallery/pastry/mini-babka",
+    "title": "Mini Babka",
+    "desc": [
+      "Soaked in delicious orange & rum syrup",
+      "Walnut filling with cocoa & candied orange",
+      "Brandy syrup option (+10 lei)",
+      "weighs approx. 650-700 g"
+    ],
+    "unit": "pc",
+    "price": 100
+  },
+  {
+    "imageUrl": "/gallery/pastry/cozonac",
+    "title": "Glazed Mini Cozonac",
+    "assortments": "weighs approx. 650-700 g",
+    "unit": "pc",
+    "price": 65
+  },
+  {
+    "imageUrl": "/gallery/pastry/turta",
+    "title": "Sweet Bread",
+    "desc": [
+      "Cozonac-style dough",
+      "Walnut filling option (+20 lei)"
+    ],
+    "min": 1,
+    "unit": "kg",
+    "price": 90
+  },
+  {
+    "imageUrl": "/gallery/pastry/fursecuri",
+    "title": "Butter Cookies",
+    "assortments": "jam & walnut filled",
+    "min": 0.25,
+    "unit": "kg",
+    "price": 110
+  },
+  {
+    "imageUrl": "/gallery/pastry/nuci",
+    "title": "Walnut Shells",
+    "desc": ["filled with chocolate cream"],
+    "min": 0.5,
+    "unit": "kg",
+    "price": 160
+  }
+]
+

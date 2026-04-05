@@ -1,0 +1,155 @@
+[
+  {
+    "imageUrl": "/gallery/cakes/tort-fistic-zmeura",
+    "title": "Pistachio Raspberry Cake",
+    "desc": [
+      "Delicate pistachio sponge layers",
+      "Mascarpone cream filling",
+      "Raspberry & strawberry jelly",
+      "Pistachio namelaka layer"
+    ],
+    "min": 1.8,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cakes/tort-aluna-caramel",
+    "title": "Hazelnut Caramel Cake",
+    "desc": [
+      "Delicate hazelnut sponge layers",
+      "Silky caramel cream",
+      "Hazelnut and praline namelaka"
+    ],
+    "min": 1.8,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cakes/tort-lapte",
+    "title": "Milk Cake",
+    "desc": [
+      "Delicate cocoa sponge layers",
+      "Silky milk cream",
+      "Raspberry coulis"
+    ],
+    "min": 1.8,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cakes/tort-bere",
+    "title": "Craft Beer Cake",
+    "desc": [
+      "Moist chocolate sponge with craft beer",
+      "Light mascarpone cream",
+      "Beer-infused walnut filling",
+      "* contains alcohol"
+    ],
+    "min": 1.5,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cakes/tort-stil-snickers",
+    "title": "Snickers-Style Cake",
+    "desc": [
+      "Cocoa sponge base",
+      "Cream cheese filling",
+      "Caramel peanut insert",
+      "Chocolate praline cream",
+      "Crunchy salted caramel pearls"
+    ],
+    "min": 1.7,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cakes/vanilla-fruit",
+    "title": "Vanilla Fruit Cake",
+    "desc": [
+      "Vanilla sponge with dried cranberries",
+      "Whipped cream & mascarpone filling",
+      "Fruit jelly insert",
+      "Forest fruit salsa",
+      "Lemon curd insert"
+    ],
+    "min": 1.7,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cakes/carrot-cake-caramel",
+    "title": "Carrot Cake with Caramel",
+    "desc": [
+      "Moist carrot sponge with cinnamon & walnuts",
+      "Orange cream cheese frosting",
+      "Caramel mousse"
+    ],
+    "min": 1.5,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cakes/carrot-cake-afine",
+    "title": "Carrot Cake with Fruits",
+    "desc": [
+      "Moist carrot sponge with cinnamon & walnuts",
+      "Fruit cream cheese frosting"
+    ],
+    "min": 1.5,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cakes/tortul-casei",
+    "title": "House Signature Cake",
+    "desc": [
+      "Syrup-soaked cocoa sponge",
+      "Dark chocolate mascarpone cream",
+      "Vanilla charlotte",
+      "Strawberry jelly insert",
+      "Forest berries"
+    ],
+    "min": 1.6,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cakes/medovik",
+    "title": "Medovik Honey Cake",
+    "desc": [
+      "Fluffy honey sponge layers",
+      "Sour cream with cardamom",
+      "Forest berries"
+    ],
+    "min": 1,
+    "unit": "kg",
+    "price": 170
+  },
+  {
+    "imageUrl": "/gallery/cakes/medovik-cifra",
+    "title": "Number Medovik Cake",
+    "desc": [
+      "Fluffy honey sponge layers",
+      "Sour cream with cardamom",
+      "Forest berries"
+    ],
+    "min": 1,
+    "unit": "kg",
+    "price": 180
+  },
+  {
+    "imageUrl": "/gallery/cakes/tort-exotic",
+    "title": "Exotic Tropical Cake",
+    "desc": [
+      "Moist almond & coconut sponge layers",
+      "Passion fruit mousse",
+      "Mango insert",
+      "White chocolate mousse"
+    ],
+    "min": 1.5,
+    "unit": "kg",
+    "price": 170
+  }
+]
+
