@@ -100,7 +100,9 @@ onUnmounted(() => {
     <button
       v-for="(imagePath, index) in visibleGeneralImages"
       :key="imagePath"
+      type="button"
       @click="openGallery(index)"
+      :aria-label="t('accessibility.openGalleryImage', { index: index + 1 })"
       class="flex-shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent focus:ring-offset-2 dark:focus:ring-offset-gray-900"
     >
       <AppDeferredMedia
@@ -125,7 +127,9 @@ onUnmounted(() => {
     <button
       v-for="(imagePath, index) in visibleEventsImages"
       :key="imagePath"
+      type="button"
       @click="openEventsGallery(index)"
+      :aria-label="t('accessibility.openEventsGalleryImage', { index: index + 1 })"
       class="flex-shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent focus:ring-offset-2 dark:focus:ring-offset-gray-900"
     >
       <AppDeferredMedia

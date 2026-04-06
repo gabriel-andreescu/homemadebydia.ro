@@ -171,6 +171,7 @@ const reviews = computed<ReviewCard[]>(() =>
           type="button"
           class="flex-shrink-0 w-32 h-32 rounded-xl overflow-hidden hover:opacity-90 transition-opacity"
           @click="openImage(review.images!, imgIndex)"
+          :aria-label="t('accessibility.openReviewImage', { name: review.name, index: imgIndex + 1 })"
         >
           <AppDeferredMedia
             wrapper-class="w-full h-full"
@@ -199,6 +200,7 @@ const reviews = computed<ReviewCard[]>(() =>
           type="button"
           class="flex-shrink-0 snap-start w-32 h-32 rounded-xl overflow-hidden hover:opacity-90 transition-opacity"
           @click="openImage(review.images!, imgIndex)"
+          :aria-label="t('accessibility.openReviewImage', { name: review.name, index: imgIndex + 1 })"
         >
           <AppDeferredMedia
             wrapper-class="w-full h-full"
