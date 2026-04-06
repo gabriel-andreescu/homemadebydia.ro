@@ -9,13 +9,27 @@ import { useHorizontalSwipe } from "../composables/useHorizontalSwipe";
 const { t } = useI18n();
 const { scrollTo } = useScrollTo();
 
-// Hero showcase images
 const showcaseImages = [
-  "/gallery/gallery/29",
-  "/gallery/gallery/28",
-  "/gallery/gallery/27",
-  "/gallery/gallery/25",
-  "/gallery/gallery/20",
+  {
+    src: "/gallery/gallery/29",
+    altKey: "accessibility.heroShowcaseCakeButterflies",
+  },
+  {
+    src: "/gallery/gallery/28",
+    altKey: "accessibility.heroShowcaseCakeCatsPink",
+  },
+  {
+    src: "/gallery/gallery/27",
+    altKey: "accessibility.heroShowcaseCakeCatsBlue",
+  },
+  {
+    src: "/gallery/gallery/25",
+    altKey: "accessibility.heroShowcaseCakeGift",
+  },
+  {
+    src: "/gallery/gallery/20",
+    altKey: "accessibility.heroShowcaseCakeTulips",
+  },
 ];
 
 const heroRef = ref<HTMLElement | null>(null);
@@ -150,9 +164,9 @@ onUnmounted(() => {
             <AppPicture
               v-for="(img, index) in showcaseImages"
               v-show="currentImageIndex === index"
-              :key="img"
-              :src="img"
-              :alt="t('accessibility.heroShowcase')"
+              :key="img.src"
+              :src="img.src"
+              :alt="t(img.altKey)"
               img-class="absolute inset-0 w-full h-full object-cover"
               :eager="index === 0"
               sizes="(max-width: 1024px) 100vw, min(50vw, 640px)"

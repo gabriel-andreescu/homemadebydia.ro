@@ -36,7 +36,8 @@
       name="description"
       content="Laborator autorizat de cofetărie în Buftea (Ilfov). Torturi personalizate și prăjituri la comandă. Candy Bar pentru evenimente, cu ingrediente naturale."
     />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://homemadebydia.ro" />
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -67,12 +68,18 @@
         "@context": "https://schema.org",
         "@graph": [
           {
-            "@type": "LocalBusiness",
+            "@type": "Bakery",
+            "@id": "https://homemadebydia.ro/#business",
             "name": "Homemade by Dia",
             "description": "Laborator artizanal autorizat de cofetărie din Buftea, oferim produse proaspete făcute la comandă, realizate cu cele mai calitative ingrediente după rețete proprii delicioase.",
             "url": "https://homemadebydia.ro",
+            "mainEntityOfPage": "https://homemadebydia.ro/",
             "logo": "https://homemadebydia.ro/logo.svg",
-            "image": "https://homemadebydia.ro/hbd_og.jpg",
+            "image": [
+              "https://homemadebydia.ro/gallery/cookies/mini-prajituri.jpg",
+              "https://homemadebydia.ro/gallery/cakes/tort-fistic-zmeura.jpg",
+              "https://homemadebydia.ro/gallery/gallery/25.jpg"
+            ],
             "telephone": "(+40) 787 283 917",
             "priceRange": "$$",
             "openingHours": "Mo-Su 09:00-18:00",
@@ -102,10 +109,18 @@
           },
           {
             "@type": "WebPage",
-            "@id": "https://homemadebydia.ro",
+            "@id": "https://homemadebydia.ro/#webpage",
             "name": "Cofetăria Homemade by Dia",
-            "url": "https://homemadebydia.ro",
+            "url": "https://homemadebydia.ro/",
             "description": "Descoperă cofetăria Homemade by Dia din Buftea, unde toate produsele sunt realizate din ingrediente naturale. Savurează gusturi autentice și delicioase!",
+            "primaryImageOfPage": {
+              "@type": "ImageObject",
+              "url": "https://homemadebydia.ro/gallery/cookies/mini-prajituri.jpg",
+              "caption": "Mini prajituri artizanale Homemade by Dia"
+            },
+            "mainEntity": {
+              "@id": "https://homemadebydia.ro/#business"
+            },
             "hasPart": [
               {
                 "@type": "SiteNavigationElement",
