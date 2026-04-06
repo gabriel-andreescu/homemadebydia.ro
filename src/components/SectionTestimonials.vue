@@ -6,6 +6,7 @@ import IconQuote from "./icons/IconQuote.vue";
 import AppPicture from "./AppPicture.vue";
 import GalleryModal from "./GalleryModal.vue";
 import HorizontalScroller from "./HorizontalScroller.vue";
+import { testimonialMediaEntries } from "../data/testimonial-media";
 
 const { t, locale } = useI18n();
 
@@ -22,135 +23,76 @@ interface Testimonial {
   images?: TestimonialImage[];
 }
 
+interface TestimonialTextContent {
+  name: string;
+  text: string;
+  rating: number;
+}
+
 const galleryModalRef = ref<InstanceType<typeof GalleryModal>>();
 const currentOriginalImage = ref<string[]>([]);
+const testimonialMediaByName = Object.fromEntries(
+  testimonialMediaEntries.map((entry) => [
+    entry.name,
+    { avatar: entry.avatar, images: entry.images },
+  ]),
+) as Record<string, Pick<Testimonial, "avatar" | "images">>;
 
 const openImage = (images: TestimonialImage[], index: number) => {
   currentOriginalImage.value = images.map((img) => img.original);
   galleryModalRef.value?.openAt(index);
 };
 
+const attachTestimonialMedia = (testimonial: TestimonialTextContent): Testimonial => ({
+  ...testimonial,
+  ...testimonialMediaByName[testimonial.name],
+});
+
 const testimonialsRo: Testimonial[] = [
   {
     name: "Gabriela Mihai",
     text: "Calitate excelentă!\nAm comandat la Diana un tort personalizat care a ieșit foarte frumos ca aspect, iar gustul a fost extrem de bun și echilibrat.\nCalitatea produselor este foarte bună și asta se resimte în gustul foarte bun al produselor sale.\nDiana a ascultat toate cerințele mele si le-a adaptat în funcție de ce i-am arătat și i-am spus, obținând un final spectaculos.\nI-am adus și o mini bicicletă pe care a integrat-o perfect în decor. 🥰",
     rating: 5,
-    avatar: "/gallery/testimonials/gabriela-mihai.png",
-    images: [
-      {
-        thumb: "/gallery/testimonials/gabriela-mihai-cake",
-        original: "/gallery/testimonials/gabriela-mihai-cake",
-      },
-    ],
   },
   {
     name: "Anca Elena",
     text: "E a doua oară când comandăm tortul de aici, primul a fost cu mango, al doilea tortul felie de lapte. Ne au plăcut foarte mult și invitaților noștri la fel.\nPersonal, îl prefer pe cel cu lapte. Foarte fresh, proaspăt, ingrediente naturale și mi a plăcut ca nu sunt acel gen de torturi și creme extrem de dulci. Sunt fix cum trebuie.\nIar prețul este unul corect pentru calitate, mult sub prețurile ce se găsesc în București.",
     rating: 5,
-    images: [
-      {
-        thumb: "/gallery/testimonials/anca-elena-cake",
-        original: "/gallery/testimonials/anca-elena-cake-original",
-      },
-    ],
   },
   {
     name: "AC Arhitectura",
     text: "Recomand cu drag, sunt un om greu de mulțumit dar sunt foarte încântată de produse.\nDia ne-a făcut tortul de cununie, a fost excepțional, toată lumea întreba cine l-a făcut pentru că a fost foarte fresh, dulce cât trebuie, aromat, ingredientele proaspete.\nDe asemenea, prăjiturile, nu am cuvinte să vă spun cât de bune sunt. Cea mai nouă, cea cu bere... n-am cuvinte.",
     rating: 5,
-    avatar: "/gallery/testimonials/ac-arhitectura.png",
-    images: [
-      {
-        thumb: "/gallery/testimonials/ac-arhitectura-cake",
-        original: "/gallery/testimonials/ac-arhitectura-cake-original",
-      },
-    ],
   },
   {
     name: "Ramona Silvia Pavel",
     text: "Întotdeauna ne-a surprins cu dulciuri extraordinare, din ingrediente naturale. Excelent pentru a celebra momente în familie și a surprinde pe toată lumea. Feedback pozitiv de la toți invitații.\nTorturi: carrot cake și tortul casei.\nPlus mix de prăjituri.",
     rating: 5,
-    images: [
-      {
-        thumb: "/gallery/testimonials/ramona-silvia-pavel-1",
-        original: "/gallery/testimonials/ramona-silvia-pavel-1-original",
-      },
-      {
-        thumb: "/gallery/testimonials/ramona-silvia-pavel-2",
-        original: "/gallery/testimonials/ramona-silvia-pavel-2-original",
-      },
-      {
-        thumb: "/gallery/testimonials/ramona-silvia-pavel-3",
-        original: "/gallery/testimonials/ramona-silvia-pavel-3-original",
-      },
-      {
-        thumb: "/gallery/testimonials/ramona-silvia-pavel-4",
-        original: "/gallery/testimonials/ramona-silvia-pavel-4-original",
-      },
-    ],
   },
-];
+].map(attachTestimonialMedia);
 
 const testimonialsEn: Testimonial[] = [
   {
     name: "Gabriela Mihai",
     text: "Excellent quality!\nI ordered a custom cake from Diana which turned out beautifully, and the taste was extremely good and balanced.\nThe quality of her products is very high and you can taste it.\nDiana listened to all my requirements and adapted them based on what I showed and told her, achieving a spectacular result.\nI even brought her a mini bicycle which she integrated perfectly into the decoration. 🥰",
     rating: 5,
-    avatar: "/gallery/testimonials/gabriela-mihai.png",
-    images: [
-      {
-        thumb: "/gallery/testimonials/gabriela-mihai-cake",
-        original: "/gallery/testimonials/gabriela-mihai-cake",
-      },
-    ],
   },
   {
     name: "Anca Elena",
     text: "This is the second time we've ordered a cake from here - the first was mango, the second was the milk slice cake. We loved them both, and so did our guests.\nPersonally, I prefer the milk one. Very fresh, natural ingredients, and I loved that the cakes and creams aren't overly sweet. They're just right.\nThe price is fair for the quality - much lower than what you'd find in Bucharest.",
     rating: 5,
-    images: [
-      {
-        thumb: "/gallery/testimonials/anca-elena-cake",
-        original: "/gallery/testimonials/anca-elena-cake-original",
-      },
-    ],
   },
   {
     name: "AC Arhitectura",
     text: "I highly recommend, I'm a hard person to please but I'm very happy with the products.\nDia made our civil wedding cake, it was exceptional, everyone was asking who made it because it was very fresh, just sweet enough, aromatic, with fresh ingredients.\nAlso, the pastries, I have no words to tell you how good they are. The newest one, with beer... I have no words.",
     rating: 5,
-    avatar: "/gallery/testimonials/ac-arhitectura.png",
-    images: [
-      {
-        thumb: "/gallery/testimonials/ac-arhitectura-cake",
-        original: "/gallery/testimonials/ac-arhitectura-cake-original",
-      },
-    ],
   },
   {
     name: "Ramona Silvia Pavel",
     text: "She has always surprised us with extraordinary sweets, made from natural ingredients. Excellent for celebrating family moments and surprising everyone. Positive feedback from all guests.\nCakes: carrot cake and house signature cake.\nPlus a mix of pastries.",
     rating: 5,
-    images: [
-      {
-        thumb: "/gallery/testimonials/ramona-silvia-pavel-1",
-        original: "/gallery/testimonials/ramona-silvia-pavel-1-original",
-      },
-      {
-        thumb: "/gallery/testimonials/ramona-silvia-pavel-2",
-        original: "/gallery/testimonials/ramona-silvia-pavel-2-original",
-      },
-      {
-        thumb: "/gallery/testimonials/ramona-silvia-pavel-3",
-        original: "/gallery/testimonials/ramona-silvia-pavel-3-original",
-      },
-      {
-        thumb: "/gallery/testimonials/ramona-silvia-pavel-4",
-        original: "/gallery/testimonials/ramona-silvia-pavel-4-original",
-      },
-    ],
   },
-];
+].map(attachTestimonialMedia);
 
 // Locale-specific testimonials
 const testimonials = computed<Testimonial[]>(() =>

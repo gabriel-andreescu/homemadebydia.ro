@@ -124,6 +124,11 @@
     "toggleDarkMode": "Switch to dark mode",
     "galleryImage": "gallery image",
     "heroShowcase": "product from our showcase",
+    "heroShowcaseCakeButterflies": "Pink celebration cake decorated with butterflies and flowers",
+    "heroShowcaseCakeCatsPink": "Pink celebration cake decorated with cat figurines",
+    "heroShowcaseCakeCatsBlue": "Blue celebration cake decorated with cat figurines and a rainbow",
+    "heroShowcaseCakeGift": "Celebration cake styled like a gift box with a blue bow and teddy bears",
+    "heroShowcaseCakeTulips": "Cream and pink celebration cake decorated with tulips and butterflies",
     "enlargedImage": "enlarged image",
     "eventsGalleryImage": "image from events gallery",
     "productAltSuffix": "at Homemade by Dia - pastry shop in Buftea",
@@ -148,10 +153,7 @@
     "cakeTopViewAlt": "top view of a cake",
     "didYouLike": "Did you like it?",
     "leaveReview": "Leave a review",
-    "salEyebrow": "ANPC · ADR",
-    "salDescription": "Open the ANPC platform for alternative dispute resolution.",
-    "salBadgeAlt": "ANPC alternative dispute resolution pictogram",
-    "salLinkLabel": "Open the ANPC alternative dispute resolution platform"
+    "salBadgeAlt": "ANPC alternative dispute resolution pictogram"
   },
   "testimonials": {
     "rating": "{count} out of 5 stars",

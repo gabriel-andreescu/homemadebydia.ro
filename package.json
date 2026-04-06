@@ -9,6 +9,7 @@
     "dev": "vite",
     "prebuild": "node utils/generate-responsive-images.mjs",
     "build": "vue-tsc && vite build",
+    "postbuild": "node utils/generate-image-sitemap.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -35,5 +36,8 @@
     "tabWidth": 2,
     "printWidth": 100,
     "htmlWhitespaceSensitivity": "ignore"
+  },
+  "engines": {
+    "node": ">=24.14.1"
   }
 }

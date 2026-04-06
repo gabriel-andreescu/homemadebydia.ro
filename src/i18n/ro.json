@@ -124,6 +124,11 @@
     "toggleDarkMode": "Comută la modul întunecat",
     "galleryImage": "imagine din galerie",
     "heroShowcase": "produs din vitrina noastră",
+    "heroShowcaseCakeButterflies": "Tort aniversar roz decorat cu fluturi și flori",
+    "heroShowcaseCakeCatsPink": "Tort aniversar în nuanțe roz, decorat cu figurine de pisici",
+    "heroShowcaseCakeCatsBlue": "Tort aniversar bleu, decorat cu figurine de pisici și curcubeu",
+    "heroShowcaseCakeGift": "Tort aniversar cu fundă albastră, ursuleți și stele aurii",
+    "heroShowcaseCakeTulips": "Tort aniversar crem și roz, decorat cu lalele și fluturi",
     "enlargedImage": "imagine mărită",
     "eventsGalleryImage": "imagine din galeria de evenimente",
     "productAltSuffix": "la Homemade by Dia - cofetărie din Buftea",
@@ -148,10 +153,7 @@
     "cakeTopViewAlt": "poză cu un tort văzut de sus",
     "didYouLike": "Ți-a plăcut?",
     "leaveReview": "Lasă o recenzie",
-    "salEyebrow": "ANPC · SAL",
-    "salDescription": "Accesează platforma ANPC pentru soluționarea alternativă a litigiilor.",
-    "salBadgeAlt": "Pictograma ANPC pentru soluționarea alternativă a litigiilor",
-    "salLinkLabel": "Deschide platforma ANPC pentru soluționarea alternativă a litigiilor"
+    "salBadgeAlt": "Pictograma ANPC pentru soluționarea alternativă a litigiilor"
   },
   "testimonials": {
     "rating": "{count} stele din 5",
