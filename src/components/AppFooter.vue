@@ -99,21 +99,25 @@ const footerArtSrc = computed(() => {
               </a>
             </div>
           </div>
-          <p>
-            <a href="https://reclamatiisal.anpc.ro/" target="_blank" rel="noopener noreferrer">
-              <AppDeferredMedia
-                wrapper-class="inline-block"
-                placeholder-class="w-[140px] h-[55px] rounded bg-white/60 dark:bg-gray-800"
-              >
-                <img
-                  src="/SAL-PICTOGRAMA.png"
-                  :alt="t('footer.salBadgeAlt')"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </AppDeferredMedia>
-            </a>
-          </p>
+          <a
+            href="https://reclamatiisal.anpc.ro/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block"
+            :aria-label="t('footer.salBadgeAlt')"
+          >
+            <AppDeferredMedia
+              wrapper-class="inline-block"
+              placeholder-class="w-[140px] h-[55px] rounded bg-white/60 dark:bg-gray-800"
+            >
+              <img
+                src="/SAL-PICTOGRAMA.png"
+                :alt="t('footer.salBadgeAlt')"
+                loading="lazy"
+                decoding="async"
+              />
+            </AppDeferredMedia>
+          </a>
         </section>
       </section>
       <section class="hidden xl:block xl:w-1/2 bg-nude dark:bg-none self-end">
