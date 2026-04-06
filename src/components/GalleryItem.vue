@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { useI18n } from "vue-i18n";
-import GalleryModal from "./GalleryModal.vue";
 import { makeResponsiveSrcset } from "../utils/responsiveImages";
 
 const { t } = useI18n();
@@ -14,7 +12,9 @@ const props = defineProps<{
   sizes?: string;
 }>();
 
-const galleryModalRef = ref<InstanceType<typeof GalleryModal>>();
+defineEmits<{
+  open: [];
+}>();
 </script>
 
 <template>
@@ -38,8 +38,7 @@ const galleryModalRef = ref<InstanceType<typeof GalleryModal>>();
       loading="lazy"
       :sizes="sizes ?? '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'"
       decoding="async"
-      @click="galleryModalRef?.openAt(0)"
+      @click="$emit('open')"
     />
   </picture>
-  <GalleryModal ref="galleryModalRef" :images="[imagePath]" />
 </template>

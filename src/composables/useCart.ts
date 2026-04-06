@@ -1,20 +1,22 @@
-import { ref, computed, watch } from "vue";
+import { computed, onMounted, ref, shallowRef, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { CONTACT } from "../constants";
-import cakesRo from "../assets/cakes.json";
-import cakesEn from "../assets/cakes.en.json";
-import cookiesRo from "../assets/cookies.json";
-import cookiesEn from "../assets/cookies.en.json";
-import pastryRo from "../assets/pastry.json";
-import pastryEn from "../assets/pastry.en.json";
+import type { Locale } from "../i18n";
+import type { CatalogProduct } from "../data/catalogData";
 
-// What we store in localStorage (minimal)
+interface CartItemSnapshot {
+  title: string;
+  price: number;
+  unit: string;
+  min: number;
+}
+
 interface StoredCartItem {
   id: string;
   quantity: number;
+  snapshot?: CartItemSnapshot;
 }
 
-// What we expose (resolved with fresh catalog data)
 export interface CartItem {
   id: string;
   title: string;
@@ -24,88 +26,178 @@ export interface CartItem {
   min: number;
 }
 
-interface CatalogProduct {
-  imageUrl: string | string[];
-  title: string;
-  price: number;
-  min?: number;
-  unit?: string;
-}
-
 const STORAGE_KEY = "homemadebydia_cart";
 const drawerOpen = ref(false);
 const lastAdded = ref<string | null>(null);
+const storedItems = ref<StoredCartItem[]>([]);
+const productMapsByLocale = shallowRef<Partial<Record<Locale, Map<string, CatalogProduct>>>>({});
 
-function getProductId(product: CatalogProduct): string {
+const pendingProductMaps = new Map<Locale, Promise<Map<string, CatalogProduct>>>();
+const EMPTY_PRODUCT_MAP = new Map<string, CatalogProduct>();
+
+let initialized = false;
+let persistenceInitialized = false;
+
+function getProductId(product: Pick<CatalogProduct, "imageUrl">): string {
   if (Array.isArray(product.imageUrl)) {
     return product.imageUrl[0] ?? "";
   }
+
   return product.imageUrl;
 }
 
+function buildSnapshot(product: CatalogProduct): CartItemSnapshot {
+  return {
+    title: product.title,
+    price: product.price,
+    unit: product.unit ?? "buc",
+    min: product.min ?? 1,
+  };
+}
+
 function loadFromStorage(): StoredCartItem[] {
+  if (typeof localStorage === "undefined") return [];
+
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
+    const parsed = stored ? JSON.parse(stored) : [];
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed
+      .map((item) => {
+        if (!item || typeof item.id !== "string" || typeof item.quantity !== "number") {
+          return null;
+        }
+
+        const snapshot =
+          item.snapshot &&
+          typeof item.snapshot.title === "string" &&
+          typeof item.snapshot.price === "number" &&
+          typeof item.snapshot.unit === "string" &&
+          typeof item.snapshot.min === "number"
+            ? {
+                title: item.snapshot.title,
+                price: item.snapshot.price,
+                unit: item.snapshot.unit,
+                min: item.snapshot.min,
+              }
+            : undefined;
+
+        return {
+          id: item.id,
+          quantity: item.quantity,
+          snapshot,
+        };
+      })
+      .filter((item): item is StoredCartItem => item !== null);
   } catch {
     return [];
   }
 }
 
-const storedItems = ref<StoredCartItem[]>(loadFromStorage());
+async function ensureCatalogProductMap(locale: Locale): Promise<Map<string, CatalogProduct>> {
+  const cached = productMapsByLocale.value[locale];
+  if (cached) {
+    return cached;
+  }
 
-watch(
-  storedItems,
-  (newItems) => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(newItems));
-  },
-  { deep: true },
-);
+  const pending = pendingProductMaps.get(locale);
+  if (pending) {
+    return pending;
+  }
+
+  const loadPromise = import("../data/catalogData")
+    .then(({ getCatalogProductMap }) => {
+      const productMap = getCatalogProductMap(locale);
+      productMapsByLocale.value = {
+        ...productMapsByLocale.value,
+        [locale]: productMap,
+      };
+      pendingProductMaps.delete(locale);
+      return productMap;
+    })
+    .catch((error) => {
+      pendingProductMaps.delete(locale);
+      throw error;
+    });
+
+  pendingProductMaps.set(locale, loadPromise);
+  return loadPromise;
+}
+
+function ensureClientInitialization() {
+  if (initialized || typeof window === "undefined") return;
+  initialized = true;
+  storedItems.value = loadFromStorage();
+}
+
+function ensurePersistenceWatcher() {
+  if (persistenceInitialized) return;
+  persistenceInitialized = true;
+
+  watch(
+    storedItems,
+    (newItems) => {
+      if (typeof localStorage === "undefined") return;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(newItems));
+    },
+    { deep: true },
+  );
+}
 
 export function useCart() {
   const { locale } = useI18n();
 
-  // Match the same locale-specific catalog data used in SectionCatalog.
-  const allProducts = computed<CatalogProduct[]>(() =>
-    locale.value === "en"
-      ? ([...cakesEn, ...cookiesEn, ...pastryEn] as CatalogProduct[])
-      : ([...cakesRo, ...cookiesRo, ...pastryRo] as CatalogProduct[]),
+  onMounted(() => {
+    ensureClientInitialization();
+
+    if (storedItems.value.length > 0) {
+      void ensureCatalogProductMap(locale.value as Locale);
+    }
+  });
+
+  ensurePersistenceWatcher();
+
+  watch(
+    () => locale.value,
+    (nextLocale) => {
+      if (storedItems.value.length > 0) {
+        void ensureCatalogProductMap(nextLocale as Locale);
+      }
+    },
   );
 
   const productMap = computed(
-    () => new Map<string, CatalogProduct>(allProducts.value.map((p) => [getProductId(p), p])),
+    () => productMapsByLocale.value[locale.value as Locale] ?? EMPTY_PRODUCT_MAP,
   );
 
-  // Resolve stored items with fresh catalog data, filtering out missing products
-  const items = computed<CartItem[]>(() => {
-    return storedItems.value
+  const items = computed<CartItem[]>(() =>
+    storedItems.value
       .map((stored) => {
         const product = productMap.value.get(stored.id);
-        if (!product) return null;
+        const snapshot = product ? buildSnapshot(product) : stored.snapshot;
+        if (!snapshot) return null;
 
         return {
           id: stored.id,
-          title: product.title,
+          title: snapshot.title,
           quantity: stored.quantity,
-          unit: product.unit ?? "buc",
-          price: product.price,
-          min: product.min ?? 1,
+          unit: snapshot.unit,
+          price: snapshot.price,
+          min: snapshot.min,
         };
       })
-      .filter((item): item is CartItem => item !== null);
-  });
-
-  const count = computed(() => items.value.length);
-
-  const total = computed(() =>
-    items.value.reduce((sum, item) => sum + item.price * item.quantity, 0),
+      .filter((item): item is CartItem => item !== null),
   );
+
+  const count = computed(() => storedItems.value.length);
+
+  const total = computed(() => items.value.reduce((sum, item) => sum + item.price * item.quantity, 0));
 
   const whatsappUrl = computed(() => {
     if (items.value.length === 0) return CONTACT.whatsapp;
 
     const lines = items.value.map((item) => `• ${item.title} - ${item.quantity}${item.unit}`);
-
     const message = `Bună ziua! Aș dori să comand:\n${lines.join("\n")}\n\nMulțumesc!`;
 
     return `${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
@@ -113,16 +205,15 @@ export function useCart() {
 
   function add(product: CatalogProduct) {
     const id = getProductId(product);
-
     const existing = storedItems.value.find((item) => item.id === id);
     if (existing) return;
 
     storedItems.value.push({
       id,
       quantity: product.min ?? 1,
+      snapshot: buildSnapshot(product),
     });
 
-    // Trigger feedback (toast + animation)
     lastAdded.value = product.title;
     setTimeout(() => {
       lastAdded.value = null;
@@ -130,15 +221,20 @@ export function useCart() {
   }
 
   function update(id: string, quantity: number) {
-    const stored = storedItems.value.find((i) => i.id === id);
+    const stored = storedItems.value.find((item) => item.id === id);
+    if (!stored) return;
+
     const product = productMap.value.get(id);
-    if (stored && product) {
-      stored.quantity = Math.max(product.min ?? 1, quantity);
+    const minimum = product?.min ?? stored.snapshot?.min ?? 1;
+    stored.quantity = Math.max(minimum, quantity);
+
+    if (product) {
+      stored.snapshot = buildSnapshot(product);
     }
   }
 
   function remove(id: string) {
-    const index = storedItems.value.findIndex((i) => i.id === id);
+    const index = storedItems.value.findIndex((item) => item.id === id);
     if (index !== -1) {
       storedItems.value.splice(index, 1);
     }
@@ -149,10 +245,11 @@ export function useCart() {
   }
 
   function has(id: string) {
-    return storedItems.value.some((i) => i.id === id);
+    return storedItems.value.some((item) => item.id === id);
   }
 
   function openDrawer() {
+    void ensureCatalogProductMap(locale.value as Locale);
     drawerOpen.value = true;
   }
 

@@ -11,7 +11,7 @@
     "events": "Evenimente",
     "gallery": "Galerie",
     "whyUs": "De ce noi?",
-    "testimonials": "Recenzii",
+    "reviews": "Recenzii",
     "howToOrder": "Cum comand",
     "contact": "Contact",
     "menu": "Menu"
@@ -21,7 +21,7 @@
     "catalog": "Catalog",
     "gallery": "Galerie",
     "whyUs": "De ce noi?",
-    "testimonials": "Ce spun clienții"
+    "reviews": "Ce spun clienții"
   },
   "gallery": {
     "events": "Evenimente"
@@ -155,7 +155,7 @@
     "leaveReview": "Lasă o recenzie",
     "salBadgeAlt": "Pictograma ANPC pentru soluționarea alternativă a litigiilor"
   },
-  "testimonials": {
+  "reviews": {
     "rating": "{count} stele din 5",
     "source": "Vezi mai multe recenzii pe Google",
     "imageAlt": "Fotografie atașată de {name}"

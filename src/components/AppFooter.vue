@@ -1,14 +1,31 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import AppSocialLinks from "./AppSocialLinks.vue";
-import AppPicture from "./AppPicture.vue";
+import AppDeferredMedia from "./AppDeferredMedia.vue";
 import IconGoogle from "./icons/IconGoogle.vue";
 import IconMail from "./icons/IconMail.vue";
 import IconMapPin from "./icons/IconMapPin.vue";
 import IconPhone from "./icons/IconPhone.vue";
+import { useDarkMode } from "../composables/useDarkMode";
 import { CONTACT } from "../constants";
+import type { Locale } from "../i18n";
+import { getLocalizedAnchor } from "../siteNavigation";
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
+const { isDark } = useDarkMode();
+const currentLocale = computed(() => locale.value as Locale);
+const howToOrderId = computed(() => getLocalizedAnchor("howToOrder", currentLocale.value));
+const contactId = computed(() => getLocalizedAnchor("contact", currentLocale.value));
+const footerArtSrc = computed(() => {
+  const darkModeActive = isDark.value;
+  const darkThemeActive =
+    typeof document === "undefined"
+      ? darkModeActive
+      : document.documentElement.classList.contains("dark");
+
+  return darkThemeActive ? "/gallery/footer-dark.min.png" : "/gallery/footer.jpg";
+});
 </script>
 
 <template>
@@ -17,7 +34,7 @@ const { t } = useI18n();
       <section
         class="flex flex-col w-full xl:w-1/2 px-2 pt-16 pb-8 lg:pl-8 sm:pb-10 xl:pb-0 bg-gradient-to-r from-transparent to-nude dark:bg-none"
       >
-        <h2 id="cum-sa-comanzi" class="text-4xl lg:text-6xl font-serif mb-10">
+        <h2 :id="howToOrderId" class="text-4xl lg:text-6xl font-serif mb-10">
           {{ t("howToOrder.title") }}
         </h2>
         <div class="how-to-order-paragraphs">
@@ -38,7 +55,10 @@ const { t } = useI18n();
             {{ t("footer.leaveReview") }}
           </a>
         </div>
-        <section class="flex h-80">
+        <AppDeferredMedia
+          wrapper-class="flex h-80"
+          placeholder-class="border-0 border-none min-w-full bg-gray-200 dark:bg-gray-700 rounded-xl"
+        >
           <iframe
             title="Google Maps"
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11370.733221679735!2d25.9309805!3d44.562586!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xfbb397e844540bfb!2sHomemade%20by%20Dia!5e0!3m2!1sro!2sro!4v1670659460931!5m2!1sro!2sro"
@@ -46,8 +66,8 @@ const { t } = useI18n();
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
-        </section>
-        <section id="contact" class="mt-6 flex flex-col">
+        </AppDeferredMedia>
+        <section :id="contactId" class="mt-6 flex flex-col">
           <AppSocialLinks class="h-auto mb-2" :center="false" />
           <div class="mb-4 flex">
             <div class="lg:text-lg flex flex-col gap-2">
@@ -81,32 +101,34 @@ const { t } = useI18n();
           </div>
           <p>
             <a href="https://reclamatiisal.anpc.ro/" target="_blank" rel="noopener noreferrer">
-              <img
-                src="/SAL-PICTOGRAMA.png"
-                :alt="t('footer.salBadgeAlt')"
-                loading="lazy"
-                decoding="async"
-              />
+              <AppDeferredMedia
+                wrapper-class="inline-block"
+                placeholder-class="w-[140px] h-[55px] rounded bg-white/60 dark:bg-gray-800"
+              >
+                <img
+                  src="/SAL-PICTOGRAMA.png"
+                  :alt="t('footer.salBadgeAlt')"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </AppDeferredMedia>
             </a>
           </p>
         </section>
       </section>
       <section class="hidden xl:block xl:w-1/2 bg-nude dark:bg-none self-end">
-        <!-- Footer images are gradient-heavy; keep them as hand-tuned originals (no responsive variants). -->
-        <img
-          src="/gallery/footer.jpg"
-          :alt="t('footer.cakeTopViewAlt')"
-          class="w-full max-w-full h-auto object-cover dark:hidden max-h-[min(100vh,1284px)]"
-          loading="lazy"
-          decoding="async"
-        />
-        <img
-          src="/gallery/footer-dark.min.png"
-          :alt="t('footer.cakeTopViewAlt')"
-          class="hidden dark:block w-full max-w-full h-auto object-cover max-h-[min(100vh,1284px)]"
-          loading="lazy"
-          decoding="async"
-        />
+        <AppDeferredMedia
+          wrapper-class="w-full"
+          placeholder-class="w-full aspect-[963/1284] max-h-[min(100vh,1284px)] bg-nude/80 dark:bg-gray-800"
+        >
+          <img
+            :src="footerArtSrc"
+            :alt="t('footer.cakeTopViewAlt')"
+            class="w-full max-w-full h-auto object-cover max-h-[min(100vh,1284px)]"
+            loading="lazy"
+            decoding="async"
+          />
+        </AppDeferredMedia>
       </section>
     </section>
   </footer>

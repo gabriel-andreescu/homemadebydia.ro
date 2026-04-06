@@ -5,44 +5,37 @@ import en from "./en.json";
 export type Locale = "ro" | "en";
 
 const STORAGE_KEY = "locale-preference";
+const FALLBACK_LOCALE: Locale = "ro";
 
-function getBrowserLocale(): Locale {
-  const lang = navigator.language.split("-")[0];
-  return lang === "en" ? "en" : "ro";
+const messages = {
+  ro,
+  en,
+} as const;
+
+export function createI18nInstance(initialLocale: Locale = FALLBACK_LOCALE) {
+  return createI18n({
+    legacy: false,
+    locale: initialLocale,
+    fallbackLocale: FALLBACK_LOCALE,
+    messages,
+  });
 }
 
-function getInitialLocale(): Locale {
-  if (typeof window === "undefined") return "ro";
-  const stored = localStorage.getItem(STORAGE_KEY) as Locale | null;
-  if (stored && ["ro", "en"].includes(stored)) {
-    return stored;
-  }
-  return getBrowserLocale();
-}
+export type AppI18n = ReturnType<typeof createI18nInstance>;
 
-const initialLocale = getInitialLocale();
-
-export const i18n = createI18n({
-  legacy: false,
-  locale: initialLocale,
-  fallbackLocale: "ro",
-  messages: {
-    ro,
-    en,
-  },
-});
-
-export function setLocale(locale: Locale) {
+export function applyLocale(i18n: AppI18n, locale: Locale, persist = false) {
   i18n.global.locale.value = locale;
+
+  if (typeof document !== "undefined") {
+    document.documentElement.lang = locale;
+  }
+
+  if (persist && typeof localStorage !== "undefined") {
+    localStorage.setItem(STORAGE_KEY, locale);
+  }
+}
+
+export function rememberLocalePreference(locale: Locale) {
+  if (typeof localStorage === "undefined") return;
   localStorage.setItem(STORAGE_KEY, locale);
-  document.documentElement.lang = locale;
-}
-
-export function toggleLocale() {
-  const current = i18n.global.locale.value as Locale;
-  setLocale(current === "ro" ? "en" : "ro");
-}
-
-export function getCurrentLocale(): Locale {
-  return i18n.global.locale.value as Locale;
 }

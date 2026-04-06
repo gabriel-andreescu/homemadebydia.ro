@@ -11,7 +11,7 @@
     "events": "Events",
     "gallery": "Gallery",
     "whyUs": "Why Us?",
-    "testimonials": "Reviews",
+    "reviews": "Reviews",
     "howToOrder": "How to Order",
     "contact": "Contact",
     "menu": "Menu"
@@ -21,7 +21,7 @@
     "catalog": "Catalog",
     "gallery": "Gallery",
     "whyUs": "Why Us?",
-    "testimonials": "What Our Clients Say"
+    "reviews": "What Our Clients Say"
   },
   "gallery": {
     "events": "Events"
@@ -155,7 +155,7 @@
     "leaveReview": "Leave a review",
     "salBadgeAlt": "ANPC alternative dispute resolution pictogram"
   },
-  "testimonials": {
+  "reviews": {
     "rating": "{count} out of 5 stars",
     "source": "See more reviews on Google",
     "imageAlt": "Photo attached by {name}"

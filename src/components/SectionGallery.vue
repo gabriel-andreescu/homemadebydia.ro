@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
+import AppDeferredMedia from "./AppDeferredMedia.vue";
 import AppPicture from "./AppPicture.vue";
 import GalleryModal from "./GalleryModal.vue";
 import HorizontalScroller from "./HorizontalScroller.vue";
@@ -102,12 +103,17 @@ onUnmounted(() => {
       @click="openGallery(index)"
       class="flex-shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent focus:ring-offset-2 dark:focus:ring-offset-gray-900"
     >
-      <AppPicture
-        :src="imagePath"
-        :alt="t('accessibility.galleryImage')"
-        img-class="w-full h-full object-cover"
-        sizes="(max-width: 768px) 192px, 224px"
-      />
+      <AppDeferredMedia
+        wrapper-class="w-full h-full"
+        placeholder-class="w-full h-full bg-rose-100 dark:bg-neutral-800"
+      >
+        <AppPicture
+          :src="imagePath"
+          :alt="t('accessibility.galleryImage')"
+          img-class="w-full h-full object-cover"
+          sizes="(max-width: 768px) 192px, 224px"
+        />
+      </AppDeferredMedia>
     </button>
   </HorizontalScroller>
 
@@ -122,12 +128,17 @@ onUnmounted(() => {
       @click="openEventsGallery(index)"
       class="flex-shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent focus:ring-offset-2 dark:focus:ring-offset-gray-900"
     >
-      <AppPicture
-        :src="imagePath"
-        :alt="t('accessibility.eventsGalleryImage')"
-        img-class="w-full h-full object-cover"
-        sizes="(max-width: 768px) 192px, 224px"
-      />
+      <AppDeferredMedia
+        wrapper-class="w-full h-full"
+        placeholder-class="w-full h-full bg-rose-100 dark:bg-neutral-800"
+      >
+        <AppPicture
+          :src="imagePath"
+          :alt="t('accessibility.eventsGalleryImage')"
+          img-class="w-full h-full object-cover"
+          sizes="(max-width: 768px) 192px, 224px"
+        />
+      </AppDeferredMedia>
     </button>
   </HorizontalScroller>
 

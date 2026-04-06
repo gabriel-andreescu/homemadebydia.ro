@@ -1,31 +1,27 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { defineAsyncComponent, nextTick, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
+import type GalleryModal from "./GalleryModal.vue";
+import AppDeferredMedia from "./AppDeferredMedia.vue";
 import GalleryItem from "./GalleryItem.vue";
 import { useCart } from "../composables/useCart";
 import IconCheck from "./icons/IconCheck.vue";
 import IconX from "./icons/IconX.vue";
+import { getProductId, type CatalogProduct } from "../data/catalogData";
 
-interface CatalogGalleryDataItem {
-  imageUrl: string | string[];
-  title: string;
-  assortments?: string;
-  desc?: string | string[];
-  price: number;
-  min?: number;
-  unit?: string;
-}
+const AsyncGalleryModal = defineAsyncComponent(() => import("./GalleryModal.vue"));
 
 defineProps<{
-  data: CatalogGalleryDataItem[];
+  data: CatalogProduct[];
 }>();
 
 const { t } = useI18n();
 const cart = useCart();
 const expandedItems = ref<Set<string>>(new Set());
-
-const getItemId = (item: CatalogGalleryDataItem) =>
-  Array.isArray(item.imageUrl) ? item.imageUrl[0] : item.imageUrl;
+const galleryModalRef = ref<InstanceType<typeof GalleryModal> | null>(null);
+const galleryModalMounted = ref(false);
+const galleryModalImages = ref<string[]>([]);
+const pendingGalleryIndex = ref<number | null>(null);
 
 const toggleExpand = (id: string) => {
   if (expandedItems.value.has(id)) {
@@ -34,6 +30,24 @@ const toggleExpand = (id: string) => {
     expandedItems.value.add(id);
   }
 };
+
+const openGallery = async (images: string[], index: number) => {
+  galleryModalImages.value = images;
+  galleryModalMounted.value = true;
+  pendingGalleryIndex.value = index;
+  await nextTick();
+  if (!galleryModalRef.value) return;
+
+  galleryModalRef.value.openAt(index);
+  pendingGalleryIndex.value = null;
+};
+
+watch(galleryModalRef, (modal) => {
+  if (!modal || pendingGalleryIndex.value === null) return;
+
+  modal.openAt(pendingGalleryIndex.value);
+  pendingGalleryIndex.value = null;
+});
 </script>
 
 <template>
@@ -45,24 +59,36 @@ const toggleExpand = (id: string) => {
       :style="{ animationDelay: `${index * 40}ms` }"
     >
       <div class="relative w-full aspect-square overflow-hidden cursor-pointer">
-        <div v-if="Array.isArray(item.imageUrl)" class="grid grid-cols-2 h-full">
-          <div v-for="imagePath in item.imageUrl" :key="imagePath" class="overflow-hidden">
-            <GalleryItem
-              :image-path="imagePath"
-              :alt="item.title + ' ' + t('accessibility.productAltSuffix')"
-              :rounded="false"
-              :cover="true"
-              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, min(25vw, 384px)"
-            />
+        <AppDeferredMedia
+          wrapper-class="w-full h-full"
+          placeholder-class="w-full h-full bg-rose-100 dark:bg-gray-700"
+          root-margin="0px 0px"
+        >
+          <div v-if="Array.isArray(item.imageUrl)" class="grid grid-cols-2 h-full">
+            <div
+              v-for="(imagePath, imageIndex) in item.imageUrl"
+              :key="imagePath"
+              class="overflow-hidden"
+            >
+              <GalleryItem
+                :image-path="imagePath"
+                :alt="item.title + ' ' + t('accessibility.productAltSuffix')"
+                :rounded="false"
+                :cover="true"
+                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, min(25vw, 384px)"
+                @open="openGallery(item.imageUrl, imageIndex)"
+              />
+            </div>
           </div>
-        </div>
-        <GalleryItem
-          v-else
-          :image-path="item.imageUrl"
-          :alt="item.title + ' ' + t('accessibility.productAltSuffix')"
-          :cover="true"
-          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, min(25vw, 384px)"
-        />
+          <GalleryItem
+            v-else
+            :image-path="item.imageUrl"
+            :alt="item.title + ' ' + t('accessibility.productAltSuffix')"
+            :cover="true"
+            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, min(25vw, 384px)"
+            @open="openGallery([item.imageUrl], 0)"
+          />
+        </AppDeferredMedia>
       </div>
 
       <div class="flex-1 flex flex-col p-3">
@@ -80,12 +106,12 @@ const toggleExpand = (id: string) => {
           <div
             class="relative overflow-hidden transition-all duration-300"
             :class="[
-              expandedItems.has(getItemId(item))
+              expandedItems.has(getProductId(item))
                 ? 'max-h-96'
                 : 'max-h-[4.25rem] md:max-h-20 min-h-[4.25rem] md:min-h-20',
               item.desc.length > 3 ? 'cursor-pointer' : '',
             ]"
-            @click="item.desc.length > 3 && toggleExpand(getItemId(item))"
+            @click="item.desc.length > 3 && toggleExpand(getProductId(item))"
           >
             <ul class="text-left text-xs text-gray-600 dark:text-gray-300 leading-snug space-y-0.5">
               <li v-for="desc in item.desc" :key="desc" class="flex items-start gap-1.5">
@@ -98,17 +124,17 @@ const toggleExpand = (id: string) => {
             <div
               v-if="item.desc.length > 3"
               class="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white dark:from-gray-800 to-transparent pointer-events-none transition-opacity duration-300"
-              :class="expandedItems.has(getItemId(item)) ? 'opacity-0' : 'opacity-100'"
+              :class="expandedItems.has(getProductId(item)) ? 'opacity-0' : 'opacity-100'"
             ></div>
           </div>
           <!-- Fixed-height row for button alignment -->
           <div class="h-5 flex items-center">
             <button
               v-if="item.desc.length > 3"
-              @click="toggleExpand(getItemId(item))"
+              @click="toggleExpand(getProductId(item))"
               class="text-[11px] text-accent dark:text-accent-light hover:underline"
             >
-              {{ expandedItems.has(getItemId(item)) ? t("product.seeLess") : t("product.seeMore") }}
+              {{ expandedItems.has(getProductId(item)) ? t("product.seeLess") : t("product.seeMore") }}
             </button>
           </div>
         </div>
@@ -129,7 +155,7 @@ const toggleExpand = (id: string) => {
           </p>
 
           <button
-            v-if="!cart.has(getItemId(item))"
+            v-if="!cart.has(getProductId(item))"
             @click="cart.add(item)"
             class="mt-2.5 w-full py-2 bg-accent dark:bg-accent text-white text-sm font-medium tracking-wide rounded-full shadow-md shadow-accent/20 dark:shadow-accent/30 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] transition-all"
           >
@@ -143,7 +169,7 @@ const toggleExpand = (id: string) => {
               {{ t("product.inCart") }}
             </div>
             <button
-              @click="cart.remove(getItemId(item))"
+              @click="cart.remove(getProductId(item))"
               class="px-2.5 py-2 text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/20 rounded-full transition-colors"
               :title="t('product.removeFromCart')"
             >
@@ -154,6 +180,11 @@ const toggleExpand = (id: string) => {
       </div>
     </div>
   </div>
+  <AsyncGalleryModal
+    v-if="galleryModalMounted"
+    ref="galleryModalRef"
+    :images="galleryModalImages"
+  />
 </template>
 
 <style scoped>

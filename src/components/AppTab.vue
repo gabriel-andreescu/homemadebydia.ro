@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { inject } from "vue";
+import type { CatalogTabKey } from "../siteNavigation";
 
 defineProps<{
   title: string;
-  tabKey: string;
+  tabKey: CatalogTabKey;
 }>();
 
-const selectedTabState: { selectedTab: string } | undefined = inject("selectedTabState");
+const selectedTabState: { selectedTab: CatalogTabKey | "" } | undefined =
+  inject("selectedTabState");
 </script>
 
 <template>
