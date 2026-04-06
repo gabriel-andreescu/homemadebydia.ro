@@ -11,7 +11,7 @@
     "events": "Evenimente",
     "gallery": "Galerie",
     "whyUs": "De ce noi?",
-    "testimonials": "Recenzii",
+    "reviews": "Recenzii",
     "howToOrder": "Cum comand",
     "contact": "Contact",
     "menu": "Menu"
@@ -21,7 +21,7 @@
     "catalog": "Catalog",
     "gallery": "Galerie",
     "whyUs": "De ce noi?",
-    "testimonials": "Ce spun clienții"
+    "reviews": "Ce spun clienții"
   },
   "gallery": {
     "events": "Evenimente"
@@ -131,6 +131,9 @@
     "heroShowcaseCakeTulips": "Tort aniversar crem și roz, decorat cu lalele și fluturi",
     "enlargedImage": "imagine mărită",
     "eventsGalleryImage": "imagine din galeria de evenimente",
+    "openGalleryImage": "Deschide imaginea {index} din galerie",
+    "openEventsGalleryImage": "Deschide imaginea {index} din galeria de evenimente",
+    "openReviewImage": "Deschide fotografia {index} din recenzia lui {name}",
     "productAltSuffix": "la Homemade by Dia - cofetărie din Buftea",
     "visitFacebook": "Vizitați pagina noastră de Facebook",
     "sendMessenger": "Trimiteți-ne un mesaj pe Messenger",
@@ -155,7 +158,7 @@
     "leaveReview": "Lasă o recenzie",
     "salBadgeAlt": "Pictograma ANPC pentru soluționarea alternativă a litigiilor"
   },
-  "testimonials": {
+  "reviews": {
     "rating": "{count} stele din 5",
     "source": "Vezi mai multe recenzii pe Google",
     "imageAlt": "Fotografie atașată de {name}"

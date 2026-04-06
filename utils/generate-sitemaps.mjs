@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { testimonialMediaEntries } from "../src/data/testimonial-media.ts";
+import { reviewMediaEntries } from "../src/data/review-media.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,7 +10,7 @@ const publicDir = path.join(repoRoot, "public");
 const distDir = path.join(repoRoot, "dist");
 
 const SITE_URL = "https://homemadebydia.ro/";
-const HOME_URL = SITE_URL;
+const PAGE_URLS = [SITE_URL, new URL("en/", SITE_URL).toString()];
 const PAGE_SITEMAP_URL = new URL("sitemap.xml", SITE_URL).toString();
 const IMAGE_SITEMAP_URL = new URL("image-sitemap.xml", SITE_URL).toString();
 
@@ -39,6 +39,12 @@ function escapeXml(value) {
 function readJson(relativePath) {
   const absolutePath = path.join(repoRoot, relativePath);
   return JSON.parse(fs.readFileSync(absolutePath, "utf-8"));
+}
+
+function ensureDistDir() {
+  if (!fs.existsSync(distDir)) {
+    throw new Error(`Sitemap generation failed: expected "${distDir}" to exist after build`);
+  }
 }
 
 function resolvePublicBaseImage(basePath) {
@@ -89,8 +95,8 @@ function collectGalleryImageUrls(galleryDirName) {
   });
 }
 
-function collectTestimonialImageUrls() {
-  return testimonialMediaEntries.flatMap((entry) =>
+function collectReviewImageUrls() {
+  return reviewMediaEntries.flatMap((entry) =>
     (entry.images ?? []).map((image) => resolvePublicBaseImage(image.original)),
   );
 }
@@ -110,6 +116,22 @@ function dedupePreserveOrder(groups) {
   return deduped;
 }
 
+function generatePageSitemapXml() {
+  const lastmod = new Date().toISOString();
+  const urlEntries = PAGE_URLS.map(
+    (url) => `  <url>
+    <loc>${escapeXml(url)}</loc>
+    <lastmod>${lastmod}</lastmod>
+  </url>`,
+  ).join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="${URLSET_NAMESPACE}">
+${urlEntries}
+</urlset>
+`;
+}
+
 function generateImageSitemapXml(imageUrls) {
   const imageEntries = imageUrls
     .map(
@@ -119,55 +141,46 @@ function generateImageSitemapXml(imageUrls) {
     )
     .join("\n");
 
+  const urlEntries = PAGE_URLS.map(
+    (url) => `  <url>
+    <loc>${escapeXml(url)}</loc>
+${imageEntries}
+  </url>`,
+  ).join("\n");
+
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="${URLSET_NAMESPACE}" xmlns:image="${IMAGE_NAMESPACE}">
-  <url>
-    <loc>${escapeXml(HOME_URL)}</loc>
-${imageEntries}
-  </url>
+${urlEntries}
 </urlset>
 `;
 }
 
-function patchRobotsTxt() {
-  const robotsPath = path.join(distDir, "robots.txt");
-  if (!fs.existsSync(robotsPath)) {
-    throw new Error(`Image sitemap generation failed: expected "${robotsPath}" to exist after build`);
-  }
+function generateRobotsTxt() {
+  return `User-agent: *
+Allow: /
 
-  const originalContent = fs.readFileSync(robotsPath, "utf-8");
-  const eol = originalContent.includes("\r\n") ? "\r\n" : "\n";
-  const lines = originalContent
-    .split(/\r?\n/)
-    .filter((line) => line !== `Sitemap: ${IMAGE_SITEMAP_URL}`);
-
-  const pageSitemapIndex = lines.findIndex((line) => line === `Sitemap: ${PAGE_SITEMAP_URL}`);
-  if (pageSitemapIndex === -1) {
-    lines.push(`Sitemap: ${PAGE_SITEMAP_URL}`);
-    lines.push(`Sitemap: ${IMAGE_SITEMAP_URL}`);
-  } else if (lines[pageSitemapIndex + 1] !== `Sitemap: ${IMAGE_SITEMAP_URL}`) {
-    lines.splice(pageSitemapIndex + 1, 0, `Sitemap: ${IMAGE_SITEMAP_URL}`);
-  }
-
-  const patchedContent = `${lines.join(eol).replace(new RegExp(`${eol}*$`), "")}${eol}`;
-  fs.writeFileSync(robotsPath, patchedContent);
+Sitemap: ${PAGE_SITEMAP_URL}
+Sitemap: ${IMAGE_SITEMAP_URL}
+`;
 }
 
 function main() {
+  ensureDistDir();
+
   const imageUrls = dedupePreserveOrder([
     collectProductImageUrls(),
     collectGalleryImageUrls("gallery"),
-    collectTestimonialImageUrls(),
+    collectReviewImageUrls(),
     collectGalleryImageUrls("events"),
   ]);
 
+  fs.writeFileSync(path.join(distDir, "sitemap.xml"), generatePageSitemapXml(), "utf-8");
   fs.writeFileSync(
     path.join(distDir, "image-sitemap.xml"),
     generateImageSitemapXml(imageUrls),
     "utf-8",
   );
-
-  patchRobotsTxt();
+  fs.writeFileSync(path.join(distDir, "robots.txt"), generateRobotsTxt(), "utf-8");
 }
 
 main();

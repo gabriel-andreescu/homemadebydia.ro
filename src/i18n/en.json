@@ -11,7 +11,7 @@
     "events": "Events",
     "gallery": "Gallery",
     "whyUs": "Why Us?",
-    "testimonials": "Reviews",
+    "reviews": "Reviews",
     "howToOrder": "How to Order",
     "contact": "Contact",
     "menu": "Menu"
@@ -21,7 +21,7 @@
     "catalog": "Catalog",
     "gallery": "Gallery",
     "whyUs": "Why Us?",
-    "testimonials": "What Our Clients Say"
+    "reviews": "What Our Clients Say"
   },
   "gallery": {
     "events": "Events"
@@ -131,6 +131,9 @@
     "heroShowcaseCakeTulips": "Cream and pink celebration cake decorated with tulips and butterflies",
     "enlargedImage": "enlarged image",
     "eventsGalleryImage": "image from events gallery",
+    "openGalleryImage": "Open gallery image {index}",
+    "openEventsGalleryImage": "Open events gallery image {index}",
+    "openReviewImage": "Open review photo {index} by {name}",
     "productAltSuffix": "at Homemade by Dia - pastry shop in Buftea",
     "visitFacebook": "Visit our Facebook page",
     "sendMessenger": "Send us a message on Messenger",
@@ -155,7 +158,7 @@
     "leaveReview": "Leave a review",
     "salBadgeAlt": "ANPC alternative dispute resolution pictogram"
   },
-  "testimonials": {
+  "reviews": {
     "rating": "{count} out of 5 stars",
     "source": "See more reviews on Google",
     "imageAlt": "Photo attached by {name}"

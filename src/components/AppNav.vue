@@ -122,13 +122,13 @@ function runAfterClosingMobileMenu(action: () => void) {
   });
 }
 
-function navigate(id: string) {
+function navigate(id: Parameters<typeof scrollTo>[0]) {
   runAfterClosingMobileMenu(() => {
     void scrollTo(id);
   });
 }
 
-function navigateToTab(tab: string) {
+function navigateToTab(tab: "cakes" | "pastries" | "bakery" | "events") {
   runAfterClosingMobileMenu(() => {
     selectTab(tab, true, true); // updateHash=true, scrollToTop=true
   });
@@ -174,41 +174,41 @@ function navigateToTab(tab: string) {
         <button @click="navigate('catalog')">{{ t("nav.catalog") }}</button>
         <ul class="sub-menu pl-4 mt-2 space-y-2 border-l-2 border-accent-light lg:hidden">
           <li>
-            <button class="block px-4 py-2" @click="navigateToTab('torturi')">
+            <button class="block px-4 py-2" @click="navigateToTab('cakes')">
               {{ t("nav.cakes") }}
             </button>
           </li>
           <li>
-            <button class="block px-4 py-2" @click="navigateToTab('prajituri')">
+            <button class="block px-4 py-2" @click="navigateToTab('pastries')">
               {{ t("nav.pastries") }}
             </button>
           </li>
           <li>
-            <button class="block px-4 py-2" @click="navigateToTab('patiserie')">
+            <button class="block px-4 py-2" @click="navigateToTab('bakery')">
               {{ t("nav.bakery") }}
             </button>
           </li>
           <li>
-            <button class="block px-4 py-2" @click="navigateToTab('evenimente')">
+            <button class="block px-4 py-2" @click="navigateToTab('events')">
               {{ t("nav.events") }}
             </button>
           </li>
         </ul>
       </li>
       <li class="menu-item">
-        <button @click="navigate('galerie')">{{ t("nav.gallery") }}</button>
+        <button @click="navigate('gallery')">{{ t("nav.gallery") }}</button>
       </li>
       <li class="menu-item">
-        <button @click="navigate('despre-noi')">{{ t("nav.aboutUs") }}</button>
+        <button @click="navigate('aboutUs')">{{ t("nav.aboutUs") }}</button>
       </li>
       <li class="menu-item">
-        <button @click="navigate('de-ce-noi')">{{ t("nav.whyUs") }}</button>
+        <button @click="navigate('whyUs')">{{ t("nav.whyUs") }}</button>
       </li>
       <li class="menu-item">
-        <button @click="navigate('testimoniale')">{{ t("nav.testimonials") }}</button>
+        <button @click="navigate('reviews')">{{ t("nav.reviews") }}</button>
       </li>
       <li class="menu-item">
-        <button @click="navigate('cum-sa-comanzi')">{{ t("nav.howToOrder") }}</button>
+        <button @click="navigate('howToOrder')">{{ t("nav.howToOrder") }}</button>
       </li>
       <li class="menu-item">
         <button @click="navigate('contact')">{{ t("nav.contact") }}</button>

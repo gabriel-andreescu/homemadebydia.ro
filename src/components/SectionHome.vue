@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
+import { computed, ref, onMounted, onUnmounted } from "vue";
 import { useI18n } from "vue-i18n";
 import AppSocialLinks from "./AppSocialLinks.vue";
 import AppPicture from "./AppPicture.vue";
@@ -34,12 +34,40 @@ const showcaseImages = [
 
 const heroRef = ref<HTMLElement | null>(null);
 const currentImageIndex = ref(0);
+const previousImageIndex = ref<number | null>(null);
+const initialHeroImagePhase = ref(true);
 const AUTOPLAY_INTERVAL_MS = 4000;
+const HERO_FADE_DURATION_MS = 800;
 
 let intervalId: number | undefined;
+let previousImageTimeoutId: number | undefined;
+
+const currentImage = computed(() => showcaseImages[currentImageIndex.value]);
+const previousImage = computed(() =>
+  previousImageIndex.value === null ? null : showcaseImages[previousImageIndex.value],
+);
 
 const setImageIndex = (index: number, resetAutoplay = false) => {
-  currentImageIndex.value = (index + showcaseImages.length) % showcaseImages.length;
+  const nextIndex = (index + showcaseImages.length) % showcaseImages.length;
+  if (nextIndex === currentImageIndex.value) {
+    if (resetAutoplay) {
+      restartAutoplay();
+    }
+    return;
+  }
+
+  previousImageIndex.value = currentImageIndex.value;
+  currentImageIndex.value = nextIndex;
+
+  if (previousImageTimeoutId !== undefined) {
+    clearTimeout(previousImageTimeoutId);
+  }
+
+  previousImageTimeoutId = window.setTimeout(() => {
+    previousImageIndex.value = null;
+    previousImageTimeoutId = undefined;
+  }, HERO_FADE_DURATION_MS);
+
   if (resetAutoplay) {
     restartAutoplay();
   }
@@ -104,10 +132,15 @@ const { onTouchStart, onTouchMove, onTouchEnd, onTouchCancel } = useHorizontalSw
 
 onMounted(() => {
   startAutoplay();
+  initialHeroImagePhase.value = false;
 });
 
 onUnmounted(() => {
   stopAutoplay();
+  if (previousImageTimeoutId !== undefined) {
+    clearTimeout(previousImageTimeoutId);
+    previousImageTimeoutId = undefined;
+  }
 });
 </script>
 
@@ -159,19 +192,22 @@ onUnmounted(() => {
           @touchend="onTouchEnd"
           @touchcancel="onTouchCancel"
         >
-          <!-- Images with crossfade -->
-          <TransitionGroup name="fade">
-            <AppPicture
-              v-for="(img, index) in showcaseImages"
-              v-show="currentImageIndex === index"
-              :key="img.src"
-              :src="img.src"
-              :alt="t(img.altKey)"
-              img-class="absolute inset-0 w-full h-full object-cover"
-              :eager="index === 0"
-              sizes="(max-width: 1024px) 100vw, min(50vw, 640px)"
-            />
-          </TransitionGroup>
+          <AppPicture
+            v-if="previousImage"
+            :key="`${previousImage.src}-${currentImage.src}`"
+            :src="previousImage.src"
+            :alt="t(previousImage.altKey)"
+            img-class="absolute inset-0 w-full h-full object-cover hero-image hero-image--out"
+            sizes="(max-width: 1024px) 100vw, min(50vw, 640px)"
+          />
+          <AppPicture
+            :key="currentImage.src"
+            :src="currentImage.src"
+            :alt="t(currentImage.altKey)"
+            img-class="absolute inset-0 w-full h-full object-cover hero-image"
+            :eager="initialHeroImagePhase && currentImageIndex === 0"
+            sizes="(max-width: 1024px) 100vw, min(50vw, 640px)"
+          />
 
           <!-- Decorative frame -->
           <div
@@ -204,14 +240,17 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.8s ease;
+@keyframes hero-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
+.hero-image--out {
+  animation: hero-fade-out 0.8s ease forwards;
 }
 
 @keyframes float-slow {

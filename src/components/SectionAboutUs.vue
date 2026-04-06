@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
+import AppDeferredMedia from "./AppDeferredMedia.vue";
 import AppPicture from "./AppPicture.vue";
 
 const { t } = useI18n();
@@ -30,13 +31,17 @@ function toggle() {
 <template>
   <section ref="sectionRef" class="max-w-3xl mx-auto p-4">
     <div ref="imageRef" class="overflow-hidden rounded-xl shadow-lg mb-6 aspect-[16/9]">
-      <AppPicture
-        src="/gallery/about-us"
-        :alt="t('aboutUs.imageAlt')"
-        img-class="w-full h-full object-cover"
-        eager
-        sizes="(max-width: 768px) 100vw, 768px"
-      />
+      <AppDeferredMedia
+        wrapper-class="w-full h-full"
+        placeholder-class="w-full h-full bg-gray-200 dark:bg-gray-700"
+      >
+        <AppPicture
+          src="/gallery/about-us"
+          :alt="t('aboutUs.imageAlt')"
+          img-class="w-full h-full object-cover"
+          sizes="(max-width: 768px) 100vw, 768px"
+        />
+      </AppDeferredMedia>
     </div>
 
     <div class="relative p-5 bg-gray-50 dark:bg-gray-800/70 rounded-xl shadow-sm">
