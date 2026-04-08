@@ -9,7 +9,7 @@ import IconWhatsappBrand from "./icons/IconWhatsappBrand.vue";
 import AppPicture from "./AppPicture.vue";
 import { useDialogA11y } from "../composables/useDialogA11y";
 import { useCart } from "../composables/useCart";
-import { getQuantityStep, formatQuantity, formatQuantityUnit } from "../utils/quantity";
+import { formatQuantity, formatQuantityUnit } from "../utils/quantity";
 
 const { t } = useI18n();
 const cart = useCart();
@@ -93,7 +93,7 @@ const isEmpty = computed(() => cart.count.value === 0);
                   <!-- Quantity stepper -->
                   <div class="flex items-center gap-1 bg-gray-100 dark:bg-gray-700 rounded-full">
                     <button
-                      @click="cart.update(item.id, item.quantity - getQuantityStep(item.unit))"
+                      @click="cart.update(item.id, item.quantity - item.step)"
                       :disabled="item.quantity <= item.min"
                       class="w-7 h-7 flex items-center justify-center rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                       :aria-label="t('cart.decreaseQuantity')"
@@ -101,10 +101,10 @@ const isEmpty = computed(() => cart.count.value === 0);
                       <IconMinus class="w-3.5 h-3.5" />
                     </button>
                     <span class="w-12 text-center text-sm font-medium text-gray-800 dark:text-gray-100">
-                      {{ formatQuantity(item.quantity, item.unit) }}{{ formatQuantityUnit(item.unit) }}
+                      {{ formatQuantity(item.quantity, item.unit, item.step) }}{{ formatQuantityUnit(item.unit) }}
                     </span>
                     <button
-                      @click="cart.update(item.id, item.quantity + getQuantityStep(item.unit))"
+                      @click="cart.update(item.id, item.quantity + item.step)"
                       class="w-7 h-7 flex items-center justify-center rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                       :aria-label="t('cart.increaseQuantity')"
                     >

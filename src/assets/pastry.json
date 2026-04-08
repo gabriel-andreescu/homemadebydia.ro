@@ -55,6 +55,7 @@
     "assortments": "dulceață și nucă",
     "min": 0.25,
     "unit": "kg",
+    "step": 0.25,
     "price": 110
   },
   {
