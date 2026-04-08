@@ -12,6 +12,7 @@ import { useI18n } from "vue-i18n";
 import AppHeader from "../components/AppHeader.vue";
 import AppSection from "../components/AppSection.vue";
 import SectionHome from "../components/SectionHome.vue";
+import SectionCatalog from "../components/SectionCatalog.vue";
 import CartDrawer from "../components/CartDrawer.vue";
 import CartToast from "../components/CartToast.vue";
 import IconClose from "../components/icons/IconClose.vue";
@@ -20,108 +21,18 @@ import IconWhatsappBrand from "../components/icons/IconWhatsappBrand.vue";
 import { useCart } from "../composables/useCart";
 import { useCatalogTabs } from "../composables/useCatalogTabs";
 import { useDialogA11y } from "../composables/useDialogA11y";
-import { getHash, onHashUpdate } from "../composables/useHash";
 import { useInitialHashAlignment } from "../composables/useInitialHashAlignment";
 import { useSiteHead } from "../composables/useSiteHead";
 import { CONTACT } from "../constants";
 import type { Locale } from "../i18n";
-import { getLocalizedAnchor, getKeyFromHash, isCatalogTabKey } from "../siteNavigation";
+import { getLocalizedAnchor } from "../siteNavigation";
 
-const CATALOG_HYDRATION = hydrateOnVisible({ rootMargin: "0px 0px" });
 const BELOW_THE_FOLD_HYDRATION = hydrateOnVisible({ rootMargin: "1200px 0px" });
 
 const { t, locale } = useI18n();
 const currentLocale = computed(() => locale.value as Locale);
 const getAnchorId = (key: Parameters<typeof getLocalizedAnchor>[0]) =>
   getLocalizedAnchor(key, currentLocale.value);
-
-const shouldHydrateCatalogImmediately = () => {
-  const hashKey = getKeyFromHash(getHash());
-  return hashKey === "catalog" || isCatalogTabKey(hashKey);
-};
-
-const waitForCatalogShellVisibility = () =>
-  new Promise<void>((resolve) => {
-    if (
-      import.meta.env.SSR ||
-      typeof window === "undefined" ||
-      typeof document === "undefined" ||
-      shouldHydrateCatalogImmediately()
-    ) {
-      resolve();
-      return;
-    }
-
-    let catalogShell: HTMLElement | null = null;
-    let shellLookupFrameId = 0;
-    let removeHashListener: (() => void) | null = null;
-
-    const stopWatchingVisibility = () => {
-      window.removeEventListener("scroll", onVisibilityChange);
-      window.removeEventListener("resize", onVisibilityChange);
-      window.removeEventListener("orientationchange", onVisibilityChange);
-      removeHashListener?.();
-      removeHashListener = null;
-    };
-
-    const complete = () => {
-      window.cancelAnimationFrame(shellLookupFrameId);
-      stopWatchingVisibility();
-      resolve();
-    };
-
-    const isCatalogShellVisible = () => {
-      if (!catalogShell) return false;
-
-      const rect = catalogShell.getBoundingClientRect();
-      return rect.top <= window.innerHeight && rect.bottom >= 0;
-    };
-
-    const onVisibilityChange = () => {
-      if (isCatalogShellVisible()) {
-        complete();
-      }
-    };
-
-    const waitForCatalogShell = () => {
-      const shell = document.getElementById(getAnchorId("catalog"));
-      if (shell instanceof HTMLElement) {
-        catalogShell = shell;
-
-        if (isCatalogShellVisible()) {
-          complete();
-          return;
-        }
-
-        window.addEventListener("scroll", onVisibilityChange, { passive: true });
-        window.addEventListener("resize", onVisibilityChange, { passive: true });
-        window.addEventListener("orientationchange", onVisibilityChange);
-        return;
-      }
-
-      shellLookupFrameId = window.requestAnimationFrame(waitForCatalogShell);
-    };
-
-    waitForCatalogShell();
-    removeHashListener = onHashUpdate(() => {
-      if (shouldHydrateCatalogImmediately()) {
-        complete();
-      }
-    });
-  });
-
-let catalogSectionPromise: Promise<typeof import("../components/SectionCatalog.vue")> | null = null;
-const loadSectionCatalog = () => {
-  if (import.meta.env.SSR || shouldHydrateCatalogImmediately()) {
-    return import("../components/SectionCatalog.vue");
-  }
-
-  catalogSectionPromise ??= waitForCatalogShellVisibility().then(() =>
-    import("../components/SectionCatalog.vue"),
-  );
-
-  return catalogSectionPromise;
-};
 const loadBelowFoldModules = () => import("../components/belowFold");
 const loadSectionGallery = () => loadBelowFoldModules().then((modules) => modules.SectionGallery);
 const loadSectionAboutUs = () => loadBelowFoldModules().then((modules) => modules.SectionAboutUs);
@@ -129,10 +40,6 @@ const loadSectionWhyChooseUs = () => loadBelowFoldModules().then((modules) => mo
 const loadSectionReviews = () => loadBelowFoldModules().then((modules) => modules.SectionReviews);
 const loadAppFooter = () => loadBelowFoldModules().then((modules) => modules.AppFooter);
 
-const SectionCatalog = defineAsyncComponent({
-  loader: loadSectionCatalog,
-  hydrate: shouldHydrateCatalogImmediately() ? undefined : CATALOG_HYDRATION,
-});
 const SectionGallery = defineAsyncComponent({
   loader: loadSectionGallery,
   hydrate: BELOW_THE_FOLD_HYDRATION,

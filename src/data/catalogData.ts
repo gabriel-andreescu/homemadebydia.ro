@@ -14,6 +14,7 @@ export interface CatalogProduct {
   price: number;
   min?: number;
   unit?: string;
+  step?: number;
 }
 
 export interface CatalogCollections {

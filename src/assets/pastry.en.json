@@ -61,6 +61,7 @@
     "assortments": "jam & walnut filled",
     "min": 0.25,
     "unit": "kg",
+    "step": 0.25,
     "price": 110
   },
   {

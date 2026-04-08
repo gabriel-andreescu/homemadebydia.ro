@@ -1,14 +1,16 @@
-import { computed, onMounted, ref, shallowRef, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { CONTACT } from "../constants";
+import { getCatalogProductMap, getProductId, type CatalogProduct } from "../data/catalogData";
 import type { Locale } from "../i18n";
-import type { CatalogProduct } from "../data/catalogData";
+import { formatQuantityLabel, getQuantityStep, normalizeQuantity } from "../utils/quantity";
 
 interface CartItemSnapshot {
   title: string;
   price: number;
   unit: string;
   min: number;
+  step: number;
 }
 
 interface StoredCartItem {
@@ -22,6 +24,7 @@ export interface CartItem {
   title: string;
   quantity: number;
   unit: string;
+  step: number;
   price: number;
   min: number;
 }
@@ -30,29 +33,46 @@ const STORAGE_KEY = "homemadebydia_cart";
 const drawerOpen = ref(false);
 const lastAdded = ref<string | null>(null);
 const storedItems = ref<StoredCartItem[]>([]);
-const productMapsByLocale = shallowRef<Partial<Record<Locale, Map<string, CatalogProduct>>>>({});
-
-const pendingProductMaps = new Map<Locale, Promise<Map<string, CatalogProduct>>>();
-const EMPTY_PRODUCT_MAP = new Map<string, CatalogProduct>();
+const ROMANIAN_CATALOG_PRODUCT_MAP = getCatalogProductMap("ro");
 
 let initialized = false;
 let persistenceInitialized = false;
 
-function getProductId(product: Pick<CatalogProduct, "imageUrl">): string {
-  if (Array.isArray(product.imageUrl)) {
-    return product.imageUrl[0] ?? "";
-  }
-
-  return product.imageUrl;
-}
-
 function buildSnapshot(product: CatalogProduct): CartItemSnapshot {
+  const unit = product.unit ?? "buc";
+
   return {
     title: product.title,
     price: product.price,
-    unit: product.unit ?? "buc",
+    unit,
     min: product.min ?? 1,
+    step: getQuantityStep(unit, product.step),
   };
+}
+
+function repairStoredItemsWithProductMap(productMap: Map<string, CatalogProduct>) {
+  storedItems.value.forEach((stored) => {
+    const product = productMap.get(stored.id);
+    if (!product) return;
+
+    const snapshot = buildSnapshot(product);
+    const normalizedQuantity = normalizeQuantity(stored.quantity, snapshot.unit, snapshot.step);
+
+    if (stored.quantity !== normalizedQuantity) {
+      stored.quantity = normalizedQuantity;
+    }
+
+    if (
+      !stored.snapshot ||
+      stored.snapshot.title !== snapshot.title ||
+      stored.snapshot.price !== snapshot.price ||
+      stored.snapshot.unit !== snapshot.unit ||
+      stored.snapshot.min !== snapshot.min ||
+      stored.snapshot.step !== snapshot.step
+    ) {
+      stored.snapshot = snapshot;
+    }
+  });
 }
 
 function loadFromStorage(): StoredCartItem[] {
@@ -80,12 +100,18 @@ function loadFromStorage(): StoredCartItem[] {
                 price: item.snapshot.price,
                 unit: item.snapshot.unit,
                 min: item.snapshot.min,
+                step: getQuantityStep(
+                  item.snapshot.unit,
+                  typeof item.snapshot.step === "number" ? item.snapshot.step : undefined,
+                ),
               }
             : undefined;
 
         return {
           id: item.id,
-          quantity: item.quantity,
+          quantity: snapshot
+            ? normalizeQuantity(item.quantity, snapshot.unit, snapshot.step)
+            : item.quantity,
           snapshot,
         };
       })
@@ -95,34 +121,8 @@ function loadFromStorage(): StoredCartItem[] {
   }
 }
 
-async function ensureCatalogProductMap(locale: Locale): Promise<Map<string, CatalogProduct>> {
-  const cached = productMapsByLocale.value[locale];
-  if (cached) {
-    return cached;
-  }
-
-  const pending = pendingProductMaps.get(locale);
-  if (pending) {
-    return pending;
-  }
-
-  const loadPromise = import("../data/catalogData")
-    .then(({ getCatalogProductMap }) => {
-      const productMap = getCatalogProductMap(locale);
-      productMapsByLocale.value = {
-        ...productMapsByLocale.value,
-        [locale]: productMap,
-      };
-      pendingProductMaps.delete(locale);
-      return productMap;
-    })
-    .catch((error) => {
-      pendingProductMaps.delete(locale);
-      throw error;
-    });
-
-  pendingProductMaps.set(locale, loadPromise);
-  return loadPromise;
+function repairStoredItemsForLocale(locale: Locale) {
+  repairStoredItemsWithProductMap(getCatalogProductMap(locale));
 }
 
 function ensureClientInitialization() {
@@ -152,7 +152,7 @@ export function useCart() {
     ensureClientInitialization();
 
     if (storedItems.value.length > 0) {
-      void ensureCatalogProductMap(locale.value as Locale);
+      repairStoredItemsForLocale(locale.value as Locale);
     }
   });
 
@@ -162,14 +162,12 @@ export function useCart() {
     () => locale.value,
     (nextLocale) => {
       if (storedItems.value.length > 0) {
-        void ensureCatalogProductMap(nextLocale as Locale);
+        repairStoredItemsForLocale(nextLocale as Locale);
       }
     },
   );
 
-  const productMap = computed(
-    () => productMapsByLocale.value[locale.value as Locale] ?? EMPTY_PRODUCT_MAP,
-  );
+  const productMap = computed(() => getCatalogProductMap(locale.value as Locale));
 
   const items = computed<CartItem[]>(() =>
     storedItems.value
@@ -181,8 +179,9 @@ export function useCart() {
         return {
           id: stored.id,
           title: snapshot.title,
-          quantity: stored.quantity,
+          quantity: normalizeQuantity(stored.quantity, snapshot.unit, snapshot.step),
           unit: snapshot.unit,
+          step: snapshot.step,
           price: snapshot.price,
           min: snapshot.min,
         };
@@ -195,9 +194,22 @@ export function useCart() {
   const total = computed(() => items.value.reduce((sum, item) => sum + item.price * item.quantity, 0));
 
   const whatsappUrl = computed(() => {
-    if (items.value.length === 0) return CONTACT.whatsapp;
+    if (storedItems.value.length === 0) return CONTACT.whatsapp;
 
-    const lines = items.value.map((item) => `• ${item.title} - ${item.quantity}${item.unit}`);
+    const lines = storedItems.value
+      .map((stored) => {
+        const product = ROMANIAN_CATALOG_PRODUCT_MAP.get(stored.id);
+        const snapshot = product ? buildSnapshot(product) : stored.snapshot;
+        if (!snapshot) return null;
+
+        const quantity = normalizeQuantity(stored.quantity, snapshot.unit, snapshot.step);
+
+        return `• ${snapshot.title} - ${formatQuantityLabel(quantity, snapshot.unit, snapshot.step)}`;
+      })
+      .filter((line): line is string => line !== null);
+
+    if (lines.length === 0) return CONTACT.whatsapp;
+
     const message = `Bună ziua! Aș dori să comand:\n${lines.join("\n")}\n\nMulțumesc!`;
 
     return `${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
@@ -208,10 +220,11 @@ export function useCart() {
     const existing = storedItems.value.find((item) => item.id === id);
     if (existing) return;
 
+    const snapshot = buildSnapshot(product);
     storedItems.value.push({
       id,
-      quantity: product.min ?? 1,
-      snapshot: buildSnapshot(product),
+      quantity: normalizeQuantity(snapshot.min, snapshot.unit, snapshot.step),
+      snapshot,
     });
 
     lastAdded.value = product.title;
@@ -225,12 +238,15 @@ export function useCart() {
     if (!stored) return;
 
     const product = productMap.value.get(id);
-    const minimum = product?.min ?? stored.snapshot?.min ?? 1;
-    stored.quantity = Math.max(minimum, quantity);
+    const snapshot = product ? buildSnapshot(product) : stored.snapshot;
+    if (!snapshot) return;
 
-    if (product) {
-      stored.snapshot = buildSnapshot(product);
-    }
+    stored.quantity = normalizeQuantity(
+      Math.max(snapshot.min, quantity),
+      snapshot.unit,
+      snapshot.step,
+    );
+    stored.snapshot = snapshot;
   }
 
   function remove(id: string) {
@@ -249,7 +265,6 @@ export function useCart() {
   }
 
   function openDrawer() {
-    void ensureCatalogProductMap(locale.value as Locale);
     drawerOpen.value = true;
   }
 
