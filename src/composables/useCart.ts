@@ -3,6 +3,7 @@ import { useI18n } from "vue-i18n";
 import { CONTACT } from "../constants";
 import type { Locale } from "../i18n";
 import type { CatalogProduct } from "../data/catalogData";
+import { formatQuantityLabel, normalizeQuantity } from "../utils/quantity";
 
 interface CartItemSnapshot {
   title: string;
@@ -55,6 +56,24 @@ function buildSnapshot(product: CatalogProduct): CartItemSnapshot {
   };
 }
 
+function repairStoredItemsWithProductMap(productMap: Map<string, CatalogProduct>) {
+  storedItems.value.forEach((stored) => {
+    const product = productMap.get(stored.id);
+    if (!product) return;
+
+    const unit = product.unit ?? "buc";
+    const normalizedQuantity = normalizeQuantity(stored.quantity, unit);
+
+    if (stored.quantity !== normalizedQuantity) {
+      stored.quantity = normalizedQuantity;
+    }
+
+    if (!stored.snapshot) {
+      stored.snapshot = buildSnapshot(product);
+    }
+  });
+}
+
 function loadFromStorage(): StoredCartItem[] {
   if (typeof localStorage === "undefined") return [];
 
@@ -85,7 +104,7 @@ function loadFromStorage(): StoredCartItem[] {
 
         return {
           id: item.id,
-          quantity: item.quantity,
+          quantity: snapshot ? normalizeQuantity(item.quantity, snapshot.unit) : item.quantity,
           snapshot,
         };
       })
@@ -98,6 +117,7 @@ function loadFromStorage(): StoredCartItem[] {
 async function ensureCatalogProductMap(locale: Locale): Promise<Map<string, CatalogProduct>> {
   const cached = productMapsByLocale.value[locale];
   if (cached) {
+    repairStoredItemsWithProductMap(cached);
     return cached;
   }
 
@@ -113,6 +133,7 @@ async function ensureCatalogProductMap(locale: Locale): Promise<Map<string, Cata
         ...productMapsByLocale.value,
         [locale]: productMap,
       };
+      repairStoredItemsWithProductMap(productMap);
       pendingProductMaps.delete(locale);
       return productMap;
     })
@@ -181,7 +202,7 @@ export function useCart() {
         return {
           id: stored.id,
           title: snapshot.title,
-          quantity: stored.quantity,
+          quantity: normalizeQuantity(stored.quantity, snapshot.unit),
           unit: snapshot.unit,
           price: snapshot.price,
           min: snapshot.min,
@@ -197,7 +218,9 @@ export function useCart() {
   const whatsappUrl = computed(() => {
     if (items.value.length === 0) return CONTACT.whatsapp;
 
-    const lines = items.value.map((item) => `• ${item.title} - ${item.quantity}${item.unit}`);
+    const lines = items.value.map(
+      (item) => `• ${item.title} - ${formatQuantityLabel(item.quantity, item.unit)}`,
+    );
     const message = `Bună ziua! Aș dori să comand:\n${lines.join("\n")}\n\nMulțumesc!`;
 
     return `${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
@@ -210,7 +233,7 @@ export function useCart() {
 
     storedItems.value.push({
       id,
-      quantity: product.min ?? 1,
+      quantity: normalizeQuantity(product.min ?? 1, product.unit ?? "buc"),
       snapshot: buildSnapshot(product),
     });
 
@@ -226,7 +249,8 @@ export function useCart() {
 
     const product = productMap.value.get(id);
     const minimum = product?.min ?? stored.snapshot?.min ?? 1;
-    stored.quantity = Math.max(minimum, quantity);
+    const unit = product?.unit ?? stored.snapshot?.unit ?? "buc";
+    stored.quantity = normalizeQuantity(Math.max(minimum, quantity), unit);
 
     if (product) {
       stored.snapshot = buildSnapshot(product);

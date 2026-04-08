@@ -9,7 +9,7 @@ import IconWhatsappBrand from "./icons/IconWhatsappBrand.vue";
 import AppPicture from "./AppPicture.vue";
 import { useDialogA11y } from "../composables/useDialogA11y";
 import { useCart } from "../composables/useCart";
-import { UNIT_STEPS, DEFAULT_UNIT_STEP } from "../constants";
+import { getQuantityStep, formatQuantity, formatQuantityUnit } from "../utils/quantity";
 
 const { t } = useI18n();
 const cart = useCart();
@@ -19,23 +19,6 @@ useDialogA11y(cart.drawerOpen, dialogRef, cart.closeDrawer);
 
 const formatPrice = (price: number) => {
   return Math.round(price);
-};
-
-const getStep = (unit: string) => UNIT_STEPS[unit] ?? DEFAULT_UNIT_STEP;
-
-const formatQuantity = (quantity: number, unit: string) => {
-  const step = getStep(unit);
-  if (step < 1) {
-    return quantity.toFixed(1);
-  }
-  if (unit === "100 g") {
-    return (quantity * 100).toFixed(0);
-  }
-  return quantity.toFixed(0);
-};
-
-const formatUnit = (unit: string) => {
-  return unit === "100 g" ? "g" : unit;
 };
 
 const isEmpty = computed(() => cart.count.value === 0);
@@ -110,7 +93,7 @@ const isEmpty = computed(() => cart.count.value === 0);
                   <!-- Quantity stepper -->
                   <div class="flex items-center gap-1 bg-gray-100 dark:bg-gray-700 rounded-full">
                     <button
-                      @click="cart.update(item.id, item.quantity - getStep(item.unit))"
+                      @click="cart.update(item.id, item.quantity - getQuantityStep(item.unit))"
                       :disabled="item.quantity <= item.min"
                       class="w-7 h-7 flex items-center justify-center rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                       :aria-label="t('cart.decreaseQuantity')"
@@ -118,10 +101,10 @@ const isEmpty = computed(() => cart.count.value === 0);
                       <IconMinus class="w-3.5 h-3.5" />
                     </button>
                     <span class="w-12 text-center text-sm font-medium text-gray-800 dark:text-gray-100">
-                      {{ formatQuantity(item.quantity, item.unit) }}{{ formatUnit(item.unit) }}
+                      {{ formatQuantity(item.quantity, item.unit) }}{{ formatQuantityUnit(item.unit) }}
                     </span>
                     <button
-                      @click="cart.update(item.id, item.quantity + getStep(item.unit))"
+                      @click="cart.update(item.id, item.quantity + getQuantityStep(item.unit))"
                       class="w-7 h-7 flex items-center justify-center rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                       :aria-label="t('cart.increaseQuantity')"
                     >
