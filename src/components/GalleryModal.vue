@@ -276,7 +276,7 @@ defineExpose({ openAt });
                 v-if="prevImage"
                 :src="prevImage"
                 :alt="t('accessibility.enlargedImage')"
-                img-class="max-w-full max-h-[70vh] object-contain rounded-lg"
+                img-class="w-auto max-w-full max-h-[70vh] object-contain rounded-lg"
                 sizes="100vw"
               />
             </div>
@@ -290,7 +290,7 @@ defineExpose({ openAt });
                 :key="currentImage"
                 :src="currentImage"
                 :alt="t('accessibility.enlargedImage')"
-                img-class="max-w-full max-h-[70vh] object-contain rounded-lg"
+                img-class="w-auto max-w-full max-h-[70vh] object-contain rounded-lg"
                 sizes="100vw"
               />
             </div>
@@ -304,7 +304,7 @@ defineExpose({ openAt });
                 v-if="nextImage"
                 :src="nextImage"
                 :alt="t('accessibility.enlargedImage')"
-                img-class="max-w-full max-h-[70vh] object-contain rounded-lg"
+                img-class="w-auto max-w-full max-h-[70vh] object-contain rounded-lg"
                 sizes="100vw"
               />
             </div>

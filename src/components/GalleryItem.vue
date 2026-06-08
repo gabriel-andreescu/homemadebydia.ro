@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { makeResponsiveSrcset } from "../utils/responsiveImages";
+import { getResponsiveFallbackSrc, makeResponsiveSrcset } from "../utils/responsiveImages";
 
 const { t } = useI18n();
 
@@ -30,7 +30,7 @@ defineEmits<{
       :sizes="sizes ?? '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'"
     />
     <img
-      :src="`${imagePath}.w640.jpg`"
+      :src="getResponsiveFallbackSrc(imagePath)"
       :srcset="makeResponsiveSrcset(imagePath, 'jpg')"
       :alt="props.alt ?? t('accessibility.galleryImage')"
       class="w-full h-full"

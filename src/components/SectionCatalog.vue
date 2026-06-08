@@ -11,7 +11,9 @@ import { PRICES } from "../constants";
 
 const { t, locale } = useI18n();
 
-const catalogCollections = computed(() => getCatalogCollections(locale.value === "en" ? "en" : "ro"));
+const catalogCollections = computed(() =>
+  getCatalogCollections(locale.value === "en" ? "en" : "ro"),
+);
 const cakes = computed(() => catalogCollections.value.cakes);
 const cookies = computed(() => catalogCollections.value.pastries);
 const pastry = computed(() => catalogCollections.value.bakery);
@@ -166,7 +168,9 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
               </p>
               <p class="flex gap-2">
                 <span class="text-accent dark:text-accent-light shrink-0">●</span>
-                <span>{{ t("catalog.candyBarSetup", { candyBarSetup: PRICES.candyBarSetup }) }}</span>
+                <span>
+                  {{ t("catalog.candyBarSetup", { candyBarSetup: PRICES.candyBarSetup }) }}
+                </span>
               </p>
               <p class="flex gap-2">
                 <span class="text-accent dark:text-accent-light shrink-0">●</span>
@@ -186,9 +190,9 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
               <AppPicture
                 src="/gallery/marturii"
                 :alt="t('catalog.favorsAlt')"
-                img-class="w-1/2 h-auto rounded-lg cursor-pointer"
+                img-class="w-full sm:w-1/2 h-auto rounded-lg cursor-pointer"
                 @click="favorsModalRef?.openAt(0)"
-                sizes="(max-width: 768px) 50vw, 384px"
+                sizes="(max-width: 640px) 100vw, 50vw"
               />
               <figcaption class="text-sm text-gray-500 dark:text-gray-400 mt-1">
                 {{ t("catalog.favorsCaption") }}

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { makeResponsiveSrcset } from "../utils/responsiveImages";
+import { getResponsiveFallbackSrc, makeResponsiveSrcset } from "../utils/responsiveImages";
 
 withDefaults(
   defineProps<{
@@ -21,18 +21,10 @@ defineEmits<{
 
 <template>
   <picture>
-    <source
-      :srcset="makeResponsiveSrcset(src, 'avif')"
-      type="image/avif"
-      :sizes="sizes"
-    />
-    <source
-      :srcset="makeResponsiveSrcset(src, 'webp')"
-      type="image/webp"
-      :sizes="sizes"
-    />
+    <source :srcset="makeResponsiveSrcset(src, 'avif')" type="image/avif" :sizes="sizes" />
+    <source :srcset="makeResponsiveSrcset(src, 'webp')" type="image/webp" :sizes="sizes" />
     <img
-      :src="`${src}.w640.jpg`"
+      :src="getResponsiveFallbackSrc(src)"
       :srcset="makeResponsiveSrcset(src, 'jpg')"
       :sizes="sizes"
       :alt="alt"
