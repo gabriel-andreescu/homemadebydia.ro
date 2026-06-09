@@ -30,6 +30,36 @@ const isSingleImage = computed(() => props.images.length === 1);
 const slideOffset = ref(0); // -1, 0, or 1 for slide animation
 const isAnimating = ref(false);
 const skipTransition = ref(false); // Skip transition during index swap
+const currentZoomImageRef = ref<HTMLElement | null>(null);
+
+const MIN_ZOOM = 1;
+const MAX_ZOOM = 4;
+const ZOOM_RESET_THRESHOLD = 1.05;
+
+type TouchPoint = {
+  x: number;
+  y: number;
+};
+
+type ImageGeometry = {
+  baseWidth: number;
+  baseHeight: number;
+  baseCenter: TouchPoint;
+  stageWidth: number;
+  stageHeight: number;
+};
+
+const zoomScale = ref(MIN_ZOOM);
+const zoomPanX = ref(0);
+const zoomPanY = ref(0);
+const isZoomInteracting = ref(false);
+const touchMode = ref<"swipe" | "pinch" | "pan" | null>(null);
+const pinchStartDistance = ref(0);
+const pinchStartScale = ref(MIN_ZOOM);
+const pinchStartBaseCenter = ref<TouchPoint>({ x: 0, y: 0 });
+const pinchStartContentOffset = ref<TouchPoint>({ x: 0, y: 0 });
+const panStartTouch = ref<TouchPoint>({ x: 0, y: 0 });
+const panStartOffset = ref<TouchPoint>({ x: 0, y: 0 });
 
 // Elastic resistance when dragging past bounds
 const getElasticOffset = (offset: number): number => {
@@ -52,9 +82,134 @@ const carouselTransform = computed(() => {
   return `translateX(calc(${basePercent}% + ${dragOffset.value}px))`;
 });
 
+const isZoomed = computed(() => zoomScale.value > ZOOM_RESET_THRESHOLD);
+const zoomTransform = computed(
+  () => `translate3d(${zoomPanX.value}px, ${zoomPanY.value}px, 0) scale(${zoomScale.value})`,
+);
+
+const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
+
+const getTouchPoint = (touch: Touch): TouchPoint => ({
+  x: touch.clientX,
+  y: touch.clientY,
+});
+
+const getTouchCenter = (touches: TouchList): TouchPoint => ({
+  x: (touches[0].clientX + touches[1].clientX) / 2,
+  y: (touches[0].clientY + touches[1].clientY) / 2,
+});
+
+const getTouchDistance = (touches: TouchList): number => {
+  const dx = touches[0].clientX - touches[1].clientX;
+  const dy = touches[0].clientY - touches[1].clientY;
+  return Math.hypot(dx, dy);
+};
+
+const getCurrentImageGeometry = (): ImageGeometry | null => {
+  const image = currentZoomImageRef.value?.querySelector("img");
+  if (!image) return null;
+
+  const imageRect = image.getBoundingClientRect();
+  const stage = currentZoomImageRef.value?.closest<HTMLElement>(".modal-image-stage");
+  const stageRect = stage?.getBoundingClientRect();
+  const currentScale = Math.max(zoomScale.value, MIN_ZOOM);
+  const baseWidth = imageRect.width / currentScale;
+  const baseHeight = imageRect.height / currentScale;
+
+  return {
+    baseWidth,
+    baseHeight,
+    baseCenter: {
+      x: imageRect.left + imageRect.width / 2 - zoomPanX.value,
+      y: imageRect.top + imageRect.height / 2 - zoomPanY.value,
+    },
+    stageWidth: stageRect?.width ?? baseWidth,
+    stageHeight: stageRect?.height ?? baseHeight,
+  };
+};
+
+const getClampedPan = (scale: number, panX: number, panY: number): TouchPoint => {
+  if (scale <= MIN_ZOOM) {
+    return { x: 0, y: 0 };
+  }
+
+  const geometry = getCurrentImageGeometry();
+  if (!geometry) {
+    return { x: panX, y: panY };
+  }
+
+  const maxPanX = Math.max(0, (geometry.baseWidth * scale - geometry.stageWidth) / 2);
+  const maxPanY = Math.max(0, (geometry.baseHeight * scale - geometry.stageHeight) / 2);
+
+  return {
+    x: clamp(panX, -maxPanX, maxPanX),
+    y: clamp(panY, -maxPanY, maxPanY),
+  };
+};
+
+const applyZoom = (scale: number, panX: number, panY: number) => {
+  const nextScale = clamp(scale, MIN_ZOOM, MAX_ZOOM);
+  const nextPan = getClampedPan(nextScale, panX, panY);
+
+  zoomScale.value = nextScale;
+  zoomPanX.value = nextPan.x;
+  zoomPanY.value = nextPan.y;
+};
+
+const resetZoom = () => {
+  zoomScale.value = MIN_ZOOM;
+  zoomPanX.value = 0;
+  zoomPanY.value = 0;
+  isZoomInteracting.value = false;
+  touchMode.value = null;
+};
+
+const startPinchZoom = (e: TouchEvent) => {
+  onTouchCancel();
+  const center = getTouchCenter(e.touches);
+  const geometry = getCurrentImageGeometry();
+  const currentScale = Math.max(zoomScale.value, MIN_ZOOM);
+  const baseCenter = geometry?.baseCenter ?? {
+    x: center.x - zoomPanX.value,
+    y: center.y - zoomPanY.value,
+  };
+  const visualCenter = {
+    x: baseCenter.x + zoomPanX.value,
+    y: baseCenter.y + zoomPanY.value,
+  };
+
+  touchMode.value = "pinch";
+  isZoomInteracting.value = true;
+  pinchStartDistance.value = Math.max(getTouchDistance(e.touches), 1);
+  pinchStartScale.value = currentScale;
+  pinchStartBaseCenter.value = baseCenter;
+  pinchStartContentOffset.value = {
+    x: (center.x - visualCenter.x) / currentScale,
+    y: (center.y - visualCenter.y) / currentScale,
+  };
+};
+
+const startPanZoom = (touch: Touch) => {
+  touchMode.value = "pan";
+  isZoomInteracting.value = true;
+  panStartTouch.value = getTouchPoint(touch);
+  panStartOffset.value = { x: zoomPanX.value, y: zoomPanY.value };
+};
+
+const finishZoomGesture = () => {
+  if (zoomScale.value <= ZOOM_RESET_THRESHOLD) {
+    resetZoom();
+    return;
+  }
+
+  applyZoom(zoomScale.value, zoomPanX.value, zoomPanY.value);
+  isZoomInteracting.value = false;
+  touchMode.value = null;
+};
+
 const { isDragging, dragOffset, onTouchStart, onTouchMove, onTouchEnd, onTouchCancel } =
   useHorizontalSwipe({
-    isEnabled: () => isOpen.value,
+    isEnabled: () => isOpen.value && !isZoomed.value,
     isInteractionBlocked: () => isAnimating.value,
     canSwipeLeft: () => hasNext.value,
     canSwipeRight: () => hasPrev.value,
@@ -67,6 +222,97 @@ const { isDragging, dragOffset, onTouchStart, onTouchMove, onTouchEnd, onTouchCa
     },
   });
 
+const onModalTouchStart = (e: TouchEvent) => {
+  if (e.touches.length >= 2) {
+    e.preventDefault();
+    startPinchZoom(e);
+    return;
+  }
+
+  if (isZoomed.value && e.touches.length === 1) {
+    e.preventDefault();
+    startPanZoom(e.touches[0]);
+    return;
+  }
+
+  touchMode.value = "swipe";
+  onTouchStart(e);
+};
+
+const onModalTouchMove = (e: TouchEvent) => {
+  if (touchMode.value === "pinch" && e.touches.length >= 2) {
+    e.preventDefault();
+    const distance = Math.max(getTouchDistance(e.touches), 1);
+    const center = getTouchCenter(e.touches);
+    const nextScale = clamp(
+      pinchStartScale.value * (distance / pinchStartDistance.value),
+      MIN_ZOOM,
+      MAX_ZOOM,
+    );
+
+    applyZoom(
+      nextScale,
+      center.x - pinchStartBaseCenter.value.x - pinchStartContentOffset.value.x * nextScale,
+      center.y - pinchStartBaseCenter.value.y - pinchStartContentOffset.value.y * nextScale,
+    );
+    return;
+  }
+
+  if (touchMode.value === "pan" && e.touches.length === 1) {
+    e.preventDefault();
+    const touch = getTouchPoint(e.touches[0]);
+    applyZoom(
+      zoomScale.value,
+      panStartOffset.value.x + touch.x - panStartTouch.value.x,
+      panStartOffset.value.y + touch.y - panStartTouch.value.y,
+    );
+    return;
+  }
+
+  if (e.touches.length >= 2) {
+    e.preventDefault();
+    startPinchZoom(e);
+    return;
+  }
+
+  if (touchMode.value === "swipe") {
+    onTouchMove(e);
+  }
+};
+
+const onModalTouchEnd = (e: TouchEvent) => {
+  if (touchMode.value === "pinch") {
+    if (e.touches.length === 1 && zoomScale.value >= ZOOM_RESET_THRESHOLD) {
+      startPanZoom(e.touches[0]);
+      return;
+    }
+
+    finishZoomGesture();
+    return;
+  }
+
+  if (touchMode.value === "pan") {
+    finishZoomGesture();
+    return;
+  }
+
+  if (touchMode.value === "swipe") {
+    onTouchEnd();
+  }
+
+  touchMode.value = null;
+};
+
+const onModalTouchCancel = () => {
+  if (touchMode.value === "pinch" || touchMode.value === "pan") {
+    finishZoomGesture();
+    return;
+  }
+
+  onTouchCancel();
+  touchMode.value = null;
+};
+
 const openAt = (index: number) => {
   if (props.images.length === 0) return;
 
@@ -75,6 +321,7 @@ const openAt = (index: number) => {
   targetIndex.value = safeIndex;
   slideOffset.value = 0;
   dragOffset.value = 0;
+  resetZoom();
   isOpen.value = true;
   document.documentElement.style.scrollbarGutter = "stable";
   document.documentElement.style.transition = "background 0.3s ease";
@@ -83,6 +330,7 @@ const openAt = (index: number) => {
 };
 
 const close = () => {
+  resetZoom();
   isOpen.value = false;
   document.body.style.overflow = "";
   document.documentElement.style.scrollbarGutter = "";
@@ -128,6 +376,7 @@ const scrollToIndex = (index: number) => {
 
 const next = () => {
   if (hasNext.value && !isAnimating.value) {
+    resetZoom();
     targetIndex.value = currentIndex.value + 1;
     scrollToIndex(targetIndex.value);
     animateToSlide(1, () => {
@@ -138,6 +387,7 @@ const next = () => {
 
 const prev = () => {
   if (hasPrev.value && !isAnimating.value) {
+    resetZoom();
     targetIndex.value = currentIndex.value - 1;
     scrollToIndex(targetIndex.value);
     animateToSlide(-1, () => {
@@ -147,7 +397,14 @@ const prev = () => {
 };
 
 const goTo = (index: number) => {
-  if (index === currentIndex.value || isAnimating.value) return;
+  if (isAnimating.value) return;
+
+  resetZoom();
+
+  if (index === currentIndex.value) {
+    scrollToIndex(index);
+    return;
+  }
 
   // For thumbnail clicks, center and change instantly
   targetIndex.value = index;
@@ -195,7 +452,10 @@ watch(isOpen, (open) => {
   }
 });
 
-watch(currentIndex, scrollToActiveThumbnail);
+watch(currentIndex, () => {
+  resetZoom();
+  scrollToActiveThumbnail();
+});
 useDialogA11y(isOpen, dialogRef, close);
 
 onUnmounted(() => {
@@ -244,12 +504,13 @@ defineExpose({ openAt });
 
         <!-- Main image area -->
         <div
-          class="flex-1 flex items-center justify-center relative overflow-hidden"
+          class="modal-image-stage flex-1 flex items-center justify-center relative overflow-hidden"
+          :class="{ 'is-zoomed': isZoomed }"
           @click.self="close"
-          @touchstart="onTouchStart"
-          @touchmove="onTouchMove"
-          @touchend="onTouchEnd"
-          @touchcancel="onTouchCancel"
+          @touchstart="onModalTouchStart"
+          @touchmove="onModalTouchMove"
+          @touchend="onModalTouchEnd"
+          @touchcancel="onModalTouchCancel"
         >
           <!-- Prev button (desktop) -->
           <button
@@ -284,15 +545,23 @@ defineExpose({ openAt });
             <!-- Current image -->
             <div
               class="carousel-slide flex-shrink-0 w-full h-full flex items-center justify-center px-4"
+              :class="{ 'is-zoomed': isZoomed }"
               @click.self="close"
             >
-              <AppPicture
-                :key="currentImage"
-                :src="currentImage"
-                :alt="t('accessibility.enlargedImage')"
-                img-class="w-auto max-w-full max-h-[70vh] object-contain rounded-lg"
-                sizes="100vw"
-              />
+              <div
+                ref="currentZoomImageRef"
+                class="zoom-content"
+                :class="{ 'is-interacting': isZoomInteracting }"
+                :style="{ transform: zoomTransform }"
+              >
+                <AppPicture
+                  :key="currentImage"
+                  :src="currentImage"
+                  :alt="t('accessibility.enlargedImage')"
+                  img-class="w-auto max-w-full max-h-[70vh] object-contain rounded-lg select-none"
+                  sizes="100vw"
+                />
+              </div>
             </div>
 
             <!-- Next image -->
@@ -379,9 +648,35 @@ defineExpose({ openAt });
   cursor: grabbing;
 }
 
+.modal-image-stage {
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+
+.modal-image-stage.is-zoomed {
+  touch-action: none;
+}
+
 .carousel-slide {
   touch-action: pan-y;
   user-select: none;
+}
+
+.carousel-slide.is-zoomed {
+  cursor: grab;
+  touch-action: none;
+}
+
+.zoom-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.zoom-content:not(.is-interacting) {
+  transition: transform 0.18s ease;
 }
 
 /* Hide scrollbar but keep functionality */
