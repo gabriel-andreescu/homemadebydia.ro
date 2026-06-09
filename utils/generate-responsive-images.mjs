@@ -27,10 +27,30 @@ import { fileURLToPath } from "url";
 import os from "os";
 
 const galleryPath = path.resolve("public/gallery");
+const manifestPath = path.resolve("src/generated/responsive-image-manifest.ts");
 
 const WIDTHS = RESPONSIVE_IMAGE_WIDTHS;
 
 const EXCLUDED_BASENAMES = new Set(RESPONSIVE_IMAGE_EXCLUDE_BASENAMES);
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function toPublicBasePath(filePath) {
+  const parsed = path.parse(filePath);
+  const withoutExt = path.join(parsed.dir, parsed.name);
+  const relative = path.relative(path.resolve("public"), withoutExt);
+  return `/${relative.split(path.sep).join("/")}`;
+}
+
+function getVariantWidths(sourceWidth) {
+  const maxConfiguredWidth = Math.max(...WIDTHS);
+  const largestOutputWidth = Math.min(sourceWidth, maxConfiguredWidth);
+  const widths = WIDTHS.filter((width) => width < largestOutputWidth);
+  widths.push(largestOutputWidth);
+  return [...new Set(widths)].sort((a, b) => a - b);
+}
 
 function toPositiveInt(value) {
   const n = Number.parseInt(String(value ?? ""), 10);
@@ -87,6 +107,31 @@ async function statMtimeMs(filePath) {
   return s.mtimeMs;
 }
 
+async function removeStaleVariants(dir, baseName, validWidths) {
+  const validWidthSet = new Set(validWidths);
+  const validFormatSet = new Set(RESPONSIVE_IMAGE_FORMATS);
+  const variantPattern = new RegExp(
+    `^${escapeRegExp(baseName)}\\.w(\\d+)\\.(${RESPONSIVE_IMAGE_FORMATS.join("|")})$`,
+    "i",
+  );
+  const entries = await fs.readdir(dir);
+  let removed = 0;
+
+  for (const entry of entries) {
+    const match = entry.match(variantPattern);
+    if (!match) continue;
+
+    const width = Number.parseInt(match[1], 10);
+    const format = match[2].toLowerCase();
+    if (validWidthSet.has(width) && validFormatSet.has(format)) continue;
+
+    await fs.unlink(path.join(dir, entry));
+    removed += 1;
+  }
+
+  return removed;
+}
+
 async function ensureVariant(
   inputPath,
   outputPath,
@@ -133,20 +178,35 @@ async function processImageSource(filePath, pipelineMtimeMs) {
   const baseName = path.basename(filePath, ext);
 
   // Don’t treat already-generated variants as inputs.
-  if (isGeneratedVariantFileName(path.basename(filePath))) return { generated: 0, skipped: 1 };
+  if (isGeneratedVariantFileName(path.basename(filePath))) {
+    return { generated: 0, skipped: 1, removed: 0, manifestEntry: null };
+  }
 
   // Ignore SVGs, icons, etc.
-  if (![".jpg", ".jpeg", ".png"].includes(ext)) return { generated: 0, skipped: 1 };
+  if (![".jpg", ".jpeg", ".png"].includes(ext)) {
+    return { generated: 0, skipped: 1, removed: 0, manifestEntry: null };
+  }
 
   // Explicitly exclude some sources (ex: gradient-heavy footer assets).
-  if (EXCLUDED_BASENAMES.has(baseName)) return { generated: 0, skipped: 1 };
+  if (EXCLUDED_BASENAMES.has(baseName)) {
+    return { generated: 0, skipped: 1, removed: 0, manifestEntry: null };
+  }
+
+  const metadata = await sharp(filePath, { failOn: "none" }).metadata();
+  const sourceWidth = metadata.width;
+  if (!sourceWidth) {
+    return { generated: 0, skipped: 1, removed: 0, manifestEntry: null };
+  }
+
+  const widths = getVariantWidths(sourceWidth);
+  const removed = await removeStaleVariants(dir, baseName, widths);
 
   const qualityProfile = RESPONSIVE_IMAGE_QUALITY_PROFILES.normal;
 
   let generated = 0;
   let skipped = 0;
 
-  for (const width of WIDTHS) {
+  for (const width of widths) {
     const baseOut = path.join(dir, `${baseName}.w${width}`);
 
     const avifPath = `${baseOut}.avif`;
@@ -173,7 +233,12 @@ async function processImageSource(filePath, pipelineMtimeMs) {
     }
   }
 
-  return { generated, skipped };
+  return {
+    generated,
+    skipped,
+    removed,
+    manifestEntry: { basePath: toPublicBasePath(filePath), widths },
+  };
 }
 
 async function walk(dir) {
@@ -205,7 +270,10 @@ async function main() {
   // - We also run multiple input files in parallel via `asyncPool`.
   const cpuCount = os.cpus()?.length ?? 1;
   const jobs = pickJobCount();
-  const sharpThreads = Math.max(1, Math.min(cpuCount, toPositiveInt(process.env.SHARP_CONCURRENCY) ?? 8));
+  const sharpThreads = Math.max(
+    1,
+    Math.min(cpuCount, toPositiveInt(process.env.SHARP_CONCURRENCY) ?? 8),
+  );
   sharp.concurrency(sharpThreads);
 
   console.log(
@@ -216,15 +284,37 @@ async function main() {
 
   let generated = 0;
   let skipped = 0;
+  let removed = 0;
+  const manifestEntries = [];
 
   const results = await asyncPool(jobs, files, (f) => processImageSource(f, pipelineMtimeMs));
   for (const res of results) {
     generated += res.generated;
     skipped += res.skipped;
+    removed += res.removed;
+    if (res.manifestEntry) {
+      manifestEntries.push(res.manifestEntry);
+    }
   }
 
+  manifestEntries.sort((a, b) => a.basePath.localeCompare(b.basePath));
+  await fs.mkdir(path.dirname(manifestPath), { recursive: true });
+  await fs.writeFile(
+    manifestPath,
+    [
+      "// Generated by utils/generate-responsive-images.mjs.",
+      "// Do not edit by hand.",
+      "export const RESPONSIVE_IMAGE_MANIFEST = {",
+      ...manifestEntries.map(
+        ({ basePath, widths }) => `  ${JSON.stringify(basePath)}: [${widths.join(", ")}],`,
+      ),
+      "} as const;",
+      "",
+    ].join("\n"),
+  );
+
   console.log(
-    `Responsive image generation complete. Generated: ${generated}, skipped/up-to-date: ${skipped}`,
+    `Responsive image generation complete. Generated: ${generated}, skipped/up-to-date: ${skipped}, removed stale: ${removed}`,
   );
 }
 
