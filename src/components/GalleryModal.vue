@@ -35,6 +35,10 @@ const currentZoomImageRef = ref<HTMLElement | null>(null);
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 4;
 const ZOOM_RESET_THRESHOLD = 1.05;
+const DOUBLE_TAP_ZOOM = 2.5;
+const DOUBLE_TAP_DELAY_MS = 300;
+const DOUBLE_TAP_DISTANCE_PX = 36;
+const TAP_MOVE_TOLERANCE_PX = 12;
 
 type TouchPoint = {
   x: number;
@@ -60,6 +64,10 @@ const pinchStartBaseCenter = ref<TouchPoint>({ x: 0, y: 0 });
 const pinchStartContentOffset = ref<TouchPoint>({ x: 0, y: 0 });
 const panStartTouch = ref<TouchPoint>({ x: 0, y: 0 });
 const panStartOffset = ref<TouchPoint>({ x: 0, y: 0 });
+const touchStartPoint = ref<TouchPoint | null>(null);
+const hasTouchMoved = ref(false);
+const lastTapTime = ref(0);
+const lastTapPoint = ref<TouchPoint | null>(null);
 
 // Elastic resistance when dragging past bounds
 const getElasticOffset = (offset: number): number => {
@@ -105,6 +113,32 @@ const getTouchDistance = (touches: TouchList): number => {
   return Math.hypot(dx, dy);
 };
 
+const getPointDistance = (a: TouchPoint, b: TouchPoint): number => Math.hypot(a.x - b.x, a.y - b.y);
+
+const resetTapTracking = () => {
+  lastTapTime.value = 0;
+  lastTapPoint.value = null;
+};
+
+const resetTouchTracking = () => {
+  touchStartPoint.value = null;
+  hasTouchMoved.value = false;
+};
+
+const startTouchTracking = (touch: Touch) => {
+  touchStartPoint.value = getTouchPoint(touch);
+  hasTouchMoved.value = false;
+};
+
+const updateTouchTracking = (touch: Touch) => {
+  if (!touchStartPoint.value) return;
+
+  const point = getTouchPoint(touch);
+  if (getPointDistance(point, touchStartPoint.value) > TAP_MOVE_TOLERANCE_PX) {
+    hasTouchMoved.value = true;
+  }
+};
+
 const getCurrentImageGeometry = (): ImageGeometry | null => {
   const image = currentZoomImageRef.value?.querySelector("img");
   if (!image) return null;
@@ -128,6 +162,16 @@ const getCurrentImageGeometry = (): ImageGeometry | null => {
   };
 };
 
+const isPointInsideCurrentImage = (point: TouchPoint): boolean => {
+  const image = currentZoomImageRef.value?.querySelector("img");
+  if (!image) return false;
+
+  const rect = image.getBoundingClientRect();
+  return (
+    point.x >= rect.left && point.x <= rect.right && point.y >= rect.top && point.y <= rect.bottom
+  );
+};
+
 const getClampedPan = (scale: number, panX: number, panY: number): TouchPoint => {
   if (scale <= MIN_ZOOM) {
     return { x: 0, y: 0 };
@@ -147,6 +191,16 @@ const getClampedPan = (scale: number, panX: number, panY: number): TouchPoint =>
   };
 };
 
+const getAnchoredPan = (
+  point: TouchPoint,
+  scale: number,
+  baseCenter: TouchPoint,
+  contentOffset: TouchPoint,
+): TouchPoint => ({
+  x: point.x - baseCenter.x - contentOffset.x * scale,
+  y: point.y - baseCenter.y - contentOffset.y * scale,
+});
+
 const applyZoom = (scale: number, panX: number, panY: number) => {
   const nextScale = clamp(scale, MIN_ZOOM, MAX_ZOOM);
   const nextPan = getClampedPan(nextScale, panX, panY);
@@ -156,12 +210,32 @@ const applyZoom = (scale: number, panX: number, panY: number) => {
   zoomPanY.value = nextPan.y;
 };
 
+const zoomToPoint = (point: TouchPoint, scale: number) => {
+  const geometry = getCurrentImageGeometry();
+  if (!geometry) return;
+
+  const currentScale = Math.max(zoomScale.value, MIN_ZOOM);
+  const visualCenter = {
+    x: geometry.baseCenter.x + zoomPanX.value,
+    y: geometry.baseCenter.y + zoomPanY.value,
+  };
+  const contentOffset = {
+    x: (point.x - visualCenter.x) / currentScale,
+    y: (point.y - visualCenter.y) / currentScale,
+  };
+  const nextPan = getAnchoredPan(point, scale, geometry.baseCenter, contentOffset);
+
+  applyZoom(scale, nextPan.x, nextPan.y);
+};
+
 const resetZoom = () => {
   zoomScale.value = MIN_ZOOM;
   zoomPanX.value = 0;
   zoomPanY.value = 0;
   isZoomInteracting.value = false;
   touchMode.value = null;
+  resetTapTracking();
+  resetTouchTracking();
 };
 
 const startPinchZoom = (e: TouchEvent) => {
@@ -187,6 +261,40 @@ const startPinchZoom = (e: TouchEvent) => {
     x: (center.x - visualCenter.x) / currentScale,
     y: (center.y - visualCenter.y) / currentScale,
   };
+};
+
+const toggleDoubleTapZoom = (point: TouchPoint) => {
+  if (isZoomed.value) {
+    resetZoom();
+    return;
+  }
+
+  zoomToPoint(point, DOUBLE_TAP_ZOOM);
+};
+
+const handleImageTap = (point: TouchPoint): boolean => {
+  if (!isPointInsideCurrentImage(point)) {
+    resetTapTracking();
+    return false;
+  }
+
+  const now = Date.now();
+  const previousTap = lastTapPoint.value;
+  const isDoubleTap =
+    previousTap !== null &&
+    now - lastTapTime.value <= DOUBLE_TAP_DELAY_MS &&
+    getPointDistance(point, previousTap) <= DOUBLE_TAP_DISTANCE_PX;
+
+  if (!isDoubleTap) {
+    lastTapTime.value = now;
+    lastTapPoint.value = point;
+    return false;
+  }
+
+  resetTapTracking();
+  onTouchCancel();
+  toggleDoubleTapZoom(point);
+  return true;
 };
 
 const startPanZoom = (touch: Touch) => {
@@ -225,9 +333,13 @@ const { isDragging, dragOffset, onTouchStart, onTouchMove, onTouchEnd, onTouchCa
 const onModalTouchStart = (e: TouchEvent) => {
   if (e.touches.length >= 2) {
     e.preventDefault();
+    resetTouchTracking();
+    resetTapTracking();
     startPinchZoom(e);
     return;
   }
+
+  startTouchTracking(e.touches[0]);
 
   if (isZoomed.value && e.touches.length === 1) {
     e.preventDefault();
@@ -250,16 +362,20 @@ const onModalTouchMove = (e: TouchEvent) => {
       MAX_ZOOM,
     );
 
-    applyZoom(
+    const nextPan = getAnchoredPan(
+      center,
       nextScale,
-      center.x - pinchStartBaseCenter.value.x - pinchStartContentOffset.value.x * nextScale,
-      center.y - pinchStartBaseCenter.value.y - pinchStartContentOffset.value.y * nextScale,
+      pinchStartBaseCenter.value,
+      pinchStartContentOffset.value,
     );
+
+    applyZoom(nextScale, nextPan.x, nextPan.y);
     return;
   }
 
   if (touchMode.value === "pan" && e.touches.length === 1) {
     e.preventDefault();
+    updateTouchTracking(e.touches[0]);
     const touch = getTouchPoint(e.touches[0]);
     applyZoom(
       zoomScale.value,
@@ -271,18 +387,31 @@ const onModalTouchMove = (e: TouchEvent) => {
 
   if (e.touches.length >= 2) {
     e.preventDefault();
+    resetTouchTracking();
+    resetTapTracking();
     startPinchZoom(e);
     return;
   }
 
   if (touchMode.value === "swipe") {
+    updateTouchTracking(e.touches[0]);
     onTouchMove(e);
   }
 };
 
 const onModalTouchEnd = (e: TouchEvent) => {
+  const endPoint = e.changedTouches.length > 0 ? getTouchPoint(e.changedTouches[0]) : null;
+  const isTap =
+    endPoint !== null &&
+    touchStartPoint.value !== null &&
+    !hasTouchMoved.value &&
+    getPointDistance(endPoint, touchStartPoint.value) <= TAP_MOVE_TOLERANCE_PX;
+
   if (touchMode.value === "pinch") {
     if (e.touches.length === 1 && zoomScale.value >= ZOOM_RESET_THRESHOLD) {
+      resetTouchTracking();
+      resetTapTracking();
+      startTouchTracking(e.touches[0]);
       startPanZoom(e.touches[0]);
       return;
     }
@@ -292,18 +421,38 @@ const onModalTouchEnd = (e: TouchEvent) => {
   }
 
   if (touchMode.value === "pan") {
+    if (isTap && endPoint && handleImageTap(endPoint)) {
+      e.preventDefault();
+      resetTouchTracking();
+      return;
+    }
+
+    if (!isTap) resetTapTracking();
     finishZoomGesture();
+    resetTouchTracking();
     return;
   }
 
   if (touchMode.value === "swipe") {
+    if (isTap && endPoint && handleImageTap(endPoint)) {
+      e.preventDefault();
+      resetTouchTracking();
+      touchMode.value = null;
+      return;
+    }
+
+    if (!isTap) resetTapTracking();
     onTouchEnd();
   }
 
+  resetTouchTracking();
   touchMode.value = null;
 };
 
 const onModalTouchCancel = () => {
+  resetTouchTracking();
+  resetTapTracking();
+
   if (touchMode.value === "pinch" || touchMode.value === "pan") {
     finishZoomGesture();
     return;
