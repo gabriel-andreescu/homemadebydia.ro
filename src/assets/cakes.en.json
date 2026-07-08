@@ -1,5 +1,18 @@
 [
   {
+    "imageUrl": "/gallery/cakes/profiterol-cu-fructe",
+    "title": "Profiterole with Fruit",
+    "desc": [
+      "Cocoa sponge base",
+      "Chocolate mousse",
+      "Vanilla profiterole pearls",
+      "Forest fruit mousse"
+    ],
+    "min": 1.7,
+    "unit": "kg",
+    "price": 170
+  },
+  {
     "imageUrl": "/gallery/cakes/tort-fistic-zmeura",
     "title": "Pistachio Raspberry Cake",
     "desc": [
@@ -33,19 +46,6 @@
       "Raspberry coulis"
     ],
     "min": 1.8,
-    "unit": "kg",
-    "price": 170
-  },
-  {
-    "imageUrl": "/gallery/cakes/tort-bere",
-    "title": "Craft Beer Cake",
-    "desc": [
-      "Moist chocolate sponge with craft beer",
-      "Light mascarpone cream",
-      "Beer-infused walnut filling",
-      "* contains alcohol"
-    ],
-    "min": 1.5,
     "unit": "kg",
     "price": 170
   },

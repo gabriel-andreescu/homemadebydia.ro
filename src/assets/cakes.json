@@ -1,5 +1,18 @@
 [
   {
+    "imageUrl": "/gallery/cakes/profiterol-cu-fructe",
+    "title": "Profiterol cu Fructe",
+    "desc": [
+      "- Blat de cacao",
+      "- Mousse de ciocolată",
+      "- Biluțe profiterol cu vanilie",
+      "- Mousse de fructe de pădure"
+    ],
+    "min": 1.7,
+    "unit": "kg",
+    "price": 170
+  },
+  {
     "imageUrl": "/gallery/cakes/tort-fistic-zmeura",
     "title": "Tort Fistic și Zmeură",
     "desc": [
@@ -25,19 +38,6 @@
     "title": "Tort de Lapte",
     "desc": ["- Foi fragede de cacao", "- Cremă fină de lapte", "- Sos de zmeură"],
     "min": 1.8,
-    "unit": "kg",
-    "price": 170
-  },
-  {
-    "imageUrl": "/gallery/cakes/tort-bere",
-    "title": "Tort de Bere",
-    "desc": [
-      "- Blaturi umede de ciocolată cu bere artizanală",
-      "- Cremă fină de mascarpone",
-      "- Inserție de nuci cu bere",
-      "* conține alcool"
-    ],
-    "min": 1.5,
     "unit": "kg",
     "price": 170
   },
