@@ -49,7 +49,7 @@ const footerArtSrc = computed(() => {
             :href="CONTACT.googleReview"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-accent dark:bg-accent text-white rounded-full shadow-md shadow-accent/20 dark:shadow-accent/30 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] transition-all duration-300"
+            class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border border-gray-500 dark:border-gray-400 text-gray-900 dark:text-gray-100 rounded-full hover:border-accent hover:text-accent-dark dark:hover:border-accent-light dark:hover:text-accent-light active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 transition-all duration-300"
           >
             <IconGoogle class="w-4 h-4" />
             {{ t("footer.leaveReview") }}

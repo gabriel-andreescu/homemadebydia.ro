@@ -86,7 +86,7 @@ function toggle() {
       <!-- Read more button -->
       <button
         @click="toggle"
-        class="relative z-10 mt-4 group flex items-center gap-2 mx-auto px-5 py-2.5 text-sm font-medium bg-accent dark:bg-accent text-white rounded-full shadow-md shadow-accent/20 dark:shadow-accent/30 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] transition-all duration-300"
+        class="relative z-10 mt-4 group flex items-center gap-2 mx-auto px-5 py-2.5 text-sm font-medium border border-gray-500 dark:border-gray-400 text-gray-900 dark:text-gray-100 rounded-full hover:border-accent hover:text-accent-dark dark:hover:border-accent-light dark:hover:text-accent-light active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-800 transition-all duration-300"
       >
         <span>{{ expanded ? t("aboutUs.readLess") : t("aboutUs.readMore") }}</span>
         <svg

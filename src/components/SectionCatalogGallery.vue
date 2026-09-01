@@ -157,7 +157,7 @@ watch(galleryModalRef, (modal) => {
           <button
             v-if="!cart.has(getProductId(item))"
             @click="cart.add(item)"
-            class="mt-2.5 w-full py-2 bg-accent dark:bg-accent text-white text-sm font-medium tracking-wide rounded-full shadow-md shadow-accent/20 dark:shadow-accent/30 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] transition-all"
+            class="mt-2.5 w-full py-2 border border-gray-500 dark:border-gray-400 text-gray-900 dark:text-gray-100 text-sm font-medium tracking-wide rounded-full hover:border-accent hover:text-accent-dark dark:hover:border-accent-light dark:hover:text-accent-light active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-800 transition-all"
           >
             {{ t("product.addToCart") }}
           </button>
