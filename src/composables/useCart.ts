@@ -4,6 +4,7 @@ import { CONTACT } from "../constants";
 import { getCatalogProductMap, getProductId, type CatalogProduct } from "../data/catalogData";
 import type { Locale } from "../i18n";
 import { formatQuantityLabel, getQuantityStep, normalizeQuantity } from "../utils/quantity";
+import { trySetStorageItem } from "../utils/safeStorage";
 
 interface CartItemSnapshot {
   title: string;
@@ -150,18 +151,21 @@ function ensurePersistenceWatcher() {
   if (persistenceInitialized) return;
   persistenceInitialized = true;
 
+  const persist = (key: string, value: string) => {
+    if (typeof window === "undefined") return;
+    trySetStorageItem(() => window.localStorage, key, value);
+  };
+
   watch(
     storedItems,
     (newItems) => {
-      if (typeof localStorage === "undefined") return;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newItems));
+      persist(STORAGE_KEY, JSON.stringify(newItems));
     },
     { deep: true },
   );
 
   watch(orderNotes, (newNotes) => {
-    if (typeof localStorage === "undefined") return;
-    localStorage.setItem(ORDER_NOTES_STORAGE_KEY, newNotes);
+    persist(ORDER_NOTES_STORAGE_KEY, newNotes);
   });
 }
 
@@ -211,7 +215,9 @@ export function useCart() {
 
   const count = computed(() => storedItems.value.length);
 
-  const total = computed(() => items.value.reduce((sum, item) => sum + item.price * item.quantity, 0));
+  const total = computed(() =>
+    items.value.reduce((sum, item) => sum + item.price * item.quantity, 0),
+  );
 
   const whatsappUrl = computed(() => {
     if (storedItems.value.length === 0) return CONTACT.whatsapp;
