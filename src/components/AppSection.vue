@@ -7,7 +7,9 @@ defineProps<{
 
 <template>
   <section :id="id" class="flex flex-col items-center mt-16">
-    <h2 v-if="title" class="text-6xl font-serif mb-8 text-center">{{ title }}</h2>
+    <h2 v-if="title" class="text-3xl sm:text-4xl lg:text-5xl font-serif mb-8 text-center">
+      {{ title }}
+    </h2>
     <slot />
   </section>
 </template>

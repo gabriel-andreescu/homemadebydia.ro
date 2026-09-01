@@ -159,7 +159,9 @@ onUnmounted(() => {
     >
       <!-- Left: Text content -->
       <div class="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left pt-8 lg:pt-0 lg:self-center">
-        <h1 class="text-4xl font-serif mb-4 text-gray-900 dark:text-gray-100">
+        <h1
+          class="text-4xl md:text-5xl xl:text-6xl font-serif mb-4 text-gray-900 dark:text-gray-100"
+        >
           {{ t("home.title") }}
           <br />
           {{ t("home.titleLine2") }}

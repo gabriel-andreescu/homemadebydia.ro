@@ -1,9 +1,15 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./index.html", "./src/**/*.vue"],
   darkMode: "class",
   theme: {
     extend: {
+      fontFamily: {
+        // Display face for headings.
+        display: defaultTheme.fontFamily.serif,
+      },
       colors: {
         accent: {
           light: "#FF80B8", // bright pink for dark mode text

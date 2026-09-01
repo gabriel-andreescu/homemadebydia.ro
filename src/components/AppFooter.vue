@@ -34,7 +34,7 @@ const footerArtSrc = computed(() => {
       <section
         class="flex flex-col w-full xl:w-1/2 px-2 pt-16 pb-8 lg:pl-8 sm:pb-10 xl:pb-0 bg-gradient-to-r from-transparent to-nude dark:bg-none"
       >
-        <h2 :id="howToOrderId" class="text-4xl lg:text-6xl font-serif mb-10">
+        <h2 :id="howToOrderId" class="text-3xl sm:text-4xl lg:text-5xl font-serif mb-10">
           {{ t("howToOrder.title") }}
         </h2>
         <div class="how-to-order-paragraphs">
