@@ -108,7 +108,10 @@
     "decreaseQuantity": "Decrease quantity",
     "increaseQuantity": "Increase quantity",
     "delete": "Remove",
-    "estimate": "Estimated total",
+    "estimate": "Estimate (indicative price)",
+    "estimateNote": "The estimate may vary based on the finished products' weight. Decorations and other customizations are agreed separately on WhatsApp, and the final price is provided at pickup.",
+    "orderNotes": "Order details (optional)",
+    "orderNotesPlaceholder": "Pickup on Saturday, October 17, around 3:00 PM. For the cake, I would like pink and cream decorations with butterflies and the inscription “Happy 6th birthday, Sofia!”.",
     "sendOnWhatsApp": "Send order on WhatsApp",
     "clearCart": "Clear cart",
     "addedToCart": "Added to cart"

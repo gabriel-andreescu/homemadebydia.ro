@@ -30,9 +30,12 @@ export interface CartItem {
 }
 
 const STORAGE_KEY = "homemadebydia_cart";
+const ORDER_NOTES_STORAGE_KEY = "homemadebydia_cart_notes";
+const ORDER_NOTES_MAX_LENGTH = 500;
 const drawerOpen = ref(false);
 const lastAdded = ref<string | null>(null);
 const storedItems = ref<StoredCartItem[]>([]);
+const orderNotes = ref("");
 const ROMANIAN_CATALOG_PRODUCT_MAP = getCatalogProductMap("ro");
 
 let initialized = false;
@@ -121,6 +124,17 @@ function loadFromStorage(): StoredCartItem[] {
   }
 }
 
+function loadOrderNotesFromStorage(): string {
+  if (typeof localStorage === "undefined") return "";
+
+  try {
+    const stored = localStorage.getItem(ORDER_NOTES_STORAGE_KEY);
+    return typeof stored === "string" ? stored.slice(0, ORDER_NOTES_MAX_LENGTH) : "";
+  } catch {
+    return "";
+  }
+}
+
 function repairStoredItemsForLocale(locale: Locale) {
   repairStoredItemsWithProductMap(getCatalogProductMap(locale));
 }
@@ -129,6 +143,7 @@ function ensureClientInitialization() {
   if (initialized || typeof window === "undefined") return;
   initialized = true;
   storedItems.value = loadFromStorage();
+  orderNotes.value = loadOrderNotesFromStorage();
 }
 
 function ensurePersistenceWatcher() {
@@ -143,6 +158,11 @@ function ensurePersistenceWatcher() {
     },
     { deep: true },
   );
+
+  watch(orderNotes, (newNotes) => {
+    if (typeof localStorage === "undefined") return;
+    localStorage.setItem(ORDER_NOTES_STORAGE_KEY, newNotes);
+  });
 }
 
 export function useCart() {
@@ -210,7 +230,9 @@ export function useCart() {
 
     if (lines.length === 0) return CONTACT.whatsapp;
 
-    const message = `Bună ziua! Aș dori să comand:\n${lines.join("\n")}\n\nMulțumesc!`;
+    const trimmedNotes = orderNotes.value.trim();
+    const notesSection = trimmedNotes ? `\n\nDetalii pentru comandă:\n${trimmedNotes}` : "";
+    const message = `Bună ziua! Aș dori să comand:\n${lines.join("\n")}${notesSection}\n\nMulțumesc!`;
 
     return `${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
   });
@@ -258,6 +280,7 @@ export function useCart() {
 
   function clear() {
     storedItems.value = [];
+    orderNotes.value = "";
   }
 
   function has(id: string) {
@@ -277,6 +300,8 @@ export function useCart() {
     count,
     total,
     whatsappUrl,
+    orderNotes,
+    orderNotesMaxLength: ORDER_NOTES_MAX_LENGTH,
     add,
     update,
     remove,
