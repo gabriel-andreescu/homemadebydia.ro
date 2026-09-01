@@ -58,7 +58,7 @@ onUnmounted(() => {
           :alt="t('accessibility.logo')"
           width="319"
           height="128"
-          class="h-32 w-auto transform transition duration-200 pt-2 z-50"
+          class="h-32 w-auto object-contain transform transition duration-200 pt-2 z-50"
           :class="{ 'scale-100': !scrolledFromTop, 'scale-50': scrolledFromTop }"
         />
       </button>
