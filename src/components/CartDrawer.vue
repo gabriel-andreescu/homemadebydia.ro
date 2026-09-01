@@ -126,13 +126,46 @@ const isEmpty = computed(() => cart.count.value === 0);
                 </div>
               </div>
             </div>
+
+            <div class="py-4 border-t border-gray-100 dark:border-gray-700">
+              <div class="flex items-center justify-between gap-3">
+                <label
+                  for="cart-order-notes"
+                  class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                >
+                  {{ t("cart.orderNotes") }}
+                </label>
+                <span
+                  id="cart-order-notes-count"
+                  class="shrink-0 text-xs text-gray-400 dark:text-gray-500"
+                >
+                  {{ cart.orderNotes.value.length }}/{{ cart.orderNotesMaxLength }}
+                </span>
+              </div>
+              <textarea
+                id="cart-order-notes"
+                v-model="cart.orderNotes.value"
+                :maxlength="cart.orderNotesMaxLength"
+                :placeholder="t('cart.orderNotesPlaceholder')"
+                aria-describedby="cart-order-notes-count"
+                rows="4"
+                class="block w-full mt-2 px-3 py-2.5 text-sm leading-relaxed text-gray-800 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent-light focus-visible:border-transparent transition-colors"
+              ></textarea>
+            </div>
           </div>
 
           <!-- Footer -->
           <div v-if="!isEmpty" class="px-4 py-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
-            <div class="flex justify-between items-center mb-4">
-              <span class="text-gray-600 dark:text-gray-400">{{ t('cart.estimate') }}</span>
-              <span class="text-xl font-semibold text-gray-800 dark:text-gray-100">~{{ formatPrice(cart.total.value) }} lei</span>
+            <div class="mb-4">
+              <div class="flex justify-between items-center gap-3">
+                <span class="text-gray-600 dark:text-gray-400">{{ t("cart.estimate") }}</span>
+                <span class="shrink-0 text-xl font-semibold text-gray-800 dark:text-gray-100">
+                  ~{{ formatPrice(cart.total.value) }} lei
+                </span>
+              </div>
+              <p class="mt-1.5 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+                {{ t("cart.estimateNote") }}
+              </p>
             </div>
             <a
               :href="cart.whatsappUrl.value"

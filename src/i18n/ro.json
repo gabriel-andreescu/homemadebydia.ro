@@ -108,7 +108,10 @@
     "decreaseQuantity": "Scade cantitatea",
     "increaseQuantity": "Crește cantitatea",
     "delete": "Șterge",
-    "estimate": "Estimare",
+    "estimate": "Estimare (preț orientativ)",
+    "estimateNote": "Estimarea poate varia în funcție de greutatea produselor finite. Decorul și alte personalizări se stabilesc separat pe WhatsApp, iar prețul final se comunică la ridicare.",
+    "orderNotes": "Detalii pentru comandă (opțional)",
+    "orderNotesPlaceholder": "Ridicare sâmbătă, 17 octombrie, în jurul orei 15:00. Pentru tort aș dori un decor în nuanțe de roz și crem, cu fluturi și mesajul „La mulți ani, Sofia! 6 ani”.",
     "sendOnWhatsApp": "Trimite comanda pe WhatsApp",
     "clearCart": "Golește coșul",
     "addedToCart": "Adăugat în coș"

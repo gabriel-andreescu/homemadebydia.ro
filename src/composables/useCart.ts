@@ -4,6 +4,7 @@ import { CONTACT } from "../constants";
 import { getCatalogProductMap, getProductId, type CatalogProduct } from "../data/catalogData";
 import type { Locale } from "../i18n";
 import { formatQuantityLabel, getQuantityStep, normalizeQuantity } from "../utils/quantity";
+import { trySetStorageItem } from "../utils/safeStorage";
 
 interface CartItemSnapshot {
   title: string;
@@ -30,9 +31,12 @@ export interface CartItem {
 }
 
 const STORAGE_KEY = "homemadebydia_cart";
+const ORDER_NOTES_STORAGE_KEY = "homemadebydia_cart_notes";
+const ORDER_NOTES_MAX_LENGTH = 500;
 const drawerOpen = ref(false);
 const lastAdded = ref<string | null>(null);
 const storedItems = ref<StoredCartItem[]>([]);
+const orderNotes = ref("");
 const ROMANIAN_CATALOG_PRODUCT_MAP = getCatalogProductMap("ro");
 
 let initialized = false;
@@ -121,6 +125,17 @@ function loadFromStorage(): StoredCartItem[] {
   }
 }
 
+function loadOrderNotesFromStorage(): string {
+  if (typeof localStorage === "undefined") return "";
+
+  try {
+    const stored = localStorage.getItem(ORDER_NOTES_STORAGE_KEY);
+    return typeof stored === "string" ? stored.slice(0, ORDER_NOTES_MAX_LENGTH) : "";
+  } catch {
+    return "";
+  }
+}
+
 function repairStoredItemsForLocale(locale: Locale) {
   repairStoredItemsWithProductMap(getCatalogProductMap(locale));
 }
@@ -129,20 +144,29 @@ function ensureClientInitialization() {
   if (initialized || typeof window === "undefined") return;
   initialized = true;
   storedItems.value = loadFromStorage();
+  orderNotes.value = loadOrderNotesFromStorage();
 }
 
 function ensurePersistenceWatcher() {
   if (persistenceInitialized) return;
   persistenceInitialized = true;
 
+  const persist = (key: string, value: string) => {
+    if (typeof window === "undefined") return;
+    trySetStorageItem(() => window.localStorage, key, value);
+  };
+
   watch(
     storedItems,
     (newItems) => {
-      if (typeof localStorage === "undefined") return;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newItems));
+      persist(STORAGE_KEY, JSON.stringify(newItems));
     },
     { deep: true },
   );
+
+  watch(orderNotes, (newNotes) => {
+    persist(ORDER_NOTES_STORAGE_KEY, newNotes);
+  });
 }
 
 export function useCart() {
@@ -191,7 +215,9 @@ export function useCart() {
 
   const count = computed(() => storedItems.value.length);
 
-  const total = computed(() => items.value.reduce((sum, item) => sum + item.price * item.quantity, 0));
+  const total = computed(() =>
+    items.value.reduce((sum, item) => sum + item.price * item.quantity, 0),
+  );
 
   const whatsappUrl = computed(() => {
     if (storedItems.value.length === 0) return CONTACT.whatsapp;
@@ -210,7 +236,9 @@ export function useCart() {
 
     if (lines.length === 0) return CONTACT.whatsapp;
 
-    const message = `Bună ziua! Aș dori să comand:\n${lines.join("\n")}\n\nMulțumesc!`;
+    const trimmedNotes = orderNotes.value.trim();
+    const notesSection = trimmedNotes ? `\n\nDetalii pentru comandă:\n${trimmedNotes}` : "";
+    const message = `Bună ziua! Aș dori să comand:\n${lines.join("\n")}${notesSection}\n\nMulțumesc!`;
 
     return `${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
   });
@@ -258,6 +286,7 @@ export function useCart() {
 
   function clear() {
     storedItems.value = [];
+    orderNotes.value = "";
   }
 
   function has(id: string) {
@@ -277,6 +306,8 @@ export function useCart() {
     count,
     total,
     whatsappUrl,
+    orderNotes,
+    orderNotesMaxLength: ORDER_NOTES_MAX_LENGTH,
     add,
     update,
     remove,
