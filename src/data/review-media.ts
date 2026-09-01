@@ -39,25 +39,4 @@ export const reviewMediaEntries: ReviewMediaEntry[] = [
       },
     ],
   },
-  {
-    name: "Ramona Silvia Pavel",
-    images: [
-      {
-        thumb: "/gallery/reviews/ramona-silvia-pavel-1",
-        original: "/gallery/reviews/ramona-silvia-pavel-1-original",
-      },
-      {
-        thumb: "/gallery/reviews/ramona-silvia-pavel-2",
-        original: "/gallery/reviews/ramona-silvia-pavel-2-original",
-      },
-      {
-        thumb: "/gallery/reviews/ramona-silvia-pavel-3",
-        original: "/gallery/reviews/ramona-silvia-pavel-3-original",
-      },
-      {
-        thumb: "/gallery/reviews/ramona-silvia-pavel-4",
-        original: "/gallery/reviews/ramona-silvia-pavel-4-original",
-      },
-    ],
-  },
 ];

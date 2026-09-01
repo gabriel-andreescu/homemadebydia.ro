@@ -106,13 +106,5 @@ export const RESPONSIVE_IMAGE_MANIFEST = {
   "/gallery/reviews/anca-elena-cake-original": [64, 128, 256, 384, 512, 640, 768, 850],
   "/gallery/reviews/gabriela-mihai": [64],
   "/gallery/reviews/gabriela-mihai-cake": [64, 128, 157],
-  "/gallery/reviews/ramona-silvia-pavel-1": [64, 128, 157],
-  "/gallery/reviews/ramona-silvia-pavel-1-original": [64, 128, 256, 384, 512, 640, 768, 960, 1047],
-  "/gallery/reviews/ramona-silvia-pavel-2": [64, 128, 157],
-  "/gallery/reviews/ramona-silvia-pavel-2-original": [64, 128, 256, 384, 512, 640, 768, 960, 1047],
-  "/gallery/reviews/ramona-silvia-pavel-3": [64, 128, 157],
-  "/gallery/reviews/ramona-silvia-pavel-3-original": [64, 128, 256, 384, 512, 640, 768, 939],
-  "/gallery/reviews/ramona-silvia-pavel-4": [64, 128, 157],
-  "/gallery/reviews/ramona-silvia-pavel-4-original": [64, 128, 256, 384, 512, 640, 768, 960, 1080],
   "/gallery/unicitate": [64, 128, 256, 288],
 } as const;

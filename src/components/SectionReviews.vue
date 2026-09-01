@@ -66,11 +66,6 @@ const reviewsRo: ReviewCard[] = [
     text: "Recomand cu drag, sunt un om greu de mulțumit dar sunt foarte încântată de produse.\nDia ne-a făcut tortul de cununie, a fost excepțional, toată lumea întreba cine l-a făcut pentru că a fost foarte fresh, dulce cât trebuie, aromat, ingredientele proaspete.\nDe asemenea, prăjiturile, nu am cuvinte să vă spun cât de bune sunt. Cea mai nouă, cea cu bere... n-am cuvinte.",
     rating: 5,
   },
-  {
-    name: "Ramona Silvia Pavel",
-    text: "Întotdeauna ne-a surprins cu dulciuri extraordinare, din ingrediente naturale. Excelent pentru a celebra momente în familie și a surprinde pe toată lumea. Feedback pozitiv de la toți invitații.\nTorturi: carrot cake și tortul casei.\nPlus mix de prăjituri.",
-    rating: 5,
-  },
 ].map(attachReviewMedia);
 
 const reviewsEn: ReviewCard[] = [
@@ -89,11 +84,6 @@ const reviewsEn: ReviewCard[] = [
     text: "I highly recommend, I'm a hard person to please but I'm very happy with the products.\nDia made our civil wedding cake, it was exceptional, everyone was asking who made it because it was very fresh, just sweet enough, aromatic, with fresh ingredients.\nAlso, the pastries, I have no words to tell you how good they are. The newest one, with beer... I have no words.",
     rating: 5,
   },
-  {
-    name: "Ramona Silvia Pavel",
-    text: "She has always surprised us with extraordinary sweets, made from natural ingredients. Excellent for celebrating family moments and surprising everyone. Positive feedback from all guests.\nCakes: carrot cake and house signature cake.\nPlus a mix of pastries.",
-    rating: 5,
-  },
 ].map(attachReviewMedia);
 
 // Locale-specific reviews
@@ -103,7 +93,7 @@ const reviews = computed<ReviewCard[]>(() =>
 </script>
 
 <template>
-  <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto px-4">
+  <div class="grid gap-6 lg:grid-cols-3 max-w-2xl lg:max-w-6xl mx-auto px-4">
     <article
       v-for="(review, index) in reviews"
       :key="index"
