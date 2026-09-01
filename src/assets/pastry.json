@@ -27,7 +27,7 @@
     "title": "Mini Babka",
     "desc": [
       "- Însiropat cu aromă delicioasă de portocală și rom",
-      "- Cremă de nuci cu cacao și portocală confiata",
+      "- Cremă de nuci cu cacao și portocală confiată",
       "- Însiropat cu vinars (+10 lei, opțional)",
       "cântărește aprox. 650-700 g"
     ],
@@ -61,7 +61,7 @@
   {
     "imageUrl": "/gallery/pastry/nuci",
     "title": "Nuci",
-    "desc": ["umplute cu crema de ciocolată"],
+    "desc": ["umplute cu cremă de ciocolată"],
     "min": 0.5,
     "unit": "kg",
     "price": 160

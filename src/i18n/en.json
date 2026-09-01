@@ -60,10 +60,10 @@
   },
   "howToOrder": {
     "title": "How to Order",
-    "step1": "― Add products to your cart",
-    "step2": "― Adjust quantities and send your order via WhatsApp",
-    "step3": "― We'll confirm the details together (date, customizations, final price)",
-    "step4": "― Pick up your order at our location"
+    "step1": "— Add products to your cart",
+    "step2": "— Adjust quantities and send your order via WhatsApp",
+    "step3": "— We'll confirm the details together (date, customizations, final price)",
+    "step4": "— Pick up your order at our location"
   },
   "catalog": {
     "cakes": "Cakes",

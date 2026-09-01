@@ -73,7 +73,7 @@
     "imageUrl": "/gallery/cakes/carrot-cake-caramel",
     "title": "Tort Carrot cu Caramel",
     "desc": [
-      "- Blat umed de morcov cu scorțișoară și nuca",
+      "- Blat umed de morcov cu scorțișoară și nucă",
       "- Cremă de brânză cu portocală",
       "- Spumă de caramel"
     ],
@@ -84,7 +84,7 @@
   {
     "imageUrl": "/gallery/cakes/carrot-cake-afine",
     "title": "Tort Carrot cu Fructe",
-    "desc": ["- Blat umed de morcov cu scorțișoară și nuca", "- Cremă de brânză cu fructe"],
+    "desc": ["- Blat umed de morcov cu scorțișoară și nucă", "- Cremă de brânză cu fructe"],
     "min": 1.5,
     "unit": "kg",
     "price": 170

@@ -50,20 +50,20 @@
   "whyUs": {
     "quality": "Calitate",
     "qualityDesc": "Produse artizanale concepute cu ingrediente naturale",
-    "qualityAlt": "poza care reprezinta calitatea serviciilor noastre",
+    "qualityAlt": "poza care reprezintă calitatea serviciilor noastre",
     "uniqueness": "Unicitate",
     "uniquenessDesc": "Folosim rețete proprii, pline de savoare",
-    "uniquenessAlt": "poza care reprezinta unicitatea serviciilor noastre",
+    "uniquenessAlt": "poza care reprezintă unicitatea serviciilor noastre",
     "professionalism": "Profesionalism",
     "professionalismDesc": "Comunicarea cu clienții este prioritatea noastră",
-    "professionalismAlt": "poza care reprezinta profesionalism-ul serviciilor noastre"
+    "professionalismAlt": "poza care reprezintă profesionalism-ul serviciilor noastre"
   },
   "howToOrder": {
     "title": "Cum să comanzi",
-    "step1": "― Adaugă în coș produsele dorite",
-    "step2": "― Ajustează cantitățile și trimite comanda pe WhatsApp",
-    "step3": "― Confirmăm împreună detaliile (dată, personalizări, preț final)",
-    "step4": "― Te așteptăm la locația noastră să îți ridici comanda"
+    "step1": "— Adaugă în coș produsele dorite",
+    "step2": "— Ajustează cantitățile și trimite comanda pe WhatsApp",
+    "step3": "— Confirmăm împreună detaliile (dată, personalizări, preț final)",
+    "step4": "— Te așteptăm la locația noastră să îți ridici comanda"
   },
   "catalog": {
     "cakes": "Torturi",
@@ -71,11 +71,11 @@
     "bakery": "Patiserie",
     "events": "Evenimente",
     "decorNote": "Decorurile personalizate se achită separat, prețul începând de la {decorMin} lei până la {decorMax} lei in funcție de complexitate",
-    "allergyNote": "În cazul în care suferiţi de o alergie / sunteți intolerant la un ingredient, vă rugăm să solicitaţi informaţii suplimentare înainte de efectuarea comenzii",
+    "allergyNote": "În cazul în care suferiți de o alergie / sunteți intolerant la un ingredient, vă rugăm să solicitați informații suplimentare înainte de efectuarea comenzii",
     "availableAssortments": "Sortimente disponibile",
     "chouxList": "Choux: fistic și zmeură, alune de pădure, ciocolată, lămâie și bezea, exotic",
     "tarteList": "Tarte: fructe, caramel, fistic și zmeură, alune de pădure, ciocolată, lămâie și bezea, exotic",
-    "miniPastriesList": "Prajituri mini: pavlova, carrot, medovik, snickers, savarină clasică, savarină cu fistic",
+    "miniPastriesList": "Prăjituri mini: pavlova, carrot, medovik, snickers, savarină clasică, savarină cu fistic",
     "standardOffer": "Oferta standard",
     "standardOfferDesc": "Oferta candy bar este de {price} lei/persoană și include {pastriesPerPerson} prăjituri/persoană dintr-un total de {varietiesCount} sortimente, plus bezele și fursecuri cadou. Poate fi personalizată în funcție de preferințe. Ofertă valabilă pentru minim {minimumGuests} de persoane.",
     "dessertsGlassList": "Desert la pahar: mousse de ciocolată, fructe de pădure, exotic, panna cotta, cheesecake",
