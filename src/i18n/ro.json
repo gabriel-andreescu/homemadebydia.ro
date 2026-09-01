@@ -14,7 +14,8 @@
     "reviews": "Recenzii",
     "howToOrder": "Cum comand",
     "contact": "Contact",
-    "menu": "Menu"
+    "menu": "Menu",
+    "closeMenu": "Închide meniul"
   },
   "sections": {
     "aboutUs": "Despre noi",

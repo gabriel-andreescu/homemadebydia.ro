@@ -14,7 +14,8 @@
     "reviews": "Reviews",
     "howToOrder": "How to Order",
     "contact": "Contact",
-    "menu": "Menu"
+    "menu": "Menu",
+    "closeMenu": "Close menu"
   },
   "sections": {
     "aboutUs": "About Us",

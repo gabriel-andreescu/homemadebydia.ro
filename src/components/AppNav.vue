@@ -5,12 +5,16 @@ import { useEscapeKey } from "../composables/useEscapeKey";
 import { useScrollTo } from "../composables/useScrollTo";
 import { useCatalogTabs } from "../composables/useCatalogTabs";
 import IconMenu from "./icons/IconMenu.vue";
+import IconClose from "./icons/IconClose.vue";
 import ThemeToggle from "./ThemeToggle.vue";
 import LocaleToggle from "./LocaleToggle.vue";
 import CartButton from "./CartButton.vue";
 
 const { t } = useI18n();
 const navOpen = ref(false);
+
+// Mirrors the `xl:` variants on the menu below.
+const DESKTOP_NAV_MEDIA_QUERY = "(min-width: 1280px)";
 
 const { scrollTo } = useScrollTo();
 const { selectTab } = useCatalogTabs();
@@ -75,7 +79,7 @@ watch(navOpen, (open) => {
 });
 
 onMounted(() => {
-  const desktopBreakpoint = window.matchMedia("(min-width: 1024px)");
+  const desktopBreakpoint = window.matchMedia(DESKTOP_NAV_MEDIA_QUERY);
   const onDesktop = (matches: boolean) => {
     if (!matches) return;
     navOpen.value = false;
@@ -138,18 +142,19 @@ function navigateToTab(tab: "cakes" | "pastries" | "bakery" | "events") {
 <template>
   <nav class="flex items-center">
     <!-- Controls: order-1 on mobile (before hamburger), order-2 on desktop (after menu) -->
-    <div class="flex items-center gap-1 order-1 lg:order-2 lg:ml-10">
+    <div class="flex items-center gap-1 order-1 xl:order-2 xl:ml-10">
       <LocaleToggle />
       <ThemeToggle />
       <CartButton />
     </div>
 
-    <!-- Hamburger menu button (mobile only) -->
+    <!-- Hamburger / close button (mobile only); z-30 sits above the menu panel -->
     <button
       type="button"
-      class="relative lg:hidden p-2 rounded order-2 focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 focus-visible:outline-none"
+      class="relative z-30 xl:hidden p-2 rounded order-2 focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 focus-visible:outline-none"
       @click="navOpen = !navOpen"
-      :aria-label="t('nav.menu')"
+      :aria-label="navOpen ? t('nav.closeMenu') : t('nav.menu')"
+      :aria-expanded="navOpen"
     >
       <span
         v-if="!navOpen"
@@ -157,22 +162,38 @@ function navigateToTab(tab: "cakes" | "pastries" | "bakery" | "events") {
       >
         <span class="ripple absolute bg-pink-300 dark:bg-pink-200"></span>
       </span>
-      <IconMenu class="h-6 w-6 text-accent dark:text-accent-light relative z-10" />
+      <IconClose
+        v-if="navOpen"
+        class="h-6 w-6 text-accent dark:text-accent-light relative z-10"
+      />
+      <IconMenu v-else class="h-6 w-6 text-accent dark:text-accent-light relative z-10" />
     </button>
+
+    <!-- Backdrop behind the menu panel (below xl only) -->
+    <div
+      v-if="navOpen"
+      class="fixed inset-0 z-10 bg-gray-900/40 xl:hidden"
+      aria-hidden="true"
+      @click="navOpen = false"
+    ></div>
 
     <!-- Menu items -->
     <ul
       :class="[
         'fixed left-0 right-0 min-h-screen top-0 px-4 pt-8 space-y-4 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-transform duration-300 z-20',
-        'lg:relative lg:flex lg:items-center lg:space-x-10 lg:min-h-0 lg:px-0 lg:py-0 lg:space-y-0 lg:order-1 lg:z-auto',
-        navOpen ? 'translate-x-0' : 'max-lg:translate-x-full',
+        // sm: bounded right-hand drawer
+        'sm:left-auto sm:w-80 sm:max-w-full sm:pt-24 sm:shadow-2xl sm:border-l sm:border-gray-200 dark:sm:border-gray-800',
+        // xl: horizontal nav; unsets the drawer styles above
+        'xl:relative xl:flex xl:items-center xl:space-x-8 xl:min-h-0 xl:px-0 xl:py-0 xl:pt-0 xl:space-y-0 xl:order-1 xl:z-auto',
+        'xl:left-auto xl:w-auto xl:max-w-none xl:shadow-none xl:border-0',
+        navOpen ? 'translate-x-0' : 'max-xl:translate-x-full',
         'transform',
       ]"
       @click="navOpen = false"
     >
       <li class="menu-item">
         <button @click="navigate('catalog')">{{ t("nav.catalog") }}</button>
-        <ul class="sub-menu pl-4 mt-2 space-y-2 border-l-2 border-accent-light lg:hidden">
+        <ul class="sub-menu pl-4 mt-2 space-y-2 border-l-2 border-accent-light xl:hidden">
           <li>
             <button class="block px-4 py-2" @click="navigateToTab('cakes')">
               {{ t("nav.cakes") }}
