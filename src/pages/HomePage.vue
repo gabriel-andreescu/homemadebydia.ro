@@ -208,7 +208,7 @@ onUnmounted(() => {
     >
       <a
         :href="`tel:${CONTACT.phone}`"
-        class="flex lg:hidden items-center justify-center w-12 h-12 bg-accent dark:bg-accent text-white rounded-full shadow-md active:scale-95 transition-all"
+        class="flex lg:hidden items-center justify-center w-12 h-12 bg-brand text-on-brand rounded-full shadow-md active:scale-95 transition-all"
         :aria-label="t('accessibility.callNow')"
       >
         <IconPhone class="w-5 h-5" />
@@ -216,7 +216,7 @@ onUnmounted(() => {
 
       <button
         type="button"
-        class="hidden lg:flex items-center justify-center w-12 h-12 bg-accent dark:bg-accent text-white rounded-full shadow-md active:scale-95 transition-all"
+        class="hidden lg:flex items-center justify-center w-12 h-12 bg-brand text-on-brand rounded-full shadow-md active:scale-95 transition-all"
         :aria-label="t('accessibility.callNow')"
         aria-haspopup="dialog"
         :aria-expanded="phoneDialogOpen ? 'true' : 'false'"
@@ -228,7 +228,7 @@ onUnmounted(() => {
       <a
         :href="cart.count.value > 0 ? cart.whatsappUrl.value : CONTACT.whatsapp"
         target="_blank"
-        class="flex items-center justify-center w-12 h-12 bg-whatsapp text-white rounded-full shadow-md active:scale-95 transition-all"
+        class="flex items-center justify-center w-12 h-12 bg-whatsapp text-on-brand rounded-full shadow-md active:scale-95 transition-all"
         :aria-label="t('accessibility.sendWhatsApp')"
       >
         <IconWhatsappBrand class="w-6 h-6" />
@@ -249,11 +249,11 @@ onUnmounted(() => {
           aria-modal="true"
           aria-labelledby="phone-dialog-title"
           tabindex="-1"
-          class="relative w-full max-w-xs rounded-2xl bg-white dark:bg-gray-900 p-6 shadow-2xl text-center"
+          class="relative w-full max-w-xs rounded-2xl bg-surface p-6 shadow-2xl text-center"
         >
           <button
             type="button"
-            class="absolute top-2 right-2 grid place-items-center w-9 h-9 text-gray-700 dark:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent-light focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 transition-colors"
+            class="absolute top-2 right-2 grid place-items-center w-9 h-9 text-ink-soft focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-page transition-colors"
             :aria-label="t('accessibility.closeDialog')"
             @click="phoneDialogOpen = false"
           >
@@ -262,7 +262,7 @@ onUnmounted(() => {
           <h2 id="phone-dialog-title" class="sr-only">{{ t("accessibility.callNow") }}</h2>
           <a
             :href="`tel:${CONTACT.phone}`"
-            class="inline-flex items-center justify-center text-2xl font-medium tracking-wide underline decoration-2 underline-offset-4 text-accent dark:text-accent-light hover:text-accent-dark dark:hover:text-white transition-colors"
+            class="inline-flex items-center justify-center text-2xl font-medium tracking-wide underline decoration-2 underline-offset-4 text-brand-ink hover:text-brand-ink transition-colors"
             @click="phoneDialogOpen = false"
           >
             {{ CONTACT.phoneDisplay }}

@@ -151,7 +151,7 @@ function navigateToTab(tab: "cakes" | "pastries" | "bakery" | "events") {
     <!-- Hamburger / close button (mobile only); z-30 sits above the menu panel -->
     <button
       type="button"
-      class="relative z-30 xl:hidden p-2 rounded order-2 focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 focus-visible:outline-none"
+      class="relative z-30 xl:hidden p-2 rounded-sm order-2 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:outline-hidden"
       @click="navOpen = !navOpen"
       :aria-label="navOpen ? t('nav.closeMenu') : t('nav.menu')"
       :aria-expanded="navOpen"
@@ -160,13 +160,13 @@ function navigateToTab(tab: "cakes" | "pastries" | "bakery" | "events") {
         v-if="!navOpen"
         class="ripple-container overflow-hidden pointer-events-none absolute inset-0 flex justify-center items-center"
       >
-        <span class="ripple absolute bg-pink-300 dark:bg-pink-200"></span>
+        <span class="ripple absolute bg-brand"></span>
       </span>
       <IconClose
         v-if="navOpen"
-        class="h-6 w-6 text-accent dark:text-accent-light relative z-10"
+        class="h-6 w-6 text-brand-ink relative z-10"
       />
-      <IconMenu v-else class="h-6 w-6 text-accent dark:text-accent-light relative z-10" />
+      <IconMenu v-else class="h-6 w-6 text-brand-ink relative z-10" />
     </button>
 
     <!-- Backdrop behind the menu panel (below xl only) -->
@@ -180,9 +180,9 @@ function navigateToTab(tab: "cakes" | "pastries" | "bakery" | "events") {
     <!-- Menu items -->
     <ul
       :class="[
-        'fixed left-0 right-0 min-h-screen top-0 px-4 pt-8 space-y-4 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-transform duration-300 z-20',
+        'fixed left-0 right-0 min-h-screen top-0 px-4 pt-8 space-y-4 bg-surface text-ink transition-transform duration-300 z-20',
         // sm: bounded right-hand drawer
-        'sm:left-auto sm:w-80 sm:max-w-full sm:pt-24 sm:shadow-2xl sm:border-l sm:border-gray-200 dark:sm:border-gray-800',
+        'sm:left-auto sm:w-80 sm:max-w-full sm:pt-24 sm:shadow-2xl sm:border-l sm:border-line',
         // xl: horizontal nav; unsets the drawer styles above
         'xl:relative xl:flex xl:items-center xl:space-x-8 xl:min-h-0 xl:px-0 xl:py-0 xl:pt-0 xl:space-y-0 xl:order-1 xl:z-auto',
         'xl:left-auto xl:w-auto xl:max-w-none xl:shadow-none xl:border-0',
@@ -192,70 +192,53 @@ function navigateToTab(tab: "cakes" | "pastries" | "bakery" | "events") {
       @click="navOpen = false"
     >
       <li class="menu-item">
-        <button @click="navigate('catalog')">{{ t("nav.catalog") }}</button>
-        <ul class="sub-menu pl-4 mt-2 space-y-2 border-l-2 border-accent-light xl:hidden">
+        <button class="bg-transparent border-none cursor-pointer text-inherit transition-colors duration-300 hover:text-brand-ink active:text-brand-ink focus-visible:text-brand-ink focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:rounded-sm" @click="navigate('catalog')">{{ t("nav.catalog") }}</button>
+        <ul class="sub-menu pl-4 mt-2 space-y-2 border-l-2 border-brand xl:hidden">
           <li>
-            <button class="block px-4 py-2" @click="navigateToTab('cakes')">
+            <button class="block px-4 py-2 bg-transparent border-none cursor-pointer text-inherit transition-colors duration-300 hover:text-brand-ink active:text-brand-ink focus-visible:text-brand-ink focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:rounded-sm" @click="navigateToTab('cakes')">
               {{ t("nav.cakes") }}
             </button>
           </li>
           <li>
-            <button class="block px-4 py-2" @click="navigateToTab('pastries')">
+            <button class="block px-4 py-2 bg-transparent border-none cursor-pointer text-inherit transition-colors duration-300 hover:text-brand-ink active:text-brand-ink focus-visible:text-brand-ink focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:rounded-sm" @click="navigateToTab('pastries')">
               {{ t("nav.pastries") }}
             </button>
           </li>
           <li>
-            <button class="block px-4 py-2" @click="navigateToTab('bakery')">
+            <button class="block px-4 py-2 bg-transparent border-none cursor-pointer text-inherit transition-colors duration-300 hover:text-brand-ink active:text-brand-ink focus-visible:text-brand-ink focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:rounded-sm" @click="navigateToTab('bakery')">
               {{ t("nav.bakery") }}
             </button>
           </li>
           <li>
-            <button class="block px-4 py-2" @click="navigateToTab('events')">
+            <button class="block px-4 py-2 bg-transparent border-none cursor-pointer text-inherit transition-colors duration-300 hover:text-brand-ink active:text-brand-ink focus-visible:text-brand-ink focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:rounded-sm" @click="navigateToTab('events')">
               {{ t("nav.events") }}
             </button>
           </li>
         </ul>
       </li>
       <li class="menu-item">
-        <button @click="navigate('gallery')">{{ t("nav.gallery") }}</button>
+        <button class="bg-transparent border-none cursor-pointer text-inherit transition-colors duration-300 hover:text-brand-ink active:text-brand-ink focus-visible:text-brand-ink focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:rounded-sm" @click="navigate('gallery')">{{ t("nav.gallery") }}</button>
       </li>
       <li class="menu-item">
-        <button @click="navigate('aboutUs')">{{ t("nav.aboutUs") }}</button>
+        <button class="bg-transparent border-none cursor-pointer text-inherit transition-colors duration-300 hover:text-brand-ink active:text-brand-ink focus-visible:text-brand-ink focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:rounded-sm" @click="navigate('aboutUs')">{{ t("nav.aboutUs") }}</button>
       </li>
       <li class="menu-item">
-        <button @click="navigate('whyUs')">{{ t("nav.whyUs") }}</button>
+        <button class="bg-transparent border-none cursor-pointer text-inherit transition-colors duration-300 hover:text-brand-ink active:text-brand-ink focus-visible:text-brand-ink focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:rounded-sm" @click="navigate('whyUs')">{{ t("nav.whyUs") }}</button>
       </li>
       <li class="menu-item">
-        <button @click="navigate('reviews')">{{ t("nav.reviews") }}</button>
+        <button class="bg-transparent border-none cursor-pointer text-inherit transition-colors duration-300 hover:text-brand-ink active:text-brand-ink focus-visible:text-brand-ink focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:rounded-sm" @click="navigate('reviews')">{{ t("nav.reviews") }}</button>
       </li>
       <li class="menu-item">
-        <button @click="navigate('howToOrder')">{{ t("nav.howToOrder") }}</button>
+        <button class="bg-transparent border-none cursor-pointer text-inherit transition-colors duration-300 hover:text-brand-ink active:text-brand-ink focus-visible:text-brand-ink focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:rounded-sm" @click="navigate('howToOrder')">{{ t("nav.howToOrder") }}</button>
       </li>
       <li class="menu-item">
-        <button @click="navigate('contact')">{{ t("nav.contact") }}</button>
+        <button class="bg-transparent border-none cursor-pointer text-inherit transition-colors duration-300 hover:text-brand-ink active:text-brand-ink focus-visible:text-brand-ink focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:rounded-sm" @click="navigate('contact')">{{ t("nav.contact") }}</button>
       </li>
     </ul>
   </nav>
 </template>
 
-<style scoped lang="postcss">
-.menu-item > button,
-.sub-menu > li > button {
-  @apply bg-transparent border-none cursor-pointer text-inherit;
-}
-
-.menu-item:hover > button,
-.sub-menu > li:hover > button,
-.menu-item:active > button,
-.sub-menu > li:active > button {
-  @apply text-accent dark:text-accent-light transition-colors duration-300;
-}
-
-.menu-item > button:focus-visible,
-.sub-menu > li > button:focus-visible {
-  @apply text-accent dark:text-accent-light outline-none ring-2 ring-accent dark:ring-accent-light ring-offset-2 rounded;
-}
-
+<style scoped>
 .ripple-container {
   border-radius: 50%;
 }

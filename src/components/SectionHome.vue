@@ -148,10 +148,10 @@ onUnmounted(() => {
   <section ref="heroRef" class="w-full min-h-[calc(100svh-8rem)] flex items-center relative overflow-visible">
     <!-- Floating decorative elements (outside overflow containers) -->
     <div
-      class="absolute top-[15%] right-[15%] w-64 h-64 bg-accent/[0.15] lg:bg-accent/25 dark:bg-accent/20 dark:lg:bg-accent/35 rounded-full blur-3xl pointer-events-none animate-float-slow"
+      class="absolute top-[15%] right-[15%] w-64 h-64 bg-brand/[0.15] lg:bg-brand/25 rounded-full blur-3xl pointer-events-none animate-float-slow"
     ></div>
     <div
-      class="absolute bottom-[15%] right-[25%] w-80 h-80 bg-accent/10 lg:bg-accent/20 dark:bg-accent/15 dark:lg:bg-accent/30 rounded-full blur-3xl pointer-events-none animate-float-slower"
+      class="absolute bottom-[15%] right-[25%] w-80 h-80 bg-brand/10 lg:bg-brand/20 rounded-full blur-3xl pointer-events-none animate-float-slower"
     ></div>
 
     <div
@@ -160,7 +160,7 @@ onUnmounted(() => {
       <!-- Left: Text content -->
       <div class="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left pt-8 lg:pt-0 lg:self-center">
         <h1
-          class="text-4xl md:text-5xl xl:text-6xl font-serif mb-4 text-gray-900 dark:text-gray-100"
+          class="text-4xl md:text-5xl xl:text-6xl font-serif mb-4 text-ink"
         >
           {{ t("home.title") }}
           <br />
@@ -168,7 +168,7 @@ onUnmounted(() => {
         </h1>
 
         <p
-          class="text-gray-600 dark:text-gray-400 mb-6 flex flex-col sm:flex-row sm:flex-wrap justify-center lg:justify-start gap-x-4 gap-y-1"
+          class="text-ink-muted mb-6 flex flex-col sm:flex-row sm:flex-wrap justify-center lg:justify-start gap-x-4 gap-y-1"
         >
           <span>{{ t("home.naturalIngredients") }}</span>
           <span>{{ t("home.licensedWorkshop") }}</span>
@@ -177,7 +177,7 @@ onUnmounted(() => {
 
         <button
           @click="scrollTo('catalog')"
-          class="mb-6 px-8 py-3 bg-accent dark:bg-accent text-white text-lg font-medium tracking-wide rounded-full shadow-md shadow-accent/20 dark:shadow-accent/30 hover:scale-105 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 transition-all duration-300"
+          class="mb-6 px-8 py-3 bg-brand text-on-brand text-lg font-medium tracking-wide rounded-full shadow-md shadow-brand/20 hover:scale-105 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 transition-all duration-300"
         >
           {{ t("home.viewCatalog") }}
         </button>
@@ -213,7 +213,7 @@ onUnmounted(() => {
 
           <!-- Decorative frame -->
           <div
-            class="absolute inset-0 rounded-3xl ring-4 ring-accent/20 dark:ring-accent/30 pointer-events-none"
+            class="absolute inset-0 rounded-3xl ring-4 ring-brand/20 pointer-events-none"
           ></div>
         </div>
 
@@ -230,8 +230,8 @@ onUnmounted(() => {
               class="block h-2 rounded-full transition-all duration-300"
               :class="
                 currentImageIndex === index
-                  ? 'bg-accent dark:bg-accent w-6'
-                  : 'w-2 bg-gray-300 dark:bg-gray-600 group-hover:bg-accent/50 dark:group-hover:bg-accent/50'
+                  ? 'bg-brand w-6'
+                  : 'w-2 bg-gray-300 group-hover:bg-brand/50'
               "
             />
           </button>

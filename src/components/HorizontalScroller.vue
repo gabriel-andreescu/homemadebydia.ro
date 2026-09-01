@@ -98,7 +98,7 @@ function onWheel(e: WheelEvent) {
     <div
       class="absolute top-4 right-0 w-32 pointer-events-none bg-gradient-to-l from-10% via-50% to-transparent origin-right transition-[opacity,transform] duration-300 ease-out"
       :class="[
-        gradientClass || 'from-white via-white/50 dark:from-gray-900 dark:via-gray-900/50',
+        gradientClass || 'from-surface via-surface/50',
         gradientHeight || 'h-[calc(100%-2rem)]',
         isAtEnd ? 'opacity-0 scale-x-0' : 'opacity-100 scale-x-100',
       ]"

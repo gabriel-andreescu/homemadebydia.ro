@@ -32,24 +32,24 @@ const footerArtSrc = computed(() => {
   <footer class="mt-16 lg:mt-32">
     <section class="flex flex-col xl:flex-row">
       <section
-        class="flex flex-col w-full xl:w-1/2 px-2 pt-16 pb-8 lg:pl-8 sm:pb-10 xl:pb-0 bg-gradient-to-r from-transparent to-nude dark:bg-none"
+        class="flex flex-col w-full xl:w-1/2 px-2 pt-16 pb-8 lg:pl-8 sm:pb-10 xl:pb-0 bg-gradient-to-r from-transparent to-surface-sunk"
       >
         <h2 :id="howToOrderId" class="text-3xl sm:text-4xl lg:text-5xl font-serif mb-10">
           {{ t("howToOrder.title") }}
         </h2>
-        <div class="how-to-order-paragraphs">
-          <p>{{ t("howToOrder.step1") }}</p>
-          <p>{{ t("howToOrder.step2") }}</p>
-          <p>{{ t("howToOrder.step3") }}</p>
-          <p>{{ t("howToOrder.step4") }}</p>
+        <div>
+          <p class="mb-4 lg:text-lg">{{ t("howToOrder.step1") }}</p>
+          <p class="mb-4 lg:text-lg">{{ t("howToOrder.step2") }}</p>
+          <p class="mb-4 lg:text-lg">{{ t("howToOrder.step3") }}</p>
+          <p class="mb-4 lg:text-lg">{{ t("howToOrder.step4") }}</p>
         </div>
         <div class="flex items-center gap-3 my-6">
-          <span class="text-sm text-gray-600 dark:text-gray-400">{{ t("footer.didYouLike") }}</span>
+          <span class="text-sm text-ink-muted">{{ t("footer.didYouLike") }}</span>
           <a
             :href="CONTACT.googleReview"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border border-gray-500 dark:border-gray-400 text-gray-900 dark:text-gray-100 rounded-full hover:border-accent hover:text-accent-dark dark:hover:border-accent-light dark:hover:text-accent-light active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 transition-all duration-300"
+            class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border border-line-strong text-ink rounded-full hover:border-brand hover:text-brand-ink active:scale-[0.98] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 transition-all duration-300"
           >
             <IconGoogle class="w-4 h-4" />
             {{ t("footer.leaveReview") }}
@@ -57,7 +57,7 @@ const footerArtSrc = computed(() => {
         </div>
         <AppDeferredMedia
           wrapper-class="flex h-80"
-          placeholder-class="border-0 border-none min-w-full bg-gray-200 dark:bg-gray-700 rounded-xl"
+          placeholder-class="border-0 border-none min-w-full bg-surface-sunk rounded-xl"
         >
           <iframe
             title="Google Maps"
@@ -73,7 +73,7 @@ const footerArtSrc = computed(() => {
             <div class="lg:text-lg flex flex-col gap-2">
               <a
                 :href="`tel:${CONTACT.phone}`"
-                class="inline-flex items-center gap-2 underline hover:text-accent-dark dark:hover:text-accent-light cursor-pointer transition-colors duration-300"
+                class="inline-flex items-center gap-2 underline hover:text-brand-ink cursor-pointer transition-colors duration-300"
               >
                 <IconPhone class="w-5 h-5 shrink-0" aria-hidden="true" />
                 <span class="sr-only">{{ t("accessibility.callNow") }}:</span>
@@ -81,7 +81,7 @@ const footerArtSrc = computed(() => {
               </a>
               <a
                 :href="`mailto:${CONTACT.email}`"
-                class="inline-flex items-center gap-2 underline hover:text-accent-dark dark:hover:text-accent-light cursor-pointer transition-colors duration-300"
+                class="inline-flex items-center gap-2 underline hover:text-brand-ink cursor-pointer transition-colors duration-300"
               >
                 <IconMail class="w-5 h-5 shrink-0" aria-hidden="true" />
                 <span class="sr-only">{{ t("accessibility.sendEmail") }}:</span>
@@ -91,7 +91,7 @@ const footerArtSrc = computed(() => {
                 :href="CONTACT.maps"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 underline hover:text-accent-dark dark:hover:text-accent-light cursor-pointer transition-colors duration-300"
+                class="inline-flex items-center gap-2 underline hover:text-brand-ink cursor-pointer transition-colors duration-300"
               >
                 <IconMapPin class="w-5 h-5 shrink-0" aria-hidden="true" />
                 <span class="sr-only">{{ t("accessibility.openInMaps") }}:</span>
@@ -108,7 +108,7 @@ const footerArtSrc = computed(() => {
           >
             <AppDeferredMedia
               wrapper-class="inline-block"
-              placeholder-class="w-[140px] h-[55px] rounded bg-white/60 dark:bg-gray-800"
+              placeholder-class="w-[140px] h-[55px] rounded-sm bg-surface/60"
             >
               <img
                 src="/SAL-PICTOGRAMA.png"
@@ -120,10 +120,10 @@ const footerArtSrc = computed(() => {
           </a>
         </section>
       </section>
-      <section class="hidden xl:block xl:w-1/2 bg-nude dark:bg-none self-end">
+      <section class="hidden xl:block xl:w-1/2 bg-surface-sunk self-end">
         <AppDeferredMedia
           wrapper-class="w-full"
-          placeholder-class="w-full aspect-[963/1284] max-h-[min(100vh,1284px)] bg-nude/80 dark:bg-gray-800"
+          placeholder-class="w-full aspect-[963/1284] max-h-[min(100vh,1284px)] bg-surface-sunk/80"
         >
           <img
             :src="footerArtSrc"
@@ -138,8 +138,3 @@ const footerArtSrc = computed(() => {
   </footer>
 </template>
 
-<style scoped>
-.how-to-order-paragraphs p {
-  @apply lg:text-lg mb-4;
-}
-</style>

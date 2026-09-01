@@ -1,6 +1,82 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* The theme is a class on <html>, not the operating system's preference: index.html sets it
+   before the first paint and the header's toggle moves it after. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Colours are named for their job, not their hue, because dark mode swaps them: `bg-white`
+   cannot become dark, `bg-surface` can. Overriding the custom properties under .dark is all
+   the dark theme needs, so no `dark:` variant is written per element. */
+@theme {
+  /* Porcelain rather than white: a ground with a faint violet cast, which is the colour of a
+     glazed plate and keeps the cake photography from looking clipped against pure white. */
+  --color-page: #f6f3f6;
+  --color-surface: #ffffff;
+  /* Where a panel sits inside a card - the price row, a note, the collapsed description. */
+  --color-surface-sunk: #fbf8fb;
+
+  /* Aubergine rather than a neutral grey: the whole palette is warmed toward the brand, and a
+     blue-grey text on a violet-cast page reads as two unrelated systems. */
+  --color-ink: #241722;
+  --color-ink-soft: #463447;
+  --color-ink-muted: #6e5d6a;
+  --color-ink-faint: #8a7986;
+
+  --color-line: #e7dee5;
+  --color-line-strong: #d6c8d2;
+
+  /* The logo's magenta. `brand` is the fill, `brand-ink` the weight that carries as text -
+     the fill measures 4.1:1 on the page and loses at small sizes. */
+  --color-brand: #e20076;
+  --color-brand-ink: #b2005d;
+  --color-on-brand: #ffffff;
+
+  /* WhatsApp's own green, darkened for text contrast; the button links into their app. */
+  --color-whatsapp: #128c4a;
+  --color-on-whatsapp: #ffffff;
+
+  /* Review stars, and the destructive action on a cart row. Both keep their conventional hue
+     rather than joining the palette: a magenta star is not a rating and a magenta X is not a
+     delete. */
+  --color-star: #d9910f;
+  --color-danger: #b91c1c;
+  --color-danger-soft: #fdf2f2;
+}
+
+.dark {
+  --color-page: #15101a;
+  --color-surface: #1d1622;
+  --color-surface-sunk: #221a28;
+
+  --color-ink: #f2ecf1;
+  --color-ink-soft: #d8cbd6;
+  --color-ink-muted: #a697a4;
+  --color-ink-faint: #938490;
+
+  --color-line: #2e2434;
+  --color-line-strong: #40334a;
+
+  /* The fill moves to the light end of the ramp so it reads on an aubergine ground, which is
+     why `on-brand` is a token rather than a hardcoded white. */
+  --color-brand: #ff72b2;
+  --color-brand-ink: #ff8cc0;
+  --color-on-brand: #180b12;
+
+  --color-whatsapp: #3ddc84;
+  --color-on-whatsapp: #0b2418;
+
+  --color-star: #f0b840;
+  --color-danger: #f87171;
+  --color-danger-soft: #2a1a1a;
+}
+
+:root {
+  color-scheme: light;
+}
+
+:root.dark {
+  color-scheme: dark;
+}
 
 html {
   scroll-behavior: smooth;
@@ -10,11 +86,6 @@ html {
 body,
 #app {
   min-height: 100vh;
-  @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+  background-color: var(--color-page);
+  color: var(--color-ink);
 }
-
-/* Smooth transition for theme changes */
-html.dark {
-  color-scheme: dark;
-}
-

@@ -103,11 +103,11 @@ onUnmounted(() => {
       type="button"
       @click="openGallery(index)"
       :aria-label="t('accessibility.openGalleryImage', { index: index + 1 })"
-      class="flex-shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+      class="shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] focus:outline-hidden focus:ring-2 focus:ring-brand focus:ring-offset-2"
     >
       <AppDeferredMedia
         wrapper-class="w-full h-full"
-        placeholder-class="w-full h-full bg-rose-100 dark:bg-neutral-800"
+        placeholder-class="w-full h-full bg-surface-sunk"
       >
         <AppPicture
           :src="imagePath"
@@ -120,7 +120,7 @@ onUnmounted(() => {
   </HorizontalScroller>
 
   <!-- Events Gallery -->
-  <h3 class="text-2xl font-display text-gray-800 dark:text-gray-100 mt-8 mb-2">
+  <h3 class="text-2xl font-display text-ink mt-8 mb-2">
     {{ t('gallery.events') }}
   </h3>
   <HorizontalScroller @end-visible="loadMoreEvents">
@@ -130,11 +130,11 @@ onUnmounted(() => {
       type="button"
       @click="openEventsGallery(index)"
       :aria-label="t('accessibility.openEventsGalleryImage', { index: index + 1 })"
-      class="flex-shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+      class="shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] focus:outline-hidden focus:ring-2 focus:ring-brand focus:ring-offset-2"
     >
       <AppDeferredMedia
         wrapper-class="w-full h-full"
-        placeholder-class="w-full h-full bg-rose-100 dark:bg-neutral-800"
+        placeholder-class="w-full h-full bg-surface-sunk"
       >
         <AppPicture
           :src="imagePath"

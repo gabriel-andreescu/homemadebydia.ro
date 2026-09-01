@@ -47,7 +47,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="fixed bg-white dark:bg-gray-900 w-full px-4 lg:px-12 z-30">
+  <header class="fixed bg-surface w-full px-4 lg:px-12 z-30">
     <div
       class="container mx-auto flex justify-between items-center transition-[height] duration-200"
       :class="{ 'h-32': !scrolledFromTop, 'h-16': scrolledFromTop }"
@@ -69,7 +69,7 @@ onUnmounted(() => {
     <Transition name="tabs-slide">
       <div
         v-if="showStickyTabs"
-        class="sm:mt-2 border-t border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm"
+        class="sm:mt-2 border-t border-line bg-surface/95 backdrop-blur-xs"
       >
         <ul class="container mx-auto flex justify-center gap-1.5 sm:gap-2 pt-3 pb-2.5 sm:py-2.5">
           <li
@@ -78,8 +78,8 @@ onUnmounted(() => {
             :class="[
               'px-3 sm:px-5 py-1.5 sm:py-2 rounded-full cursor-pointer font-medium text-xs sm:text-sm tracking-wide transition-all duration-300',
               tab.tabKey === selectedTab
-                ? 'bg-accent dark:bg-accent text-white shadow-md shadow-accent/20 dark:shadow-accent/30 scale-105'
-                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-accent dark:hover:border-accent hover:text-accent dark:hover:text-accent-light hover:shadow-md',
+                ? 'bg-brand text-on-brand shadow-md shadow-brand/20 scale-105'
+                : 'bg-surface text-ink-muted border border-line hover:border-brand hover:text-brand-ink hover:shadow-md',
             ]"
             @click="selectTab(tab.tabKey, true, true)"
           >

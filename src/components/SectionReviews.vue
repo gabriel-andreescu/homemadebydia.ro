@@ -97,11 +97,11 @@ const reviews = computed<ReviewCard[]>(() =>
     <article
       v-for="(review, index) in reviews"
       :key="index"
-      class="relative bg-rose-50/50 dark:bg-neutral-800 rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow flex flex-col overflow-hidden"
+      class="relative bg-surface-sunk/50 rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow flex flex-col overflow-hidden"
     >
       <!-- Quote icon -->
       <IconQuote
-        class="absolute top-4 right-4 w-8 h-8 text-accent/40 dark:text-accent-light/40"
+        class="absolute top-4 right-4 w-8 h-8 text-brand-ink/40"
         aria-hidden="true"
       />
 
@@ -110,7 +110,7 @@ const reviews = computed<ReviewCard[]>(() =>
         <AppDeferredMedia
           v-if="review.avatar"
           wrapper-class="w-10 h-10 shrink-0"
-          placeholder-class="w-full h-full rounded-full bg-accent/10 dark:bg-accent-light/10"
+          placeholder-class="w-full h-full rounded-full bg-brand/10"
         >
           <img
             :src="review.avatar"
@@ -122,11 +122,11 @@ const reviews = computed<ReviewCard[]>(() =>
         </AppDeferredMedia>
         <div
           v-else
-          class="w-10 h-10 rounded-full bg-accent/10 dark:bg-accent-light/10 flex items-center justify-center text-accent dark:text-accent-light font-semibold"
+          class="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center text-brand-ink font-semibold"
         >
           {{ review.name.charAt(0).toUpperCase() }}
         </div>
-        <span class="font-medium text-neutral-900 dark:text-neutral-100">
+        <span class="font-medium text-ink">
           {{ review.name }}
         </span>
       </header>
@@ -137,16 +137,16 @@ const reviews = computed<ReviewCard[]>(() =>
         class="flex gap-0.5 mb-3"
         :aria-label="t('reviews.rating', { count: review.rating })"
       >
-        <IconStar v-for="star in review.rating" :key="star" class="w-5 h-5 text-amber-400" />
+        <IconStar v-for="star in review.rating" :key="star" class="w-5 h-5 text-star" />
         <IconStar
           v-for="star in 5 - review.rating"
           :key="'empty-' + star"
-          class="w-5 h-5 text-neutral-300 dark:text-neutral-600"
+          class="w-5 h-5 text-ink-muted"
         />
       </div>
 
       <!-- Review text -->
-      <p class="text-neutral-700 dark:text-neutral-300 mb-4 leading-relaxed whitespace-pre-line">
+      <p class="text-ink-soft mb-4 leading-relaxed whitespace-pre-line">
         {{ review.text }}
       </p>
 
@@ -159,13 +159,13 @@ const reviews = computed<ReviewCard[]>(() =>
           v-for="(img, imgIndex) in review.images"
           :key="imgIndex"
           type="button"
-          class="flex-shrink-0 w-32 h-32 rounded-xl overflow-hidden hover:opacity-90 transition-opacity"
+          class="shrink-0 w-32 h-32 rounded-xl overflow-hidden hover:opacity-90 transition-opacity"
           @click="openImage(review.images!, imgIndex)"
           :aria-label="t('accessibility.openReviewImage', { name: review.name, index: imgIndex + 1 })"
         >
           <AppDeferredMedia
             wrapper-class="w-full h-full"
-            placeholder-class="w-full h-full bg-rose-100 dark:bg-neutral-700"
+            placeholder-class="w-full h-full bg-surface-sunk"
           >
             <AppPicture
               :src="img.thumb"
@@ -181,20 +181,20 @@ const reviews = computed<ReviewCard[]>(() =>
       <HorizontalScroller
         v-else-if="review.images?.length"
         class="mt-auto"
-        gradient-class="from-rose-50 dark:from-neutral-800"
+        gradient-class="from-surface-sunk"
         gradient-height="h-32"
       >
         <button
           v-for="(img, imgIndex) in review.images"
           :key="imgIndex"
           type="button"
-          class="flex-shrink-0 snap-start w-32 h-32 rounded-xl overflow-hidden hover:opacity-90 transition-opacity"
+          class="shrink-0 snap-start w-32 h-32 rounded-xl overflow-hidden hover:opacity-90 transition-opacity"
           @click="openImage(review.images!, imgIndex)"
           :aria-label="t('accessibility.openReviewImage', { name: review.name, index: imgIndex + 1 })"
         >
           <AppDeferredMedia
             wrapper-class="w-full h-full"
-            placeholder-class="w-full h-full bg-rose-100 dark:bg-neutral-700"
+            placeholder-class="w-full h-full bg-surface-sunk"
           >
             <AppPicture
               :src="img.thumb"
@@ -214,7 +214,7 @@ const reviews = computed<ReviewCard[]>(() =>
       href="https://share.google/hPCdZDLQpELxqblGd"
       target="_blank"
       rel="noopener noreferrer"
-      class="inline-flex items-center gap-1 text-sm font-medium text-neutral-600 dark:text-neutral-300 underline decoration-neutral-400/70 underline-offset-4 hover:text-accent dark:hover:text-accent-light hover:decoration-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-sm transition-colors"
+      class="inline-flex items-center gap-1 text-sm font-medium text-ink-muted underline decoration-line-strong/70 underline-offset-4 hover:text-brand-ink hover:decoration-accent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded-xs transition-colors"
     >
       {{ t("reviews.source") }}
     </a>

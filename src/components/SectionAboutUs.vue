@@ -33,7 +33,7 @@ function toggle() {
     <div ref="imageRef" class="overflow-hidden rounded-xl shadow-lg mb-6 aspect-[16/9]">
       <AppDeferredMedia
         wrapper-class="w-full h-full"
-        placeholder-class="w-full h-full bg-gray-200 dark:bg-gray-700"
+        placeholder-class="w-full h-full bg-surface-sunk"
       >
         <AppPicture
           src="/gallery/about-us"
@@ -44,12 +44,12 @@ function toggle() {
       </AppDeferredMedia>
     </div>
 
-    <div class="relative p-5 bg-gray-50 dark:bg-gray-800/70 rounded-xl shadow-sm">
+    <div class="relative p-5 bg-surface-sunk rounded-xl shadow-xs">
       <!-- Always visible: intro + p1 -->
-      <p class="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+      <p class="text-base md:text-lg text-ink-soft leading-relaxed mb-4">
         {{ t("aboutUs.intro") }}
       </p>
-      <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+      <p class="text-base md:text-lg text-ink-muted leading-relaxed mb-4">
         {{ t("aboutUs.p1") }}
       </p>
 
@@ -59,19 +59,19 @@ function toggle() {
         :class="expanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
       >
         <div class="overflow-hidden">
-          <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+          <p class="text-base md:text-lg text-ink-muted leading-relaxed mb-4">
             {{ t("aboutUs.p2") }}
           </p>
-          <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+          <p class="text-base md:text-lg text-ink-muted leading-relaxed mb-4">
             {{ t("aboutUs.p3") }}
           </p>
-          <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+          <p class="text-base md:text-lg text-ink-muted leading-relaxed mb-4">
             {{ t("aboutUs.p4") }}
           </p>
-          <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+          <p class="text-base md:text-lg text-ink-muted leading-relaxed mb-4">
             {{ t("aboutUs.p5") }}
           </p>
-          <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+          <p class="text-base md:text-lg text-ink-muted leading-relaxed">
             {{ t("aboutUs.p6") }}
           </p>
         </div>
@@ -79,14 +79,14 @@ function toggle() {
 
       <!-- Gradient fade overlay - extends to bottom of card -->
       <div
-        class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-gray-900 to-transparent pointer-events-none transition-opacity duration-300 rounded-b-xl"
+        class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-surface to-transparent pointer-events-none transition-opacity duration-300 rounded-b-xl"
         :class="expanded ? 'opacity-0' : 'opacity-100'"
       ></div>
 
       <!-- Read more button -->
       <button
         @click="toggle"
-        class="relative z-10 mt-4 group flex items-center gap-2 mx-auto px-5 py-2.5 text-sm font-medium border border-gray-500 dark:border-gray-400 text-gray-900 dark:text-gray-100 rounded-full hover:border-accent hover:text-accent-dark dark:hover:border-accent-light dark:hover:text-accent-light active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-800 transition-all duration-300"
+        class="relative z-10 mt-4 group flex items-center gap-2 mx-auto px-5 py-2.5 text-sm font-medium border border-line-strong text-ink rounded-full hover:border-brand hover:text-brand-ink active:scale-[0.98] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 transition-all duration-300"
       >
         <span>{{ expanded ? t("aboutUs.readLess") : t("aboutUs.readMore") }}</span>
         <svg

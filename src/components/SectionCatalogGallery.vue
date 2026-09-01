@@ -55,13 +55,13 @@ watch(galleryModalRef, (modal) => {
     <div
       v-for="(item, index) in data"
       :key="item.title"
-      class="card-stagger flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden"
+      class="card-stagger flex flex-col bg-surface rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden"
       :style="{ animationDelay: `${index * 40}ms` }"
     >
       <div class="relative w-full aspect-square overflow-hidden cursor-pointer">
         <AppDeferredMedia
           wrapper-class="w-full h-full"
-          placeholder-class="w-full h-full bg-rose-100 dark:bg-gray-700"
+          placeholder-class="w-full h-full bg-surface-sunk"
           root-margin="0px 0px"
         >
           <div v-if="Array.isArray(item.imageUrl)" class="grid grid-cols-2 h-full">
@@ -93,11 +93,11 @@ watch(galleryModalRef, (modal) => {
 
       <div class="flex-1 flex flex-col p-3">
         <h3
-          class="text-sm md:text-base font-semibold text-gray-800 dark:text-gray-100 leading-tight"
+          class="text-sm md:text-base font-semibold text-ink leading-tight"
         >
           {{ item.title }}
         </h3>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5" v-if="item.assortments">
+        <p class="text-xs text-ink-muted mt-0.5" v-if="item.assortments">
           {{ item.assortments }}
         </p>
 
@@ -113,9 +113,9 @@ watch(galleryModalRef, (modal) => {
             ]"
             @click="item.desc.length > 3 && toggleExpand(getProductId(item))"
           >
-            <ul class="text-left text-xs text-gray-600 dark:text-gray-300 leading-snug space-y-0.5">
+            <ul class="text-left text-xs text-ink-muted leading-snug space-y-0.5">
               <li v-for="desc in item.desc" :key="desc" class="flex items-start gap-1.5">
-                <span class="text-accent dark:text-accent-light shrink-0 text-[10px] mt-0.5">
+                <span class="text-brand-ink shrink-0 text-[10px] mt-0.5">
                   ●
                 </span>
                 <span>{{ desc.replace(/^-\s*/, "").replace(/^\*\s*/, "") }}</span>
@@ -123,7 +123,7 @@ watch(galleryModalRef, (modal) => {
             </ul>
             <div
               v-if="item.desc.length > 3"
-              class="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white dark:from-gray-800 to-transparent pointer-events-none transition-opacity duration-300"
+              class="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-surface to-transparent pointer-events-none transition-opacity duration-300"
               :class="expandedItems.has(getProductId(item)) ? 'opacity-0' : 'opacity-100'"
             ></div>
           </div>
@@ -132,7 +132,7 @@ watch(galleryModalRef, (modal) => {
             <button
               v-if="item.desc.length > 3"
               @click="toggleExpand(getProductId(item))"
-              class="text-[11px] text-accent dark:text-accent-light hover:underline"
+              class="text-[11px] text-brand-ink hover:underline"
             >
               {{ expandedItems.has(getProductId(item)) ? t("product.seeLess") : t("product.seeMore") }}
             </button>
@@ -140,37 +140,37 @@ watch(galleryModalRef, (modal) => {
         </div>
 
         <!-- Price + Button pushed to bottom -->
-        <div class="mt-auto pt-3 border-t border-gray-100 dark:border-gray-700">
+        <div class="mt-auto pt-3 border-t border-line">
           <div class="flex items-baseline gap-1">
-            <span class="text-2xl font-bold text-accent dark:text-accent-light">
+            <span class="text-2xl font-bold text-brand-ink">
               {{ item.price }}
             </span>
-            <span class="text-xs text-gray-500 dark:text-gray-400 font-medium">
+            <span class="text-xs text-ink-muted font-medium">
               {{ t("product.pricePerUnit") }}
               <span v-if="item.unit">/{{ item.unit }}</span>
             </span>
           </div>
-          <p class="text-[11px] text-gray-500 dark:text-gray-300" v-if="item.min">
+          <p class="text-[11px] text-ink-muted" v-if="item.min">
             {{ t("product.minimum") }} {{ item.min }} {{ item.unit }}
           </p>
 
           <button
             v-if="!cart.has(getProductId(item))"
             @click="cart.add(item)"
-            class="mt-2.5 w-full py-2 border border-gray-500 dark:border-gray-400 text-gray-900 dark:text-gray-100 text-sm font-medium tracking-wide rounded-full hover:border-accent hover:text-accent-dark dark:hover:border-accent-light dark:hover:text-accent-light active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-800 transition-all"
+            class="mt-2.5 w-full py-2 border border-line-strong text-ink text-sm font-medium tracking-wide rounded-full hover:border-brand hover:text-brand-ink active:scale-[0.98] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 transition-all"
           >
             {{ t("product.addToCart") }}
           </button>
           <div v-else class="mt-2.5 flex gap-1.5">
             <div
-              class="flex-1 py-2 bg-accent/10 dark:bg-accent/20 text-accent dark:text-accent-light text-sm font-medium tracking-wide rounded-full flex items-center justify-center gap-1.5"
+              class="flex-1 py-2 bg-brand/10 text-brand-ink text-sm font-medium tracking-wide rounded-full flex items-center justify-center gap-1.5"
             >
               <IconCheck class="w-4 h-4" />
               {{ t("product.inCart") }}
             </div>
             <button
               @click="cart.remove(getProductId(item))"
-              class="px-2.5 py-2 text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/20 rounded-full transition-colors"
+              class="px-2.5 py-2 text-ink-faint hover:text-danger hover:bg-danger-soft rounded-full transition-colors"
               :title="t('product.removeFromCart')"
             >
               <IconX class="w-4 h-4" />
