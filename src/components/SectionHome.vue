@@ -30,7 +30,6 @@ const showcaseImages = computed(() => {
 const heroRef = ref<HTMLElement | null>(null);
 const currentImageIndex = ref(0);
 const previousImageIndex = ref<number | null>(null);
-const initialHeroImagePhase = ref(true);
 const AUTOPLAY_INTERVAL_MS = 4000;
 const HERO_FADE_DURATION_MS = 500;
 
@@ -127,7 +126,6 @@ const { onTouchStart, onTouchMove, onTouchEnd, onTouchCancel } = useHorizontalSw
 
 onMounted(() => {
   startAutoplay();
-  initialHeroImagePhase.value = false;
 });
 
 onUnmounted(() => {
@@ -174,7 +172,7 @@ onUnmounted(() => {
       </div>
 
       <!-- Square: cropping a cross-section loses the layers it exists to show. -->
-      <div class="w-full max-w-lg mx-auto lg:mx-0 lg:flex-1 lg:max-w-[32rem]">
+      <div class="w-full max-w-96 sm:max-w-lg mx-auto lg:mx-0 lg:w-[32rem] lg:flex-none">
         <!-- The glow is anchored to the carousel, not the section: the section is as wide as
              the page while the carousel is a fixed square, so section percentages walk it out
              from behind the image as the viewport grows. -->
@@ -198,15 +196,15 @@ onUnmounted(() => {
               :src="previousImage.src"
               :alt="previousImage.label"
               img-class="absolute inset-0 w-full h-full object-cover hero-image hero-image--out"
-              sizes="(max-width: 1024px) 100vw, min(50vw, 512px)"
+              sizes="(width < 40rem) min(100vw - 1rem, 384px), 512px"
             />
             <AppPicture
               :key="currentImage.src"
               :src="currentImage.src"
               :alt="currentImage.label"
               img-class="absolute inset-0 w-full h-full object-cover hero-image"
-              :eager="initialHeroImagePhase && currentImageIndex === 0"
-              sizes="(max-width: 1024px) 100vw, min(50vw, 512px)"
+              :eager="currentImageIndex === 0"
+              sizes="(width < 40rem) min(100vw - 1rem, 384px), 512px"
             />
 
             <p
