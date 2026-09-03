@@ -164,9 +164,6 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
                 </span>
               </p>
               <p>
-                <span>{{ t("catalog.dishPickup", { dishPickup: PRICES.dishPickup }) }}</span>
-              </p>
-              <p>
                 <span>{{ t("catalog.delivery", { delivery: PRICES.delivery }) }}</span>
               </p>
               <p>

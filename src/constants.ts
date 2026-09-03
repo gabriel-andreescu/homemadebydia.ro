@@ -23,7 +23,6 @@ export const PRICES = {
   // Optional services
   dishRental: 150,
   candyBarSetup: 150,
-  dishPickup: 50,
   delivery: 250,
   favors: 10,
 } as const;

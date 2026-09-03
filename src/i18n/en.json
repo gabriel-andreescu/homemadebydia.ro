@@ -83,7 +83,6 @@
     "optional": "Optional services",
     "dishRental": "Dish rental - starting from {dishRental} lei",
     "candyBarSetup": "Candy bar setup - {candyBarSetup} lei",
-    "dishPickup": "Dish collection - starting from {dishPickup} lei",
     "delivery": "Delivery - starting from {delivery} lei (refrigerated vehicle)",
     "favors": "Party favors - starting from {favors} lei",
     "favorsCaption": "Example of available party favors",
