@@ -117,7 +117,7 @@ watch(galleryModalRef, (modal) => {
 
       <div class="flex-1 flex flex-col gap-2.5 sm:gap-3 p-3 sm:p-4">
         <h3
-          class="text-lead @min-[17rem]:text-title font-serif text-ink leading-tight text-balance"
+          class="card-title font-serif text-ink leading-tight text-balance"
         >
           {{ item.title }}
         </h3>
@@ -125,7 +125,7 @@ watch(galleryModalRef, (modal) => {
           <p class="text-meta font-semibold uppercase tracking-[0.16em] text-ink-faint">
             {{ t("product.composition") }}
           </p>
-          <ul class="strata flex flex-col gap-1.5 text-ui text-ink-soft leading-snug">
+          <ul class="strata card-body flex flex-col gap-1.5 text-ink-soft leading-snug">
             <li
               v-for="layer in productLayers(item)"
               :key="layer.name"
@@ -151,7 +151,7 @@ watch(galleryModalRef, (modal) => {
           </ul>
         </template>
 
-        <p v-if="item.note" class="text-ui text-ink-muted leading-snug">
+        <p v-if="item.note" class="card-body text-ink-muted leading-snug">
           {{ item.note }}
         </p>
 
@@ -162,7 +162,7 @@ watch(galleryModalRef, (modal) => {
             type="button"
             :aria-pressed="cart.hasExtra(item.id, extra.name)"
             :aria-label="t('product.addExtra', { name: extra.name, price: extra.price })"
-            class="w-full border px-2.5 py-3 text-left text-ui text-ink-soft transition-colors first:rounded-t-control last:rounded-b-control focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand @min-[13rem]:flex @min-[13rem]:items-center @min-[13rem]:gap-2"
+            class="card-body w-full border px-2.5 py-3 text-left text-ink-soft transition-colors first:rounded-t-control last:rounded-b-control focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand @min-[13rem]:flex @min-[13rem]:items-center @min-[13rem]:gap-2"
             :class="
               cart.hasExtra(item.id, extra.name)
                 ? 'border-brand bg-brand/10'
@@ -186,19 +186,19 @@ watch(galleryModalRef, (modal) => {
       </div>
 
       <div
-        class="flex flex-col @min-[11rem]:flex-row @min-[11rem]:items-center @min-[11rem]:justify-between gap-2.5 @min-[11rem]:gap-3 border-t border-line bg-surface-sunk px-3 sm:px-4 py-3"
+        class="flex flex-row items-center justify-between gap-3 border-t border-line bg-surface-sunk px-3 sm:px-4 py-3"
       >
         <p class="min-w-0 flex flex-col gap-0.5 leading-tight">
-          <span class="font-serif text-lead @min-[12rem]:text-title font-semibold tabular-nums text-ink">
+          <span class="card-price font-serif font-semibold tabular-nums text-ink">
             {{ item.price }} {{ t("product.pricePerUnit")
             }}<span v-if="item.unit" class="text-[0.6em] font-normal">/{{ item.unit }}</span>
           </span>
           <span
             v-if="specs(item).length"
-            class="flex flex-col text-meta text-ink-faint @min-[11rem]:flex-row @min-[11rem]:flex-wrap"
+            class="flex flex-row flex-wrap text-meta text-ink-faint"
           >
             <template v-for="(spec, specIndex) in specs(item)" :key="spec">
-              <span v-if="specIndex" aria-hidden="true" class="hidden @min-[11rem]:inline"
+              <span v-if="specIndex" aria-hidden="true"
                 >&nbsp;·&nbsp;</span
               >
               <span>{{ spec }}</span>

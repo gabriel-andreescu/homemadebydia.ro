@@ -33,7 +33,7 @@ const openEventsGallery = (index: number) => {
 </script>
 
 <template>
-  <h3 class="text-title font-serif text-balance mb-4">
+  <h3 class="text-lead md:text-title font-serif text-balance mb-4">
     {{ t('gallery.cakes') }}
   </h3>
   <HorizontalScroller pad-class="pt-4 pb-8" gradient-class="from-surface-sunk via-surface-sunk/50">
@@ -59,7 +59,7 @@ const openEventsGallery = (index: number) => {
     </button>
   </HorizontalScroller>
 
-  <h3 class="text-title font-serif text-balance mt-12 mb-4">
+  <h3 class="text-lead md:text-title font-serif text-balance mt-12 mb-4">
     {{ t('gallery.events') }}
   </h3>
   <HorizontalScroller pad-class="pt-4 pb-8" gradient-class="from-surface-sunk via-surface-sunk/50">

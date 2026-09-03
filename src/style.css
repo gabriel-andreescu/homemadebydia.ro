@@ -182,6 +182,51 @@
 
 /* Set --layer on a row for that stratum's colour; row spacing stays with the caller. */
 @layer components {
+  /* One ladder for any product-shaped card, stepped by how much room the card has rather than by
+     which component it is. Title never falls below the price and never meets the body; each price
+     step is the narrowest card that still fits the widest price string beside the 44px button. */
+  .card-title {
+    font-size: var(--text-body);
+  }
+
+  .card-price {
+    font-size: var(--text-ui);
+  }
+
+  .card-body {
+    font-size: var(--text-ui);
+  }
+
+  @container (min-width: 11rem) {
+    .card-title {
+      font-size: var(--text-lead);
+    }
+
+    .card-price {
+      font-size: var(--text-body);
+    }
+  }
+
+  @container (min-width: 13rem) {
+    .card-price {
+      font-size: var(--text-lead);
+    }
+
+    .card-body {
+      font-size: var(--text-body);
+    }
+  }
+
+  @container (min-width: 17rem) {
+    .card-title {
+      font-size: var(--text-title);
+    }
+
+    .card-price {
+      font-size: var(--text-title);
+    }
+  }
+
   /* Inline on the first line, not a column beside the row, so wrapped lines run the full width.
      Lightness is clamped per theme because one hex cannot serve both; hue and chroma pass
      through, which blending toward a neutral would have washed out. */

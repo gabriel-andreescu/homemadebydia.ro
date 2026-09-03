@@ -176,7 +176,7 @@ const reviews = computed<ReviewCard[]>(() => (locale.value === "en" ? reviewsEn 
     <article
       v-for="(review, index) in reviews"
       :key="index"
-      class="relative bg-surface-sunk/50 rounded-surface p-6 shadow-card hover:shadow-raised transition-shadow flex flex-col overflow-hidden"
+      class="@container relative bg-surface-sunk/50 rounded-surface p-6 shadow-card hover:shadow-raised transition-shadow flex flex-col overflow-hidden"
     >
       <!-- Header: Avatar + Name -->
       <header class="flex items-center gap-3 mb-2">
@@ -222,7 +222,7 @@ const reviews = computed<ReviewCard[]>(() => (locale.value === "en" ? reviewsEn 
       <div class="mb-4 flex flex-col items-start gap-2">
         <p
           :ref="(el) => setTextRef(el as HTMLElement | null, index)"
-          class="overflow-hidden text-ink-soft leading-relaxed whitespace-pre-line max-w-[56ch]"
+          class="card-body overflow-hidden text-ink-soft leading-relaxed whitespace-pre-line max-w-[56ch]"
           :class="isExpanded(index) || revealing.includes(index) ? '' : 'md:line-clamp-[12]'"
         >
           {{ review.text }}
