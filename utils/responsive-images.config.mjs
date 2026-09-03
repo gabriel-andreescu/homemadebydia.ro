@@ -2,7 +2,7 @@
 //
 // Keep this list small and stable; adding widths increases generated file count.
 export const RESPONSIVE_IMAGE_WIDTHS = [
-  64, 128, 256, 384, 512, 640, 768, 960, 1280, 1600, 2000, 2400,
+  64, 128, 256, 384, 512, 640, 768, 960, 1024, 1280, 1600, 2000, 2400,
 ];
 
 // Image quality configuration for the responsive image generator.
