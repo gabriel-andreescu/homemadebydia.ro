@@ -91,13 +91,23 @@ const measureClamped = () => {
   });
 };
 
+let frame = 0;
+const scheduleMeasure = () => {
+  if (frame) return;
+  frame = requestAnimationFrame(() => {
+    frame = 0;
+    measureClamped();
+  });
+};
+
 onMounted(() => {
   measureClamped();
-  window.addEventListener("resize", measureClamped);
+  window.addEventListener("resize", scheduleMeasure);
 });
 
 onUnmounted(() => {
-  window.removeEventListener("resize", measureClamped);
+  window.removeEventListener("resize", scheduleMeasure);
+  if (frame) cancelAnimationFrame(frame);
 });
 
 const openImage = async (images: string[], index: number) => {

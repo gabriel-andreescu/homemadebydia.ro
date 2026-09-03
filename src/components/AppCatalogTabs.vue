@@ -24,9 +24,19 @@ const measure = () => {
   ready.value = true;
 };
 
+// mount, the masthead's slide-in and the font swap can all land in one frame
+let frame = 0;
+const scheduleMeasure = () => {
+  if (frame) return;
+  frame = requestAnimationFrame(() => {
+    frame = 0;
+    measure();
+  });
+};
+
 const remeasure = async () => {
   await nextTick();
-  measure();
+  scheduleMeasure();
 };
 
 let observer: ResizeObserver | null = null;
@@ -36,16 +46,17 @@ onMounted(() => {
 
   // the strip also arrives inside the masthead's slide-in, so its width settles after mount
   if (typeof ResizeObserver !== "undefined" && strip.value) {
-    observer = new ResizeObserver(measure);
+    observer = new ResizeObserver(scheduleMeasure);
     observer.observe(strip.value);
   }
 
-  void document.fonts?.ready.then(measure);
+  void document.fonts?.ready.then(scheduleMeasure);
 });
 
 onBeforeUnmount(() => {
   observer?.disconnect();
   observer = null;
+  if (frame) cancelAnimationFrame(frame);
 });
 
 watch(() => [props.selected, props.tabs.map((tab) => tab.title).join("|")], remeasure);
