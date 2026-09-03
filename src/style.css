@@ -101,10 +101,10 @@
   --color-brand-solid: #e20076;
   --color-on-brand: #ffffff;
 
-  /* WhatsApp's published green, fixed in both themes. Only the logo lockup uses it; a
-     labelled control takes the site's own accent. */
+  /* WhatsApp's published green, fixed in both themes. White on it is 1.98:1, so whatever
+     sits on the green stays dark in dark mode too. */
   --color-whatsapp: #25d366;
-  --color-on-whatsapp: #ffffff;
+  --color-on-whatsapp: #241722;
 
   /* Review stars, the confirmation tick, and the destructive action on a cart row. These keep
      their conventional hue rather than joining the palette: a magenta star is not a rating and
