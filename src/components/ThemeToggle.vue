@@ -11,10 +11,10 @@ const { toggle } = useDarkMode();
 <template>
   <button
     @click="toggle"
-    class="p-2.5 rounded-full text-ink-muted hover:bg-surface-sunk transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+    class="p-[10px] rounded-full text-ink-muted hover:bg-surface-sunk transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
   >
-    <IconSun class="hidden dark:block w-6 h-6" />
-    <IconMoon class="block dark:hidden w-6 h-6" />
+    <IconSun class="hidden dark:block size-[24px]" />
+    <IconMoon class="block dark:hidden size-[24px]" />
     <span class="sr-only dark:hidden">{{ t("accessibility.toggleDarkMode") }}</span>
     <span class="sr-only hidden dark:inline">{{ t("accessibility.toggleLightMode") }}</span>
   </button>

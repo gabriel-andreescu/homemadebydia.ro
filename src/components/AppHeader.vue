@@ -52,18 +52,18 @@ onUnmounted(() => {
 <template>
   <!-- top-0, not the static position: the nav's scroll lock parks the body at -scrollY. -->
   <header
-    class="fixed top-0 w-full px-4 lg:px-12 z-30 bg-page/85 backdrop-blur-md border-b border-line"
+    class="fixed top-0 w-full px-[16px] lg:px-[48px] z-30 bg-page/85 backdrop-blur-md border-b border-line"
   >
     <div
       class="container mx-auto flex justify-between items-center transition-[height] duration-[var(--duration-short)]"
-      :class="{ 'h-28': !scrolledFromTop, 'h-16': scrolledFromTop }"
+      :class="{ 'h-[112px]': !scrolledFromTop, 'h-[64px]': scrolledFromTop }"
     >
-      <button @click="scrollTo('')" class="min-w-0 bg-transparent border-none cursor-pointer rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
+      <button @click="scrollTo('')" class="min-w-0 flex-1 bg-transparent border-none cursor-pointer rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
         <span
           role="img"
           :aria-label="t('accessibility.logo')"
           class="site-logo block w-auto max-w-full aspect-[319/128] transition-[height] duration-[var(--duration-short)] z-50"
-          :class="{ 'h-20': !scrolledFromTop, 'h-12': scrolledFromTop }"
+          :class="{ 'h-[80px]': !scrolledFromTop, 'h-[48px]': scrolledFromTop }"
         ></span>
       </button>
       <AppNav />

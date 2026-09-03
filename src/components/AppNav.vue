@@ -140,9 +140,9 @@ function navigateToTab(tab: "cakes" | "pastries" | "bakery" | "events") {
 </script>
 
 <template>
-  <nav class="flex items-center">
+  <nav class="flex shrink-0 items-center">
     <!-- Controls: order-1 on mobile (before hamburger), order-2 on desktop (after menu) -->
-    <div class="flex items-center gap-1 order-1 xl:order-2 xl:ml-6">
+    <div class="flex items-center gap-[4px] order-1 xl:order-2 xl:ml-[24px]">
       <LocaleToggle />
       <ThemeToggle />
       <CartButton />
@@ -151,7 +151,7 @@ function navigateToTab(tab: "cakes" | "pastries" | "bakery" | "events") {
     <!-- Hamburger / close button (mobile only); z-30 sits above the menu panel -->
     <button
       type="button"
-      class="relative z-30 xl:hidden p-2.5 rounded-control order-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+      class="relative z-30 xl:hidden p-[10px] rounded-control order-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
       @click="navOpen = !navOpen"
       :aria-label="navOpen ? t('nav.closeMenu') : t('nav.menu')"
       :aria-expanded="navOpen"
@@ -164,9 +164,9 @@ function navigateToTab(tab: "cakes" | "pastries" | "bakery" | "events") {
       </span>
       <IconClose
         v-if="navOpen"
-        class="h-6 w-6 text-brand-ink relative z-10"
+        class="size-[24px] text-brand-ink relative z-10"
       />
-      <IconMenu v-else class="h-6 w-6 text-brand-ink relative z-10" />
+      <IconMenu v-else class="size-[24px] text-brand-ink relative z-10" />
     </button>
 
     <!-- Backdrop behind the menu panel (below xl only) -->

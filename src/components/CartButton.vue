@@ -13,13 +13,13 @@ const cart = useCart();
     <span v-if="cart.count.value > 0" class="inline-flex overflow-hidden">
       <button
         @click="cart.openDrawer()"
-        class="relative p-2.5 text-ink-muted hover:bg-surface-sunk hover:text-brand-ink rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+        class="relative p-[10px] text-ink-muted hover:bg-surface-sunk hover:text-brand-ink rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
         :class="{ 'animate-bounce-once': cart.lastAdded.value }"
         :aria-label="t('accessibility.cartItems', { count: cart.count.value })"
       >
-        <IconCart class="w-6 h-6" />
+        <IconCart class="size-[24px]" />
         <span
-          class="absolute top-0 right-0 min-w-4 h-4 px-1 bg-brand-solid text-on-brand text-meta font-bold rounded-full flex items-center justify-center"
+          class="absolute top-0 right-0 min-w-[16px] h-[16px] px-[4px] bg-brand-solid text-on-brand text-[11px] font-bold rounded-full flex items-center justify-center"
         >
           {{ cart.count.value }}
         </span>

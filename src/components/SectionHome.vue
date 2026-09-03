@@ -172,7 +172,7 @@ onUnmounted(() => {
       </div>
 
       <!-- Square: cropping a cross-section loses the layers it exists to show. -->
-      <div class="w-full max-w-96 sm:max-w-lg mx-auto lg:mx-0 lg:w-[32rem] lg:flex-none">
+      <div class="w-full max-w-[384px] sm:max-w-[512px] mx-auto lg:mx-0 lg:w-[512px] lg:flex-none">
         <!-- The glow is anchored to the carousel, not the section: the section is as wide as
              the page while the carousel is a fixed square, so section percentages walk it out
              from behind the image as the viewport grows. -->

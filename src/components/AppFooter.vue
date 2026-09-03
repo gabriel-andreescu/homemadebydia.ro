@@ -55,7 +55,7 @@ const year = new Date().getFullYear();
           <div class="flex flex-col items-start">
             <a
               :href="`tel:${CONTACT.phone}`"
-              class="inline-flex items-center gap-2 py-2.5 underline decoration-line-strong/70 underline-offset-4 hover:text-brand-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand rounded-control transition-colors"
+              class="inline-flex min-w-0 items-center gap-2 py-2.5 [overflow-wrap:anywhere] underline decoration-line-strong/70 underline-offset-4 hover:text-brand-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand rounded-control transition-colors"
             >
               <IconPhone class="w-5 h-5 shrink-0" aria-hidden="true" />
               <span class="sr-only">{{ t("accessibility.callNow") }}:</span>
@@ -63,7 +63,7 @@ const year = new Date().getFullYear();
             </a>
             <a
               :href="`mailto:${CONTACT.email}`"
-              class="inline-flex items-center gap-2 py-2.5 underline decoration-line-strong/70 underline-offset-4 hover:text-brand-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand rounded-control transition-colors"
+              class="inline-flex min-w-0 items-center gap-2 py-2.5 [overflow-wrap:anywhere] underline decoration-line-strong/70 underline-offset-4 hover:text-brand-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand rounded-control transition-colors"
             >
               <IconMail class="w-5 h-5 shrink-0" aria-hidden="true" />
               <span class="sr-only">{{ t("accessibility.sendEmail") }}:</span>
@@ -73,7 +73,7 @@ const year = new Date().getFullYear();
               :href="CONTACT.maps"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 py-2.5 underline decoration-line-strong/70 underline-offset-4 hover:text-brand-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand rounded-control transition-colors"
+              class="inline-flex min-w-0 items-center gap-2 py-2.5 [overflow-wrap:anywhere] underline decoration-line-strong/70 underline-offset-4 hover:text-brand-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand rounded-control transition-colors"
             >
               <IconMapPin class="w-5 h-5 shrink-0" aria-hidden="true" />
               <span class="sr-only">{{ t("accessibility.openInMaps") }}:</span>
