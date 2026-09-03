@@ -21,7 +21,6 @@ import {
   RESPONSIVE_IMAGE_EXCLUDE_BASENAMES,
   RESPONSIVE_IMAGE_QUALITY_PROFILES,
   RESPONSIVE_IMAGE_WIDTHS,
-  responsiveImageAvifQualityForWidth,
 } from "./responsive-images.config.mjs";
 import { fileURLToPath } from "url";
 import os from "os";
@@ -154,7 +153,7 @@ async function ensureVariant(
 
   if (format === "avif") {
     pipeline = pipeline.avif({
-      quality: responsiveImageAvifQualityForWidth(qualityProfile.avifQuality, width),
+      quality: qualityProfile.avifQuality,
       effort: RESPONSIVE_IMAGE_AVIF_EFFORT,
     });
   } else if (format === "webp") {

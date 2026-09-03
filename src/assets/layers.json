@@ -1,0 +1,242 @@
+{
+  "aluat-de-cozonac": {
+    "color": "#E3C48D",
+    "ro": "Aluat de cozonac",
+    "en": "Cozonac-style dough"
+  },
+  "bezea-crocanta": {
+    "color": "#F2E6D8",
+    "ro": "Bezea crocantă",
+    "en": "Crispy meringue base"
+  },
+  "bilute-crocante-de-caramel-sarat": {
+    "color": "#C88A3E",
+    "ro": "Biluțe crocante de caramel sărat",
+    "en": "Crunchy salted caramel pearls"
+  },
+  "bilute-profiterol-cu-vanilie": {
+    "color": "#EFDCB4",
+    "ro": "Biluțe profiterol cu vanilie",
+    "en": "Vanilla profiterole pearls"
+  },
+  "blat-alb-cu-merisoare": {
+    "color": "#EBD9C4",
+    "ro": "Blat alb cu merișoare",
+    "en": "Vanilla sponge with dried cranberries"
+  },
+  "blat-cacao": {
+    "color": "#4A2E22",
+    "ro": "Blat cacao",
+    "en": "Cocoa sponge base"
+  },
+  "blat-cacao-insiropat": {
+    "color": "#4A2E22",
+    "ro": "Blat cacao însiropat",
+    "en": "Syrup-soaked cocoa sponge"
+  },
+  "blat-de-cacao": {
+    "color": "#4A2E22",
+    "ro": "Blat de cacao",
+    "en": "Cocoa sponge base"
+  },
+  "blat-umed-de-morcov-cu-scortisoara-si-nuca": {
+    "color": "#C7793B",
+    "ro": "Blat umed de morcov cu scorțișoară și nucă",
+    "en": "Moist carrot sponge with cinnamon & walnuts"
+  },
+  "blaturi-umede-cu-migdale-si-cocos": {
+    "color": "#E6D6B8",
+    "ro": "Blaturi umede cu migdale și cocos",
+    "en": "Moist almond & coconut sponge layers"
+  },
+  "crema-de-branza": {
+    "color": "#FAF3E6",
+    "ro": "Cremă de brânză",
+    "en": "Cream cheese filling"
+  },
+  "crema-de-branza-cu-fructe": {
+    "color": "#F2D9D2",
+    "ro": "Cremă de brânză cu fructe",
+    "en": "Fruit cream cheese frosting"
+  },
+  "crema-de-branza-cu-portocala": {
+    "color": "#F5D9A8",
+    "ro": "Cremă de brânză cu portocală",
+    "en": "Orange cream cheese frosting"
+  },
+  "crema-de-ciocolata": {
+    "color": "#6B4630",
+    "ro": "Cremă de ciocolată",
+    "en": "Chocolate cream"
+  },
+  "crema-de-ciocolata-cu-pralina": {
+    "color": "#6B4630",
+    "ro": "Cremă de ciocolată cu pralină",
+    "en": "Chocolate praline cream"
+  },
+  "crema-de-ciocolata-neagra-cu-mascarpone": {
+    "color": "#3E2A24",
+    "ro": "Cremă de ciocolată neagră cu mascarpone",
+    "en": "Dark chocolate mascarpone cream"
+  },
+  "crema-de-mascarpone": {
+    "color": "#F7EEDD",
+    "ro": "Cremă de mascarpone",
+    "en": "Mascarpone cream filling"
+  },
+  "crema-de-mascarpone-si-fructe": {
+    "color": "#F0D5D6",
+    "ro": "Cremă de mascarpone și fructe",
+    "en": "Mascarpone cream & fresh fruit"
+  },
+  "crema-de-nuci-cu-cacao-si-portocala-confiata": {
+    "color": "#7A5232",
+    "ro": "Cremă de nuci cu cacao și portocală confiată",
+    "en": "Walnut filling with cocoa & candied orange"
+  },
+  "crema-de-smantana-cu-cardamon": {
+    "color": "#F3E7D4",
+    "ro": "Cremă de smântână cu cardamon",
+    "en": "Sour cream with cardamom"
+  },
+  "crema-de-smantana-si-mascarpone": {
+    "color": "#F8F0E2",
+    "ro": "Cremă de smântână și mascarpone",
+    "en": "Sour cream & mascarpone filling"
+  },
+  "crema-fina-de-caramel": {
+    "color": "#D8994F",
+    "ro": "Cremă fină de caramel",
+    "en": "Silky caramel cream"
+  },
+  "crema-fina-de-lapte": {
+    "color": "#FBF4E7",
+    "ro": "Cremă fină de lapte",
+    "en": "Silky milk cream"
+  },
+  "crema-frisca-si-mascarpone": {
+    "color": "#FCF6EC",
+    "ro": "Cremă frișcă și mascarpone",
+    "en": "Whipped cream & mascarpone filling"
+  },
+  "foi-fragede-cu-alune": {
+    "color": "#C9A87C",
+    "ro": "Foi fragede cu alune",
+    "en": "Delicate hazelnut sponge layers"
+  },
+  "foi-fragede-cu-fistic": {
+    "color": "#A8B36B",
+    "ro": "Foi fragede cu fistic",
+    "en": "Delicate pistachio sponge layers"
+  },
+  "foi-fragede-de-cacao": {
+    "color": "#5A3A2A",
+    "ro": "Foi fragede de cacao",
+    "en": "Delicate cocoa sponge layers"
+  },
+  "foi-pufoase-cu-miere": {
+    "color": "#D9A441",
+    "ro": "Foi pufoase cu miere",
+    "en": "Fluffy honey sponge layers"
+  },
+  "foi-pufoase-de-bezea": {
+    "color": "#F4EAD9",
+    "ro": "Foi pufoase de bezea",
+    "en": "Fluffy meringue layers"
+  },
+  "fructe-de-padure": {
+    "color": "#8E3A62",
+    "ro": "Fructe de pădure",
+    "en": "Forest berries"
+  },
+  "insertie-de-arahide-cu-caramel": {
+    "color": "#C08A4C",
+    "ro": "Inserție de arahide cu caramel",
+    "en": "Caramel peanut insert"
+  },
+  "insertie-de-mango": {
+    "color": "#F0A93B",
+    "ro": "Inserție de Mango",
+    "en": "Mango insert"
+  },
+  "insertie-fructe-de-padure": {
+    "color": "#A63C6B",
+    "ro": "Inserție fructe de pădure",
+    "en": "Forest berry insert"
+  },
+  "insertie-fructe-de-padure-sau-caramel": {
+    "color": "#A63C6B",
+    "ro": "Inserție fructe de pădure sau caramel",
+    "en": "Forest berry or caramel insert"
+  },
+  "insertie-jeleu-de-capsuni": {
+    "color": "#C7304A",
+    "ro": "Inserție jeleu de căpșuni",
+    "en": "Strawberry jelly insert"
+  },
+  "insertie-jeleu-fructe": {
+    "color": "#D65A3C",
+    "ro": "Inserție jeleu fructe",
+    "en": "Fruit jelly insert"
+  },
+  "insertie-lemon-curd": {
+    "color": "#EFC64A",
+    "ro": "Inserție lemon curd",
+    "en": "Lemon curd insert"
+  },
+  "jeleu-de-zmeura-si-capsuni": {
+    "color": "#C0304F",
+    "ro": "Jeleu de zmeură și căpșuni",
+    "en": "Raspberry & strawberry jelly"
+  },
+  "mousse-de-ciocolata": {
+    "color": "#6B4630",
+    "ro": "Mousse de ciocolată",
+    "en": "Chocolate mousse"
+  },
+  "mousse-de-ciocolata-alba": {
+    "color": "#F2E4CB",
+    "ro": "Mousse de ciocolată albă",
+    "en": "White chocolate mousse"
+  },
+  "mousse-de-fructe-de-padure": {
+    "color": "#CE6690",
+    "ro": "Mousse de fructe de pădure",
+    "en": "Forest fruit mousse"
+  },
+  "mousse-fructul-pasiunii": {
+    "color": "#F2B33D",
+    "ro": "Mousse fructul pasiunii",
+    "en": "Passion fruit mousse"
+  },
+  "namelaka-de-alune-si-pralina": {
+    "color": "#A97C50",
+    "ro": "Namelaka de alune și pralină",
+    "en": "Hazelnut and praline namelaka"
+  },
+  "salsa-fructe-padure": {
+    "color": "#A83E63",
+    "ro": "Salsa fructe pădure",
+    "en": "Forest fruit salsa"
+  },
+  "sarlota-de-vanilie": {
+    "color": "#F6E8C8",
+    "ro": "Șarlotă de vanilie",
+    "en": "Vanilla charlotte"
+  },
+  "sos-de-zmeura": {
+    "color": "#C4304C",
+    "ro": "Sos de zmeură",
+    "en": "Raspberry coulis"
+  },
+  "spuma-de-caramel": {
+    "color": "#E0AC66",
+    "ro": "Spumă de caramel",
+    "en": "Caramel mousse"
+  },
+  "strat-cremos-de-namelaka-fistic": {
+    "color": "#B4C077",
+    "ro": "Strat cremos de namelaka fistic",
+    "en": "Pistachio namelaka layer"
+  }
+}

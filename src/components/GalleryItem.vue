@@ -34,7 +34,7 @@ defineEmits<{
       :srcset="makeResponsiveSrcset(imagePath, 'jpg')"
       :alt="props.alt ?? t('accessibility.galleryImage')"
       class="w-full h-full"
-      :class="{ 'rounded-lg': rounded, 'object-cover': cover }"
+      :class="{ 'rounded-surface': rounded, 'object-cover': cover }"
       loading="lazy"
       :sizes="sizes ?? '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'"
       decoding="async"

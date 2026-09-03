@@ -1,43 +1,52 @@
 [
   {
-    "imageUrl": "/gallery/cookies/rulada-pavlova",
+    "id": "rulada-pavlova",
+    "image": "/gallery/cookies/rulada-pavlova",
     "title": "Ruladă Pavlova",
-    "desc": [
-      "- Foi pufoase de bezea",
-      "- Cremă de smântână și mascarpone",
-      "- Inserție fructe de pădure",
-      "cântărește aprox. 1 kg"
-    ],
-    "min": 0,
+    "price": 160,
     "unit": "buc",
-    "price": 160
+    "layers": [
+      "foi-pufoase-de-bezea",
+      "crema-de-smantana-si-mascarpone",
+      "insertie-fructe-de-padure"
+    ],
+    "weight": "aprox. 1 kg"
   },
   {
-    "imageUrl": "/gallery/cookies/mini-prajituri",
+    "id": "mini-prajituri",
+    "image": "/gallery/cookies/mini-prajituri",
     "title": "Mini Prăjituri",
-    "assortments": "Choux fistic și zmeură, Choux alune de pădure, Pavlova, Tarte ciocolată",
-    "min": 0,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "variants": [
+      "Choux fistic și zmeură",
+      "Choux alune de pădure",
+      "Pavlova",
+      "Tarte ciocolată"
+    ]
   },
   {
-    "imageUrl": "/gallery/cookies/medovik",
+    "id": "medovik",
+    "image": "/gallery/cookies/medovik",
     "title": "Medovik",
-    "desc": [
-      "- Foi pufoase cu miere",
-      "- Cremă de smântână cu cardamon",
-      "- Inserție fructe de pădure sau caramel"
-    ],
-    "min": 0,
+    "price": 21,
     "unit": "buc",
-    "price": 21
+    "layers": [
+      "foi-pufoase-cu-miere",
+      "crema-de-smantana-cu-cardamon",
+      "insertie-fructe-de-padure-sau-caramel"
+    ]
   },
   {
-    "imageUrl": "/gallery/cookies/pavlova",
+    "id": "pavlova",
+    "image": "/gallery/cookies/pavlova",
     "title": "Pavlova",
-    "desc": ["- Bezea crocantă", "- Cremă de mascarpone și fructe"],
-    "min": 0.5,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 0.5,
+    "layers": [
+      "bezea-crocanta",
+      "crema-de-mascarpone-si-fructe"
+    ]
   }
 ]

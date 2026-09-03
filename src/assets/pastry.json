@@ -1,69 +1,100 @@
 [
   {
-    "imageUrl": "/gallery/pastry/mini-tarte",
+    "id": "mini-tarte",
+    "image": "/gallery/pastry/mini-tarte",
     "title": "Mini Tarte",
-    "assortments": "vanilie, fructe, lămâie și bezea, ciocolată, caramel, fistic, alune",
-    "min": 0,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "variants": [
+      "vanilie",
+      "fructe",
+      "lămâie și bezea",
+      "ciocolată",
+      "caramel",
+      "fistic",
+      "alune"
+    ]
   },
   {
-    "imageUrl": "/gallery/pastry/maxi-tarta",
-    "title": "Tartă Maxi",
-    "assortments": "cu fistic și zmeură",
-    "desc": ["cântărește aprox. 600 g"],
+    "id": "maxi-tarta",
+    "image": "/gallery/pastry/maxi-tarta",
+    "title": "Tartă Maxi cu fistic și zmeură",
+    "price": 100,
     "unit": "buc",
-    "price": 100
+    "weight": "aprox. 600 g"
   },
   {
-    "imageUrl": "/gallery/pastry/saratele",
+    "id": "saratele",
+    "image": "/gallery/pastry/saratele",
     "title": "Sărățele",
-    "desc": ["- Parmezan", "- Parmezan și chimen"],
+    "price": 13,
     "unit": "100 g",
-    "price": 13
+    "variants": [
+      "Parmezan",
+      "Parmezan și chimen"
+    ]
   },
   {
-    "imageUrl": "/gallery/pastry/mini-babka",
+    "id": "mini-babka",
+    "image": "/gallery/pastry/mini-babka",
     "title": "Mini Babka",
-    "desc": [
-      "- Însiropat cu aromă delicioasă de portocală și rom",
-      "- Cremă de nuci cu cacao și portocală confiată",
-      "- Însiropat cu vinars (+10 lei, opțional)",
-      "cântărește aprox. 650-700 g"
+    "price": 100,
+    "unit": "buc",
+    "layers": [
+      "crema-de-nuci-cu-cacao-si-portocala-confiata"
     ],
-    "unit": "buc",
-    "price": 100
+    "weight": "aprox. 650-700 g",
+    "note": "Însiropat cu aromă delicioasă de portocală și rom",
+    "extras": [
+      {
+        "name": "Însiropat cu vinars",
+        "price": 10
+      }
+    ]
   },
   {
-    "imageUrl": "/gallery/pastry/cozonac",
+    "id": "cozonac",
+    "image": "/gallery/pastry/cozonac",
     "title": "Cozonac Mini Glazurat",
-    "assortments": "cântărește aprox. 650-700 g",
+    "price": 65,
     "unit": "buc",
-    "price": 65
+    "weight": "aprox. 650-700 g"
   },
   {
-    "imageUrl": "/gallery/pastry/turta",
+    "id": "turta",
+    "image": "/gallery/pastry/turta",
     "title": "Turtă",
-    "desc": ["- Aluat de cozonac", "- Umplutură cu nucă (+20 lei, opțional)"],
-    "min": 1,
+    "price": 90,
     "unit": "kg",
-    "price": 90
+    "minimum": 1,
+    "layers": [
+      "aluat-de-cozonac"
+    ],
+    "extras": [
+      {
+        "name": "Umplutură cu nucă",
+        "price": 20
+      }
+    ]
   },
   {
-    "imageUrl": "/gallery/pastry/fursecuri",
-    "title": "Fursecuri",
-    "assortments": "dulceață și nucă",
-    "min": 0.25,
+    "id": "fursecuri",
+    "image": "/gallery/pastry/fursecuri",
+    "title": "Fursecuri cu dulceață și nucă",
+    "price": 110,
     "unit": "kg",
-    "step": 0.25,
-    "price": 110
+    "minimum": 0.25,
+    "step": 0.25
   },
   {
-    "imageUrl": "/gallery/pastry/nuci",
-    "title": "Nuci",
-    "desc": ["umplute cu cremă de ciocolată"],
-    "min": 0.5,
+    "id": "nuci",
+    "image": "/gallery/pastry/nuci",
+    "title": "Nuci umplute",
+    "price": 160,
     "unit": "kg",
-    "price": 160
+    "minimum": 0.5,
+    "layers": [
+      "crema-de-ciocolata"
+    ]
   }
 ]

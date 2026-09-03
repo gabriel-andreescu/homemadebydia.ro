@@ -5,6 +5,7 @@ import IconClose from "./icons/IconClose.vue";
 import IconCart from "./icons/IconCart.vue";
 import IconMinus from "./icons/IconMinus.vue";
 import IconPlus from "./icons/IconPlus.vue";
+import IconX from "./icons/IconX.vue";
 import IconWhatsappBrand from "./icons/IconWhatsappBrand.vue";
 import AppPicture from "./AppPicture.vue";
 import { useDialogA11y } from "../composables/useDialogA11y";
@@ -39,21 +40,21 @@ const isEmpty = computed(() => cart.count.value === 0);
           aria-modal="true"
           aria-labelledby="cart-drawer-title"
           tabindex="-1"
-          class="fixed bottom-0 left-0 right-0 bg-surface rounded-t-2xl shadow-2xl max-h-[85vh] flex flex-col"
+          class="fixed bottom-0 left-0 right-0 bg-surface rounded-t-surface shadow-overlay max-h-[85vh] flex flex-col"
           @click.stop
         >
           <!-- Header -->
           <div class="flex items-center justify-between px-4 py-3 border-b border-line">
-            <h2 id="cart-drawer-title" class="text-lg font-medium text-ink">
+            <h2 id="cart-drawer-title" class="text-lead font-medium text-ink">
               {{ t('cart.myCart') }}
-              <span v-if="!isEmpty" class="text-sm font-normal text-ink-muted">
+              <span v-if="!isEmpty" class="text-ui font-normal text-ink-muted">
                 ({{ cart.count.value }} {{ cart.count.value === 1 ? t('cart.product') : t('cart.products') }})
               </span>
             </h2>
             <button
               type="button"
               @click="cart.closeDrawer()"
-              class="grid place-items-center w-9 h-9 text-ink-soft focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-page transition-colors"
+              class="grid place-items-center w-11 h-11 text-ink-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand transition-colors"
               :aria-label="t('cart.closeCart')"
             >
               <IconClose class="w-7 h-7" />
@@ -64,7 +65,7 @@ const isEmpty = computed(() => cart.count.value === 0);
           <div v-if="isEmpty" class="flex flex-col items-center justify-center py-12 px-4">
             <IconCart class="w-16 h-16 text-ink-faint mb-4" :stroke-width="1.5" />
             <p class="text-ink-muted text-center">{{ t('cart.emptyCart') }}</p>
-            <p class="text-sm text-ink-faint mt-1">{{ t('cart.addFromCatalog') }}</p>
+            <p class="text-ui text-ink-faint mt-1">{{ t('cart.addFromCatalog') }}</p>
           </div>
 
           <!-- Cart items -->
@@ -76,9 +77,9 @@ const isEmpty = computed(() => cart.count.value === 0);
             >
               <!-- Product thumbnail -->
               <AppPicture
-                :src="item.id"
+                :src="item.image"
                 :alt="item.title"
-                img-class="w-16 h-16 rounded-xl object-cover"
+                img-class="w-16 h-16 rounded-surface object-cover"
                 sizes="64px"
               />
 
@@ -86,7 +87,26 @@ const isEmpty = computed(() => cart.count.value === 0);
               <div class="flex-1 min-w-0 flex flex-col">
                 <!-- Title + base price -->
                 <h3 class="font-medium text-ink leading-snug">{{ item.title }}</h3>
-                <p class="text-sm text-ink-muted">{{ item.price }} lei/{{ item.unit }}</p>
+                <p class="text-ui text-ink-muted">{{ item.price }} lei/{{ item.unit }}</p>
+
+                <ul v-if="item.extras.length" class="mt-1 flex flex-col gap-0.5">
+                  <li
+                    v-for="extra in item.extras"
+                    :key="extra.name"
+                    class="flex items-center gap-1.5 text-meta text-ink-muted"
+                  >
+                    <span class="min-w-0"
+                      >+ {{ extra.name }} ({{ extra.price }} lei/{{ item.unit }})</span
+                    >
+                    <button
+                      @click="cart.removeExtra(item.id, extra.name)"
+                      class="-my-2 shrink-0 p-2 text-ink-faint hover:text-danger transition-colors rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+                      :aria-label="t('product.removeExtra', { name: extra.name })"
+                    >
+                      <IconX class="w-3 h-3" />
+                    </button>
+                  </li>
+                </ul>
 
                 <!-- Controls row: Quantity + Price + Delete -->
                 <div class="flex items-center justify-between mt-auto pt-1">
@@ -95,17 +115,17 @@ const isEmpty = computed(() => cart.count.value === 0);
                     <button
                       @click="cart.update(item.id, item.quantity - item.step)"
                       :disabled="item.quantity <= item.min"
-                      class="w-7 h-7 flex items-center justify-center rounded-full text-ink-muted hover:bg-surface-sunk disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                      class="w-11 h-11 flex items-center justify-center rounded-full text-ink-muted hover:bg-surface-sunk disabled:opacity-40 disabled:cursor-not-allowed transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
                       :aria-label="t('cart.decreaseQuantity')"
                     >
                       <IconMinus class="w-3.5 h-3.5" />
                     </button>
-                    <span class="w-12 text-center text-sm font-medium text-ink">
+                    <span class="w-12 text-center text-ui font-medium text-ink">
                       {{ formatQuantity(item.quantity, item.unit, item.step) }}{{ formatQuantityUnit(item.unit) }}
                     </span>
                     <button
                       @click="cart.update(item.id, item.quantity + item.step)"
-                      class="w-7 h-7 flex items-center justify-center rounded-full text-ink-muted hover:bg-surface-sunk transition-colors"
+                      class="w-11 h-11 flex items-center justify-center rounded-full text-ink-muted hover:bg-surface-sunk transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
                       :aria-label="t('cart.increaseQuantity')"
                     >
                       <IconPlus class="w-3.5 h-3.5" />
@@ -114,10 +134,12 @@ const isEmpty = computed(() => cart.count.value === 0);
 
                   <!-- Price + Delete -->
                   <div class="text-right">
-                    <p class="font-semibold text-ink">{{ Math.round(item.price * item.quantity) }} lei</p>
+                    <p class="font-semibold text-ink">
+                      {{ Math.round((item.price + item.extrasPerUnit) * item.quantity) }} lei
+                    </p>
                     <button
                       @click="cart.remove(item.id)"
-                      class="text-xs text-ink-faint hover:text-brand-ink transition-colors"
+                      class="-mr-2 px-2 py-3.5 text-meta text-ink-faint hover:text-danger transition-colors rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
                       :aria-label="t('product.removeFromCart')"
                     >
                       {{ t('cart.delete') }}
@@ -131,13 +153,13 @@ const isEmpty = computed(() => cart.count.value === 0);
               <div class="flex items-center justify-between gap-3">
                 <label
                   for="cart-order-notes"
-                  class="text-sm font-medium text-ink-soft"
+                  class="text-ui font-medium text-ink-soft"
                 >
                   {{ t("cart.orderNotes") }}
                 </label>
                 <span
                   id="cart-order-notes-count"
-                  class="shrink-0 text-xs text-ink-faint"
+                  class="shrink-0 text-meta text-ink-faint"
                 >
                   {{ cart.orderNotes.value.length }}/{{ cart.orderNotesMaxLength }}
                 </span>
@@ -149,7 +171,7 @@ const isEmpty = computed(() => cart.count.value === 0);
                 :placeholder="t('cart.orderNotesPlaceholder')"
                 aria-describedby="cart-order-notes-count"
                 rows="4"
-                class="block w-full mt-2 px-3 py-2.5 text-sm leading-relaxed text-ink placeholder:text-ink-faint bg-surface border border-line rounded-xl resize-none focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:border-transparent transition-colors"
+                class="block w-full mt-2 px-3 py-2.5 text-ui leading-relaxed text-ink placeholder:text-ink-faint bg-surface border border-line rounded-surface resize-none focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-brand focus-visible:border-transparent transition-colors"
               ></textarea>
             </div>
           </div>
@@ -159,11 +181,11 @@ const isEmpty = computed(() => cart.count.value === 0);
             <div class="mb-4">
               <div class="flex justify-between items-center gap-3">
                 <span class="text-ink-muted">{{ t("cart.estimate") }}</span>
-                <span class="shrink-0 text-xl font-semibold text-ink">
+                <span class="shrink-0 text-lead font-semibold text-ink">
                   ~{{ formatPrice(cart.total.value) }} lei
                 </span>
               </div>
-              <p class="mt-1.5 text-xs leading-relaxed text-ink-muted">
+              <p class="mt-1.5 text-meta leading-relaxed text-ink-muted">
                 {{ t("cart.estimateNote") }}
               </p>
             </div>
@@ -171,14 +193,14 @@ const isEmpty = computed(() => cart.count.value === 0);
               :href="cart.whatsappUrl.value"
               target="_blank"
               @click="cart.closeDrawer()"
-              class="flex items-center justify-center gap-2 w-full py-3 bg-whatsapp text-on-brand font-medium rounded-xl shadow-lg hover:brightness-95 active:scale-[0.98] transition-all"
+              class="flex items-center justify-center gap-2 w-full py-3 bg-brand-solid text-on-brand font-medium rounded-surface shadow-raised hover:brightness-90 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand transition-[transform,filter]"
             >
-              <IconWhatsappBrand class="w-6 h-6" />
+              <IconWhatsappBrand class="w-5 h-5" />
               {{ t('cart.sendOnWhatsApp') }}
             </a>
             <button
               @click="cart.clear()"
-              class="w-full mt-2 py-2 text-sm text-ink-muted hover:text-brand-ink transition-colors"
+              class="w-full mt-2 py-3 text-ui font-medium border border-line-strong text-ink-muted rounded-full hover:border-danger hover:text-danger active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand transition-[transform,color,border-color]"
             >
               {{ t('cart.clearCart') }}
             </button>
@@ -192,12 +214,12 @@ const isEmpty = computed(() => cart.count.value === 0);
 <style scoped>
 .drawer-enter-active,
 .drawer-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity var(--duration-base) var(--ease-out);
 }
 
 .drawer-enter-active > div:last-child,
 .drawer-leave-active > div:last-child {
-  transition: transform 0.3s ease;
+  transition: transform var(--duration-base) var(--ease-out);
 }
 
 .drawer-enter-from,

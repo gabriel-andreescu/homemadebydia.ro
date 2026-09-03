@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, provide, reactive, useSlots, watch, type VNode } from "vue";
+import AppCatalogTabs from "./AppCatalogTabs.vue";
 import { useCatalogTabs } from "../composables/useCatalogTabs";
 import { getHash, onHashUpdate } from "../composables/useHash";
 import { useScrollTo } from "../composables/useScrollTo";
@@ -99,22 +100,19 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <ul class="flex justify-center gap-1.5 sm:gap-2 w-full sm:container px-2 mb-4">
-    <li
-      v-for="tab in localTabs"
-      :key="tab.tabKey"
-      :class="[
-        'px-3 sm:px-5 py-2 sm:py-2.5 rounded-full cursor-pointer font-medium text-xs sm:text-sm tracking-wide transition-all duration-300',
-        tab.tabKey === selectedTabState.selectedTab
-          ? 'bg-brand text-on-brand shadow-md shadow-brand/20 scale-105'
-          : 'bg-surface text-ink-muted border border-line hover:border-brand hover:text-brand-ink hover:shadow-md',
-      ]"
-      @click="selectTab(tab.tabKey)"
-    >
-      {{ tab.title }}
-    </li>
-  </ul>
-  <div class="w-full">
+  <!-- Padding here, not on the strip, or the rule starts left of the first tab. -->
+  <div class="w-full px-2 mb-6">
+    <AppCatalogTabs
+      class="border-b border-line"
+      :tabs="localTabs"
+      :selected="selectedTabState.selectedTab"
+      @select="selectTab"
+    />
+  </div>
+  <!-- Observed by HomePage to hand the strip over to the masthead. -->
+  <div id="catalog-top-sentinel" class="h-0" aria-hidden="true"></div>
+  <!-- relative: an outgoing panel is taken out of the flow while it fades. -->
+  <div class="relative w-full">
     <slot />
   </div>
 </template>

@@ -1,135 +1,166 @@
 [
   {
-    "imageUrl": "/gallery/cakes/profiterol-cu-fructe",
+    "id": "profiterol-cu-fructe",
+    "image": "/gallery/cakes/profiterol-cu-fructe",
     "title": "Profiterol cu Fructe",
-    "desc": [
-      "- Blat de cacao",
-      "- Mousse de ciocolată",
-      "- Biluțe profiterol cu vanilie",
-      "- Mousse de fructe de pădure"
-    ],
-    "min": 1.7,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.7,
+    "layers": [
+      "blat-de-cacao",
+      "mousse-de-ciocolata",
+      "bilute-profiterol-cu-vanilie",
+      "mousse-de-fructe-de-padure"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/tort-fistic-zmeura",
+    "id": "tort-fistic-zmeura",
+    "image": "/gallery/cakes/tort-fistic-zmeura",
     "title": "Tort Fistic și Zmeură",
-    "desc": [
-      "- Foi fragede cu fistic",
-      "- Cremă de mascarpone",
-      "- Jeleu de zmeură și căpșuni",
-      "- Strat cremos de namelaka fistic"
-    ],
-    "min": 1.8,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.8,
+    "layers": [
+      "foi-fragede-cu-fistic",
+      "crema-de-mascarpone",
+      "jeleu-de-zmeura-si-capsuni",
+      "strat-cremos-de-namelaka-fistic"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/tort-aluna-caramel",
+    "id": "tort-aluna-caramel",
+    "image": "/gallery/cakes/tort-aluna-caramel",
     "title": "Tort Alună Caramel",
-    "desc": ["- Foi fragede cu alune", "- Cremă fină de caramel", "- Namelaka de alune și pralină"],
-    "min": 1.8,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.8,
+    "layers": [
+      "foi-fragede-cu-alune",
+      "crema-fina-de-caramel",
+      "namelaka-de-alune-si-pralina"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/tort-lapte",
+    "id": "tort-lapte",
+    "image": "/gallery/cakes/tort-lapte",
     "title": "Tort de Lapte",
-    "desc": ["- Foi fragede de cacao", "- Cremă fină de lapte", "- Sos de zmeură"],
-    "min": 1.8,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.8,
+    "layers": [
+      "foi-fragede-de-cacao",
+      "crema-fina-de-lapte",
+      "sos-de-zmeura"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/tort-stil-snickers",
+    "id": "tort-stil-snickers",
+    "image": "/gallery/cakes/tort-stil-snickers",
     "title": "Tort Stil Snickers",
-    "desc": [
-      "- Blat cacao",
-      "- Cremă de brânză",
-      "- Inserție de arahide cu caramel",
-      "- Cremă de ciocolată cu pralină",
-      "- Biluțe crocante de caramel sărat"
-    ],
-    "min": 1.7,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.7,
+    "layers": [
+      "blat-cacao",
+      "crema-de-branza",
+      "insertie-de-arahide-cu-caramel",
+      "crema-de-ciocolata-cu-pralina",
+      "bilute-crocante-de-caramel-sarat"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/vanilla-fruit",
+    "id": "vanilla-fruit",
+    "image": "/gallery/cakes/vanilla-fruit",
     "title": "Vanilla Fruit",
-    "desc": [
-      "- Blat alb cu merișoare",
-      "- Cremă frișcă și mascarpone",
-      "- Inserție jeleu fructe",
-      "- Salsa fructe pădure",
-      "- Inserție lemon curd"
-    ],
-    "min": 1.7,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.7,
+    "layers": [
+      "blat-alb-cu-merisoare",
+      "crema-frisca-si-mascarpone",
+      "insertie-jeleu-fructe",
+      "salsa-fructe-padure",
+      "insertie-lemon-curd"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/carrot-cake-caramel",
+    "id": "carrot-cake-caramel",
+    "image": "/gallery/cakes/carrot-cake-caramel",
     "title": "Tort Carrot cu Caramel",
-    "desc": [
-      "- Blat umed de morcov cu scorțișoară și nucă",
-      "- Cremă de brânză cu portocală",
-      "- Spumă de caramel"
-    ],
-    "min": 1.5,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.5,
+    "layers": [
+      "blat-umed-de-morcov-cu-scortisoara-si-nuca",
+      "crema-de-branza-cu-portocala",
+      "spuma-de-caramel"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/carrot-cake-afine",
+    "id": "carrot-cake-afine",
+    "image": "/gallery/cakes/carrot-cake-afine",
     "title": "Tort Carrot cu Fructe",
-    "desc": ["- Blat umed de morcov cu scorțișoară și nucă", "- Cremă de brânză cu fructe"],
-    "min": 1.5,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.5,
+    "layers": [
+      "blat-umed-de-morcov-cu-scortisoara-si-nuca",
+      "crema-de-branza-cu-fructe"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/tortul-casei",
+    "id": "tortul-casei",
+    "image": "/gallery/cakes/tortul-casei",
     "title": "Tortul Casei",
-    "desc": [
-      "- Blat cacao însiropat",
-      "- Cremă de ciocolată neagră cu mascarpone",
-      "- Șarlotă de vanilie",
-      "- Inserție jeleu de căpșuni",
-      "- Fructe de pădure"
-    ],
-    "min": 1.6,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.6,
+    "layers": [
+      "blat-cacao-insiropat",
+      "crema-de-ciocolata-neagra-cu-mascarpone",
+      "sarlota-de-vanilie",
+      "insertie-jeleu-de-capsuni",
+      "fructe-de-padure"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/medovik",
+    "id": "tort-medovik",
+    "image": "/gallery/cakes/medovik",
     "title": "Tort Medovik",
-    "desc": ["- Foi pufoase cu miere", "- Cremă de smântână cu cardamon", "- Fructe de pădure"],
-    "min": 1,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1,
+    "layers": [
+      "foi-pufoase-cu-miere",
+      "crema-de-smantana-cu-cardamon",
+      "fructe-de-padure"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/medovik-cifra",
+    "id": "medovik-cifra",
+    "image": "/gallery/cakes/medovik-cifra",
     "title": "Tort Cifră Medovik",
-    "desc": ["- Foi pufoase cu miere", "- Cremă de smântână cu cardamon", "- Fructe de pădure"],
-    "min": 1,
+    "price": 180,
     "unit": "kg",
-    "price": 180
+    "minimum": 1,
+    "layers": [
+      "foi-pufoase-cu-miere",
+      "crema-de-smantana-cu-cardamon",
+      "fructe-de-padure"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/tort-exotic",
+    "id": "tort-exotic",
+    "image": "/gallery/cakes/tort-exotic",
     "title": "Tort Exotic",
-    "desc": [
-      "- Blaturi umede cu migdale și cocos",
-      "- Mousse fructul pasiunii",
-      "- Inserție de Mango",
-      "- Mousse de ciocolată albă"
-    ],
-    "min": 1.5,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.5,
+    "layers": [
+      "blaturi-umede-cu-migdale-si-cocos",
+      "mousse-fructul-pasiunii",
+      "insertie-de-mango",
+      "mousse-de-ciocolata-alba"
+    ]
   }
 ]

@@ -8,6 +8,73 @@
    cannot become dark, `bg-surface` can. Overriding the custom properties under .dark is all
    the dark theme needs, so no `dark:` variant is written per element. */
 @theme {
+  /* The serif the headings resolve to. Named for its job so a brand face replaces it here
+     and nowhere else. */
+  --font-display: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-serif: var(--font-display);
+
+  /* Eight sizes, named for the job, and the only ones that exist: clearing the namespace first
+     means `text-4xl` produces nothing rather than quietly reintroducing a ninth. Three scale
+     with the viewport rather than stepping at breakpoints, so each is one token at every width
+     and their line heights are ratios, not fixed rems. */
+  --text-*: initial;
+  --text-meta: 0.6875rem;
+  --text-meta--line-height: 1rem;
+  --text-ui: 0.875rem;
+  --text-ui--line-height: 1.25rem;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5rem;
+  --text-lead: 1.125rem;
+  --text-lead--line-height: 1.75rem;
+  --text-lede: clamp(1.125rem, 1.35vw, 1.75rem);
+  --text-lede--line-height: 1.375;
+  --text-title: 1.5rem;
+  --text-title--line-height: 2rem;
+  --text-display: clamp(1.75rem, 3.4vw, 2.6rem);
+  --text-display--line-height: 1.08;
+  --text-hero: clamp(2.1rem, 5.4vw, 3.9rem);
+  --text-hero--line-height: 1.04;
+
+  /* Size sets the default leading; density overrides it where the job differs. Prose wants air,
+     a title or a price wants none, and the same size legitimately does both. */
+  --leading-*: initial;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-relaxed: 1.625;
+
+  /* Two, plus the pill. Everything you press is a control; everything you read off is a
+     surface. Replaces seven radii that differed by a few pixels for no stated reason. */
+  --radius-*: initial;
+  --radius-control: 0.25rem;
+  --radius-surface: 0.75rem;
+  --radius-full: 9999px;
+
+  /* Four levels, by how far off the page a thing sits: a panel flush with the page, a card,
+     something lifted over it, and something floating over everything. */
+  --shadow-*: initial;
+  --shadow-panel: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-raised: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-overlay: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+  /* One curve, and one duration every transition inherits, so nothing has to restate them.
+     The two outliers say their own number at the call site. */
+  --ease-*: initial;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  /* One overshoot, for the catalog strip docking into the masthead. */
+  --ease-overshoot: cubic-bezier(0.34, 1.3, 0.64, 1);
+
+  /* Four steps, by how far the thing has to travel: a state flip, a small shift, the default,
+     and a reveal that changes the height of the page. */
+  --duration-quick: 150ms;
+  --duration-short: 200ms;
+  --duration-base: 300ms;
+  --duration-long: 500ms;
+
+  --default-transition-duration: var(--duration-base);
+  --default-transition-timing-function: var(--ease-out);
+
   /* Porcelain rather than white: a ground with a faint violet cast, which is the colour of a
      glazed plate and keeps the cake photography from looking clipped against pure white. */
   --color-page: #f6f3f6;
@@ -20,27 +87,47 @@
   --color-ink: #241722;
   --color-ink-soft: #463447;
   --color-ink-muted: #6e5d6a;
-  --color-ink-faint: #8a7986;
+  /* Dark enough to clear 4.5:1 on the page: eyebrows and credentials are set at 11px, where
+     the mockup's lighter mauve measured 3.7:1. */
+  --color-ink-faint: #7a6976;
 
   --color-line: #e7dee5;
   --color-line-strong: #d6c8d2;
 
-  /* The logo's magenta. `brand` is the fill, `brand-ink` the weight that carries as text -
-     the fill measures 4.1:1 on the page and loses at small sizes. */
+  /* `brand` is the accent (rings, borders, tints), `brand-ink` carries as text, `brand-solid`
+     is the fill under `on-brand`. They part ways in the dark. */
   --color-brand: #e20076;
   --color-brand-ink: #b2005d;
+  --color-brand-solid: #e20076;
   --color-on-brand: #ffffff;
 
-  /* WhatsApp's own green, darkened for text contrast; the button links into their app. */
-  --color-whatsapp: #128c4a;
+  /* WhatsApp's published green, fixed in both themes. Only the logo lockup uses it; a
+     labelled control takes the site's own accent. */
+  --color-whatsapp: #25d366;
   --color-on-whatsapp: #ffffff;
 
-  /* Review stars, and the destructive action on a cart row. Both keep their conventional hue
-     rather than joining the palette: a magenta star is not a rating and a magenta X is not a
-     delete. */
+  /* Review stars, the confirmation tick, and the destructive action on a cart row. These keep
+     their conventional hue rather than joining the palette: a magenta star is not a rating and
+     a magenta X is not a delete. */
   --color-star: #d9910f;
+  --color-ok: #0f7a3d;
   --color-danger: #b91c1c;
-  --color-danger-soft: #fdf2f2;
+
+  /* Black in both themes: a scrim that follows the palette stops separating the drawer from
+     the page once the page is already dark. Its ink is fixed for the same reason - the
+     lightbox is black whichever theme is running. */
+  --color-scrim: rgb(0 0 0 / 40%);
+  --color-on-scrim: #ffffff;
+
+  /* The toast takes the opposite ground to the running theme, so its tick needs the opposite
+     green too - the ordinary `ok` is tuned for the theme's own surface. */
+  --color-inverse: #463447;
+  --color-on-inverse: #f2ecf1;
+  --color-ok-inverse: #3ddc84;
+
+  /* The lightness band a stratum's colour is clamped into. */
+  --layer-l-min: 0.3;
+  --layer-l-max: 0.76;
 }
 
 .dark {
@@ -56,18 +143,23 @@
   --color-line: #2e2434;
   --color-line-strong: #40334a;
 
-  /* The fill moves to the light end of the ramp so it reads on an aubergine ground, which is
-     why `on-brand` is a token rather than a hardcoded white. */
+  /* Accent up so a focus ring reads on aubergine; fill down so white sits on it. */
   --color-brand: #ff72b2;
   --color-brand-ink: #ff8cc0;
-  --color-on-brand: #180b12;
-
-  --color-whatsapp: #3ddc84;
-  --color-on-whatsapp: #0b2418;
+  --color-brand-solid: #d10a72;
+  --color-on-brand: #ffffff;
 
   --color-star: #f0b840;
+  --color-ok: #3ddc84;
   --color-danger: #f87171;
-  --color-danger-soft: #2a1a1a;
+
+  --color-inverse: #d8cbd6;
+  --color-on-inverse: #241722;
+  --color-ok-inverse: #0f7a3d;
+
+  /* The band moves up on the dark card. */
+  --layer-l-min: 0.7;
+  --layer-l-max: 0.95;
 }
 
 :root {
@@ -76,6 +168,37 @@
 
 :root.dark {
   color-scheme: dark;
+}
+
+/* v4's Preflight drops the pointer cursor on buttons to match the UA default. Every button
+   here is a real control and reads as dead without it, so it comes back - minus the disabled
+   ones, which should not invite a click. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* Set --layer on a row for that stratum's colour; row spacing stays with the caller. */
+@layer components {
+  /* Inline on the first line, not a column beside the row, so wrapped lines run the full width.
+     Lightness is clamped per theme because one hex cannot serve both; hue and chroma pass
+     through, which blending toward a neutral would have washed out. */
+  .strata > *::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 3px;
+    margin-right: 0.625rem;
+    vertical-align: middle;
+    border-radius: var(--radius-full);
+    background: var(--layer, var(--color-line-strong));
+    background: oklch(
+      from var(--layer, var(--color-line-strong))
+        clamp(var(--layer-l-min), l, var(--layer-l-max)) c h
+    );
+  }
 }
 
 html {
@@ -88,4 +211,11 @@ body,
   min-height: 100vh;
   background-color: var(--color-page);
   color: var(--color-ink);
+}
+
+/* Tailwind's colour transition covers outline-color, which would fade the focus indicator in
+   after focus has already landed. */
+.transition-colors {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke,
+    --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
 }

@@ -11,7 +11,7 @@ const { isDark, toggle } = useDarkMode();
 <template>
   <button
     @click="toggle"
-    class="p-2 rounded-full text-ink-muted hover:bg-surface-sunk transition-colors"
+    class="p-2.5 rounded-full text-ink-muted hover:bg-surface-sunk transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
     :aria-label="isDark ? t('accessibility.toggleLightMode') : t('accessibility.toggleDarkMode')"
   >
     <IconSun v-if="isDark" class="w-6 h-6" />

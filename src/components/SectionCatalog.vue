@@ -27,16 +27,14 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
       <AppTab :title="t('catalog.cakes')" tab-key="cakes">
         <SectionCatalogGallery :data="cakes" />
         <div
-          class="mt-6 mb-8 p-4 bg-surface-sunk rounded-xl shadow-xs text-sm text-ink-muted leading-relaxed space-y-3"
+          class="strata mt-6 mb-8 p-4 bg-surface-sunk rounded-surface shadow-panel text-ui text-ink-muted leading-relaxed space-y-3"
         >
-          <p class="flex gap-2">
-            <span class="text-brand-ink shrink-0">●</span>
+          <p>
             <span>
               {{ t("catalog.decorNote", { decorMin: PRICES.decorMin, decorMax: PRICES.decorMax }) }}
             </span>
           </p>
-          <p class="flex gap-2">
-            <span class="text-brand-ink shrink-0">●</span>
+          <p>
             <span>{{ t("catalog.allergyNote") }}</span>
           </p>
         </div>
@@ -44,38 +42,37 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
       <AppTab :title="t('catalog.pastries')" tab-key="pastries">
         <SectionCatalogGallery :data="cookies" />
         <div
-          class="mt-6 mb-8 p-4 bg-surface-sunk rounded-xl shadow-xs text-sm text-ink-muted leading-relaxed space-y-2"
+          class="mt-6 mb-8 p-4 bg-surface-sunk rounded-surface shadow-panel text-ui text-ink-muted leading-relaxed"
         >
           <h3 class="font-semibold text-ink mb-2">
             {{ t("catalog.availableAssortments") }}
           </h3>
-          <p class="flex gap-2">
-            <span class="text-brand-ink shrink-0">●</span>
-            <span>
-              <strong class="text-ink">
-                {{ t("catalog.chouxList").split(":")[0] }}:
-              </strong>
-              {{ t("catalog.chouxList").split(":")[1] }}
-            </span>
-          </p>
-          <p class="flex gap-2">
-            <span class="text-brand-ink shrink-0">●</span>
-            <span>
-              <strong class="text-ink">
-                {{ t("catalog.tarteList").split(":")[0] }}:
-              </strong>
-              {{ t("catalog.tarteList").split(":")[1] }}
-            </span>
-          </p>
-          <p class="flex gap-2">
-            <span class="text-brand-ink shrink-0">●</span>
-            <span>
-              <strong class="text-ink">
-                {{ t("catalog.miniPastriesList").split(":")[0] }}:
-              </strong>
-              {{ t("catalog.miniPastriesList").split(":")[1] }}
-            </span>
-          </p>
+          <div class="strata space-y-1.5">
+            <p>
+              <span>
+                <strong class="text-ink">
+                  {{ t("catalog.chouxList").split(":")[0] }}:
+                </strong>
+                {{ t("catalog.chouxList").split(":")[1] }}
+              </span>
+            </p>
+            <p>
+              <span>
+                <strong class="text-ink">
+                  {{ t("catalog.tarteList").split(":")[0] }}:
+                </strong>
+                {{ t("catalog.tarteList").split(":")[1] }}
+              </span>
+            </p>
+            <p>
+              <span>
+                <strong class="text-ink">
+                  {{ t("catalog.miniPastriesList").split(":")[0] }}:
+                </strong>
+                {{ t("catalog.miniPastriesList").split(":")[1] }}
+              </span>
+            </p>
+          </div>
         </div>
       </AppTab>
       <AppTab :title="t('catalog.bakery')" tab-key="bakery">
@@ -83,7 +80,7 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
       </AppTab>
       <AppTab :title="t('catalog.events')" tab-key="events" class="container">
         <div
-          class="p-4 bg-surface-sunk rounded-xl shadow-xs text-sm text-ink-muted leading-relaxed space-y-6"
+          class="p-4 bg-surface-sunk rounded-surface shadow-panel text-ui text-ink-muted leading-relaxed space-y-6"
         >
           <!-- Oferta standard -->
           <section>
@@ -106,9 +103,8 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
             <h3 class="font-semibold text-ink mb-2">
               {{ t("catalog.availableAssortments") }}
             </h3>
-            <div class="space-y-1.5">
-              <p class="flex gap-2">
-                <span class="text-brand-ink shrink-0">●</span>
+            <div class="strata space-y-1.5">
+              <p>
                 <span>
                   <strong class="text-ink">
                     {{ t("catalog.chouxList").split(":")[0] }}:
@@ -116,8 +112,7 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
                   {{ t("catalog.chouxList").split(":")[1] }}
                 </span>
               </p>
-              <p class="flex gap-2">
-                <span class="text-brand-ink shrink-0">●</span>
+              <p>
                 <span>
                   <strong class="text-ink">
                     {{ t("catalog.tarteList").split(":")[0] }}:
@@ -125,8 +120,7 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
                   {{ t("catalog.tarteList").split(":")[1] }}
                 </span>
               </p>
-              <p class="flex gap-2">
-                <span class="text-brand-ink shrink-0">●</span>
+              <p>
                 <span>
                   <strong class="text-ink">
                     {{ t("catalog.dessertsGlassList").split(":")[0] }}:
@@ -134,8 +128,7 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
                   {{ t("catalog.dessertsGlassList").split(":")[1] }}
                 </span>
               </p>
-              <p class="flex gap-2">
-                <span class="text-brand-ink shrink-0">●</span>
+              <p>
                 <span>
                   <strong class="text-ink">
                     {{ t("catalog.miniPastriesList").split(":")[0] }}:
@@ -161,27 +154,22 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
             <h3 class="font-semibold text-ink mb-2">
               {{ t("catalog.optional") }}
             </h3>
-            <div class="space-y-1.5">
-              <p class="flex gap-2">
-                <span class="text-brand-ink shrink-0">●</span>
+            <div class="strata space-y-1.5">
+              <p>
                 <span>{{ t("catalog.dishRental", { dishRental: PRICES.dishRental }) }}</span>
               </p>
-              <p class="flex gap-2">
-                <span class="text-brand-ink shrink-0">●</span>
+              <p>
                 <span>
                   {{ t("catalog.candyBarSetup", { candyBarSetup: PRICES.candyBarSetup }) }}
                 </span>
               </p>
-              <p class="flex gap-2">
-                <span class="text-brand-ink shrink-0">●</span>
+              <p>
                 <span>{{ t("catalog.dishPickup", { dishPickup: PRICES.dishPickup }) }}</span>
               </p>
-              <p class="flex gap-2">
-                <span class="text-brand-ink shrink-0">●</span>
+              <p>
                 <span>{{ t("catalog.delivery", { delivery: PRICES.delivery }) }}</span>
               </p>
-              <p class="flex gap-2">
-                <span class="text-brand-ink shrink-0">●</span>
+              <p>
                 <span>{{ t("catalog.favors", { favors: PRICES.favors }) }}</span>
               </p>
             </div>
@@ -190,11 +178,11 @@ const favorsModalRef = ref<InstanceType<typeof GalleryModal>>();
               <AppPicture
                 src="/gallery/marturii"
                 :alt="t('catalog.favorsAlt')"
-                img-class="w-full sm:w-1/2 h-auto rounded-lg cursor-pointer"
+                img-class="w-full sm:w-1/2 h-auto rounded-surface cursor-pointer"
                 @click="favorsModalRef?.openAt(0)"
                 sizes="(max-width: 640px) 100vw, 50vw"
               />
-              <figcaption class="text-sm text-ink-muted mt-1">
+              <figcaption class="text-ui text-ink-muted mt-1">
                 {{ t("catalog.favorsCaption") }}
               </figcaption>
             </figure>

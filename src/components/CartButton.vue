@@ -8,23 +8,55 @@ const cart = useCart();
 </script>
 
 <template>
-  <button
-    v-if="cart.count.value > 0"
-    @click="cart.openDrawer()"
-    class="relative p-2 text-ink-muted hover:bg-surface-sunk hover:text-brand-ink rounded-full transition-colors"
-    :class="{ 'animate-bounce-once': cart.lastAdded.value }"
-    :aria-label="t('accessibility.cartItems', { count: cart.count.value })"
-  >
-    <IconCart class="w-6 h-6" />
-    <span
-      class="absolute top-0 right-0 min-w-4 h-4 px-1 bg-brand text-on-brand text-[10px] font-bold rounded-full flex items-center justify-center"
-    >
-      {{ cart.count.value }}
+  <!-- Transition on the wrapper; the button's transform belongs to the bounce. -->
+  <Transition name="cart-slot">
+    <span v-if="cart.count.value > 0" class="inline-flex overflow-hidden">
+      <button
+        @click="cart.openDrawer()"
+        class="relative p-2.5 text-ink-muted hover:bg-surface-sunk hover:text-brand-ink rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+        :class="{ 'animate-bounce-once': cart.lastAdded.value }"
+        :aria-label="t('accessibility.cartItems', { count: cart.count.value })"
+      >
+        <IconCart class="w-6 h-6" />
+        <span
+          class="absolute top-0 right-0 min-w-4 h-4 px-1 bg-brand-solid text-on-brand text-meta font-bold rounded-full flex items-center justify-center"
+        >
+          {{ cart.count.value }}
+        </span>
+      </button>
     </span>
-  </button>
+  </Transition>
 </template>
 
 <style scoped>
+.cart-slot-enter-active,
+.cart-slot-leave-active {
+  transition:
+    max-width var(--duration-base) var(--ease-out),
+    opacity var(--duration-short) var(--ease-out),
+    margin-left var(--duration-base) var(--ease-out);
+}
+
+.cart-slot-enter-from,
+.cart-slot-leave-to {
+  max-width: 0;
+  opacity: 0;
+  /* Swallows the flex gap the slot is not yet entitled to. */
+  margin-left: -0.25rem;
+}
+
+.cart-slot-enter-to,
+.cart-slot-leave-from {
+  max-width: 4rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cart-slot-enter-active,
+  .cart-slot-leave-active {
+    transition: none;
+  }
+}
+
 @keyframes bounce-once {
   0%, 100% { transform: scale(1); }
   25% { transform: scale(1.25); }
@@ -33,7 +65,7 @@ const cart = useCart();
 }
 
 .animate-bounce-once {
-  animation: bounce-once 0.4s ease-out;
+  animation: bounce-once var(--duration-base) var(--ease-out);
 }
 </style>
 

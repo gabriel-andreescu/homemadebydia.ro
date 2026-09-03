@@ -73,15 +73,6 @@ export function useSiteHead() {
         url: `${canonicalUrl.value}${getHashForKey("aboutUs", localeValue)}`,
       },
       {
-        key: "whyUs",
-        name: t("nav.whyUs"),
-        description:
-          localeValue === "ro"
-            ? "Calitate, unicitate și profesionalism"
-            : "Quality, uniqueness, and professionalism",
-        url: `${canonicalUrl.value}${getHashForKey("whyUs", localeValue)}`,
-      },
-      {
         key: "reviews",
         name: t("nav.reviews"),
         description:
@@ -121,7 +112,20 @@ export function useSiteHead() {
             image: [OG_IMAGE_URL, `${SITE_URL}/gallery/cakes/tort-fistic-zmeura.jpg`],
             telephone: "(+40) 787 283 917",
             priceRange: "$$",
-            openingHours: "Mo-Su 09:00-18:00",
+            openingHoursSpecification: {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday",
+              ],
+              opens: "09:00",
+              closes: "18:00",
+            },
             address: {
               "@type": "PostalAddress",
               streetAddress: "Cloșca 22A",
@@ -130,7 +134,19 @@ export function useSiteHead() {
               postalCode: "070000",
               addressCountry: "RO",
             },
-            sameAs: [CONTACT.facebook],
+            geo: {
+              "@type": "GeoCoordinates",
+              latitude: 44.562586,
+              longitude: 25.9309805,
+            },
+            hasMap: CONTACT.maps,
+            areaServed: [
+              { "@type": "City", name: "Buftea" },
+              { "@type": "City", name: "București" },
+              { "@type": "AdministrativeArea", name: "Ilfov" },
+              { "@type": "AdministrativeArea", name: "Dâmbovița" },
+            ],
+            sameAs: [CONTACT.facebook, CONTACT.instagram, CONTACT.maps],
             founder: {
               "@type": "Person",
               name: "Diana Andreescu",

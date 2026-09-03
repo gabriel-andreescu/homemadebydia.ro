@@ -1,155 +1,166 @@
 [
   {
-    "imageUrl": "/gallery/cakes/profiterol-cu-fructe",
+    "id": "profiterol-cu-fructe",
+    "image": "/gallery/cakes/profiterol-cu-fructe",
     "title": "Profiterole with Fruit",
-    "desc": [
-      "Cocoa sponge base",
-      "Chocolate mousse",
-      "Vanilla profiterole pearls",
-      "Forest fruit mousse"
-    ],
-    "min": 1.7,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.7,
+    "layers": [
+      "blat-de-cacao",
+      "mousse-de-ciocolata",
+      "bilute-profiterol-cu-vanilie",
+      "mousse-de-fructe-de-padure"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/tort-fistic-zmeura",
+    "id": "tort-fistic-zmeura",
+    "image": "/gallery/cakes/tort-fistic-zmeura",
     "title": "Pistachio Raspberry Cake",
-    "desc": [
-      "Delicate pistachio sponge layers",
-      "Mascarpone cream filling",
-      "Raspberry & strawberry jelly",
-      "Pistachio namelaka layer"
-    ],
-    "min": 1.8,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.8,
+    "layers": [
+      "foi-fragede-cu-fistic",
+      "crema-de-mascarpone",
+      "jeleu-de-zmeura-si-capsuni",
+      "strat-cremos-de-namelaka-fistic"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/tort-aluna-caramel",
+    "id": "tort-aluna-caramel",
+    "image": "/gallery/cakes/tort-aluna-caramel",
     "title": "Hazelnut Caramel Cake",
-    "desc": [
-      "Delicate hazelnut sponge layers",
-      "Silky caramel cream",
-      "Hazelnut and praline namelaka"
-    ],
-    "min": 1.8,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.8,
+    "layers": [
+      "foi-fragede-cu-alune",
+      "crema-fina-de-caramel",
+      "namelaka-de-alune-si-pralina"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/tort-lapte",
+    "id": "tort-lapte",
+    "image": "/gallery/cakes/tort-lapte",
     "title": "Milk Cake",
-    "desc": [
-      "Delicate cocoa sponge layers",
-      "Silky milk cream",
-      "Raspberry coulis"
-    ],
-    "min": 1.8,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.8,
+    "layers": [
+      "foi-fragede-de-cacao",
+      "crema-fina-de-lapte",
+      "sos-de-zmeura"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/tort-stil-snickers",
+    "id": "tort-stil-snickers",
+    "image": "/gallery/cakes/tort-stil-snickers",
     "title": "Snickers-Style Cake",
-    "desc": [
-      "Cocoa sponge base",
-      "Cream cheese filling",
-      "Caramel peanut insert",
-      "Chocolate praline cream",
-      "Crunchy salted caramel pearls"
-    ],
-    "min": 1.7,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.7,
+    "layers": [
+      "blat-cacao",
+      "crema-de-branza",
+      "insertie-de-arahide-cu-caramel",
+      "crema-de-ciocolata-cu-pralina",
+      "bilute-crocante-de-caramel-sarat"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/vanilla-fruit",
+    "id": "vanilla-fruit",
+    "image": "/gallery/cakes/vanilla-fruit",
     "title": "Vanilla Fruit Cake",
-    "desc": [
-      "Vanilla sponge with dried cranberries",
-      "Whipped cream & mascarpone filling",
-      "Fruit jelly insert",
-      "Forest fruit salsa",
-      "Lemon curd insert"
-    ],
-    "min": 1.7,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.7,
+    "layers": [
+      "blat-alb-cu-merisoare",
+      "crema-frisca-si-mascarpone",
+      "insertie-jeleu-fructe",
+      "salsa-fructe-padure",
+      "insertie-lemon-curd"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/carrot-cake-caramel",
+    "id": "carrot-cake-caramel",
+    "image": "/gallery/cakes/carrot-cake-caramel",
     "title": "Carrot Cake with Caramel",
-    "desc": [
-      "Moist carrot sponge with cinnamon & walnuts",
-      "Orange cream cheese frosting",
-      "Caramel mousse"
-    ],
-    "min": 1.5,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.5,
+    "layers": [
+      "blat-umed-de-morcov-cu-scortisoara-si-nuca",
+      "crema-de-branza-cu-portocala",
+      "spuma-de-caramel"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/carrot-cake-afine",
+    "id": "carrot-cake-afine",
+    "image": "/gallery/cakes/carrot-cake-afine",
     "title": "Carrot Cake with Fruits",
-    "desc": [
-      "Moist carrot sponge with cinnamon & walnuts",
-      "Fruit cream cheese frosting"
-    ],
-    "min": 1.5,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.5,
+    "layers": [
+      "blat-umed-de-morcov-cu-scortisoara-si-nuca",
+      "crema-de-branza-cu-fructe"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/tortul-casei",
+    "id": "tortul-casei",
+    "image": "/gallery/cakes/tortul-casei",
     "title": "House Signature Cake",
-    "desc": [
-      "Syrup-soaked cocoa sponge",
-      "Dark chocolate mascarpone cream",
-      "Vanilla charlotte",
-      "Strawberry jelly insert",
-      "Forest berries"
-    ],
-    "min": 1.6,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.6,
+    "layers": [
+      "blat-cacao-insiropat",
+      "crema-de-ciocolata-neagra-cu-mascarpone",
+      "sarlota-de-vanilie",
+      "insertie-jeleu-de-capsuni",
+      "fructe-de-padure"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/medovik",
+    "id": "tort-medovik",
+    "image": "/gallery/cakes/medovik",
     "title": "Medovik Honey Cake",
-    "desc": [
-      "Fluffy honey sponge layers",
-      "Sour cream with cardamom",
-      "Forest berries"
-    ],
-    "min": 1,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1,
+    "layers": [
+      "foi-pufoase-cu-miere",
+      "crema-de-smantana-cu-cardamon",
+      "fructe-de-padure"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/medovik-cifra",
+    "id": "medovik-cifra",
+    "image": "/gallery/cakes/medovik-cifra",
     "title": "Number Medovik Cake",
-    "desc": [
-      "Fluffy honey sponge layers",
-      "Sour cream with cardamom",
-      "Forest berries"
-    ],
-    "min": 1,
+    "price": 180,
     "unit": "kg",
-    "price": 180
+    "minimum": 1,
+    "layers": [
+      "foi-pufoase-cu-miere",
+      "crema-de-smantana-cu-cardamon",
+      "fructe-de-padure"
+    ]
   },
   {
-    "imageUrl": "/gallery/cakes/tort-exotic",
+    "id": "tort-exotic",
+    "image": "/gallery/cakes/tort-exotic",
     "title": "Exotic Tropical Cake",
-    "desc": [
-      "Moist almond & coconut sponge layers",
-      "Passion fruit mousse",
-      "Mango insert",
-      "White chocolate mousse"
-    ],
-    "min": 1.5,
+    "price": 170,
     "unit": "kg",
-    "price": 170
+    "minimum": 1.5,
+    "layers": [
+      "blaturi-umede-cu-migdale-si-cocos",
+      "mousse-fructul-pasiunii",
+      "insertie-de-mango",
+      "mousse-de-ciocolata-alba"
+    ]
   }
 ]
-

@@ -7,10 +7,11 @@
   "scripts": {
     "predev": "node utils/generate-responsive-images.mjs",
     "dev": "vite",
-    "prebuild": "node utils/generate-responsive-images.mjs",
+    "prebuild": "node utils/generate-responsive-images.mjs && node utils/validate-catalog.mjs",
     "build": "vue-tsc && vite-ssg build",
     "postbuild": "node utils/generate-sitemaps.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "validate:catalog": "node utils/validate-catalog.mjs"
   },
   "dependencies": {
     "@unhead/vue": "2.1.13",

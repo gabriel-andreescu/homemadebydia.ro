@@ -12,9 +12,9 @@ const cart = useCart();
     <Transition name="toast">
       <div
         v-if="cart.lastAdded.value"
-        class="fixed top-20 left-1/2 -translate-x-1/2 z-[70] flex items-center gap-2 px-4 py-2.5 bg-gray-900 text-on-brand text-sm font-medium rounded-full shadow-lg"
+        class="fixed top-20 left-1/2 -translate-x-1/2 z-[70] flex items-center gap-2 px-4 py-2.5 bg-inverse text-on-inverse text-ui font-medium rounded-full shadow-raised"
       >
-        <IconCheck class="w-4 h-4 text-green-400" />
+        <IconCheck class="w-4 h-4 text-ok-inverse" />
         <span>{{ t('cart.addedToCart') }}</span>
       </div>
     </Transition>
@@ -24,7 +24,7 @@ const cart = useCart();
 <style scoped>
 .toast-enter-active,
 .toast-leave-active {
-  transition: all 0.3s ease;
+  transition: all var(--duration-base) var(--ease-out);
 }
 
 .toast-enter-from {

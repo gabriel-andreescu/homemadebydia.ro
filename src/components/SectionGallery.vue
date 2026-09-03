@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 import AppDeferredMedia from "./AppDeferredMedia.vue";
 import AppPicture from "./AppPicture.vue";
@@ -7,54 +7,21 @@ import GalleryModal from "./GalleryModal.vue";
 import HorizontalScroller from "./HorizontalScroller.vue";
 
 const { t } = useI18n();
-const MOBILE_BATCH_SIZE = 3;
-const DESKTOP_BATCH_SIZE = 7;
-const DESKTOP_MEDIA_QUERY = "(min-width: 768px)";
 
-// General gallery images
 const generalImages: string[] = [];
 for (let i = 1; i <= 29; i++) {
   generalImages.push("/gallery/gallery/" + i);
 }
 generalImages.reverse();
 
-// Events gallery images
 const eventsImages: string[] = [];
 for (let i = 1; i <= 25; i++) {
   eventsImages.push("/gallery/events/" + i);
 }
 
-// Combined for modal navigation
 const allImages = [...generalImages, ...eventsImages];
 
 const galleryModalRef = ref<InstanceType<typeof GalleryModal>>();
-const isDesktop = ref(false);
-const generalVisible = ref(MOBILE_BATCH_SIZE);
-const eventsVisible = ref(MOBILE_BATCH_SIZE);
-
-const batchSize = computed(() => (isDesktop.value ? DESKTOP_BATCH_SIZE : MOBILE_BATCH_SIZE));
-const visibleGeneralImages = computed(() => generalImages.slice(0, generalVisible.value));
-const visibleEventsImages = computed(() => eventsImages.slice(0, eventsVisible.value));
-const hasMoreGeneral = computed(() => generalVisible.value < generalImages.length);
-const hasMoreEvents = computed(() => eventsVisible.value < eventsImages.length);
-
-let stopMediaQuerySync: (() => void) | null = null;
-
-const ensureMinimumVisible = () => {
-  const minimum = batchSize.value;
-  generalVisible.value = Math.min(generalImages.length, Math.max(generalVisible.value, minimum));
-  eventsVisible.value = Math.min(eventsImages.length, Math.max(eventsVisible.value, minimum));
-};
-
-const loadMoreGeneral = () => {
-  if (!hasMoreGeneral.value) return;
-  generalVisible.value = Math.min(generalImages.length, generalVisible.value + batchSize.value);
-};
-
-const loadMoreEvents = () => {
-  if (!hasMoreEvents.value) return;
-  eventsVisible.value = Math.min(eventsImages.length, eventsVisible.value + batchSize.value);
-};
 
 const openGallery = (index: number) => {
   galleryModalRef.value?.openAt(index);
@@ -63,47 +30,20 @@ const openGallery = (index: number) => {
 const openEventsGallery = (index: number) => {
   galleryModalRef.value?.openAt(generalImages.length + index);
 };
-
-onMounted(() => {
-  if (typeof window === "undefined") return;
-
-  if ("matchMedia" in window) {
-    const mediaQuery = window.matchMedia(DESKTOP_MEDIA_QUERY);
-    const onMediaChange = (event: MediaQueryListEvent) => {
-      isDesktop.value = event.matches;
-      ensureMinimumVisible();
-    };
-
-    isDesktop.value = mediaQuery.matches;
-    ensureMinimumVisible();
-
-    mediaQuery.addEventListener("change", onMediaChange);
-    stopMediaQuerySync = () => {
-      mediaQuery.removeEventListener("change", onMediaChange);
-    };
-    return;
-  }
-
-  isDesktop.value = window.innerWidth >= 768;
-  ensureMinimumVisible();
-});
-
-onUnmounted(() => {
-  stopMediaQuerySync?.();
-  stopMediaQuerySync = null;
-});
 </script>
 
 <template>
-  <!-- General Gallery -->
-  <HorizontalScroller @end-visible="loadMoreGeneral">
+  <h3 class="text-title font-serif text-balance mb-4">
+    {{ t('gallery.cakes') }}
+  </h3>
+  <HorizontalScroller pad-class="pt-4 pb-8" gradient-class="from-surface-sunk via-surface-sunk/50">
     <button
-      v-for="(imagePath, index) in visibleGeneralImages"
+      v-for="(imagePath, index) in generalImages"
       :key="imagePath"
       type="button"
       @click="openGallery(index)"
       :aria-label="t('accessibility.openGalleryImage', { index: index + 1 })"
-      class="shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] focus:outline-hidden focus:ring-2 focus:ring-brand focus:ring-offset-2"
+      class="shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-surface overflow-hidden shadow-raised transition-transform hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
     >
       <AppDeferredMedia
         wrapper-class="w-full h-full"
@@ -119,18 +59,17 @@ onUnmounted(() => {
     </button>
   </HorizontalScroller>
 
-  <!-- Events Gallery -->
-  <h3 class="text-2xl font-display text-ink mt-8 mb-2">
+  <h3 class="text-title font-serif text-balance mt-12 mb-4">
     {{ t('gallery.events') }}
   </h3>
-  <HorizontalScroller @end-visible="loadMoreEvents">
+  <HorizontalScroller pad-class="pt-4 pb-8" gradient-class="from-surface-sunk via-surface-sunk/50">
     <button
-      v-for="(imagePath, index) in visibleEventsImages"
+      v-for="(imagePath, index) in eventsImages"
       :key="imagePath"
       type="button"
       @click="openEventsGallery(index)"
       :aria-label="t('accessibility.openEventsGalleryImage', { index: index + 1 })"
-      class="shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-[1.02] focus:outline-hidden focus:ring-2 focus:ring-brand focus:ring-offset-2"
+      class="shrink-0 snap-start w-48 md:w-56 aspect-[3/4] rounded-surface overflow-hidden shadow-raised transition-transform hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
     >
       <AppDeferredMedia
         wrapper-class="w-full h-full"
