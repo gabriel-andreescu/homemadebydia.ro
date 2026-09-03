@@ -182,6 +182,16 @@
 
 /* Set --layer on a row for that stratum's colour; row spacing stays with the caller. */
 @layer components {
+  /* The prerendered markup cannot know the stored theme, so the variant is chosen by CSS off the
+     class the pre-paint script sets, before first paint. Only the matching file is fetched. */
+  .site-logo {
+    background: url("/logo.svg") center / contain no-repeat;
+  }
+
+  .dark .site-logo {
+    background-image: url("/logo-dark.svg");
+  }
+
   /* One ladder for any product-shaped card, stepped by how much room the card has rather than by
      which component it is. Title never falls below the price and never meets the body; each price
      step is the narrowest card that still fits the widest price string beside the 44px button. */

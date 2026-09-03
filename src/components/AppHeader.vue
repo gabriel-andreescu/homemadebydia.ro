@@ -4,13 +4,11 @@ import { useI18n } from "vue-i18n";
 import AppNav from "./AppNav.vue";
 import AppCatalogTabs from "./AppCatalogTabs.vue";
 import { SCROLL_THRESHOLD } from "../constants";
-import { useDarkMode } from "../composables/useDarkMode";
 import { useScrollTo } from "../composables/useScrollTo";
 import { useCatalogTabs } from "../composables/useCatalogTabs";
 import type { CatalogTabKey } from "../siteNavigation";
 
 const { t } = useI18n();
-const { isDark } = useDarkMode();
 const { scrollTo } = useScrollTo();
 const scrolledFromTop = ref(false);
 
@@ -61,14 +59,12 @@ onUnmounted(() => {
       :class="{ 'h-28': !scrolledFromTop, 'h-16': scrolledFromTop }"
     >
       <button @click="scrollTo('')" class="bg-transparent border-none cursor-pointer rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
-        <img
-          :src="isDark ? '/logo-dark.svg' : '/logo.svg'"
-          :alt="t('accessibility.logo')"
-          width="319"
-          height="128"
-          class="w-auto object-contain transition-[height] duration-[var(--duration-short)] z-50"
+        <span
+          role="img"
+          :aria-label="t('accessibility.logo')"
+          class="site-logo block w-auto aspect-[319/128] transition-[height] duration-[var(--duration-short)] z-50"
           :class="{ 'h-20': !scrolledFromTop, 'h-12': scrolledFromTop }"
-        />
+        ></span>
       </button>
       <AppNav />
     </div>
