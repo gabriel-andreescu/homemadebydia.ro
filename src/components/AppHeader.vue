@@ -58,11 +58,11 @@ onUnmounted(() => {
       class="container mx-auto flex justify-between items-center transition-[height] duration-[var(--duration-short)]"
       :class="{ 'h-28': !scrolledFromTop, 'h-16': scrolledFromTop }"
     >
-      <button @click="scrollTo('')" class="bg-transparent border-none cursor-pointer rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
+      <button @click="scrollTo('')" class="min-w-0 bg-transparent border-none cursor-pointer rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
         <span
           role="img"
           :aria-label="t('accessibility.logo')"
-          class="site-logo block w-auto aspect-[319/128] transition-[height] duration-[var(--duration-short)] z-50"
+          class="site-logo block w-auto max-w-full aspect-[319/128] transition-[height] duration-[var(--duration-short)] z-50"
           :class="{ 'h-20': !scrolledFromTop, 'h-12': scrolledFromTop }"
         ></span>
       </button>
