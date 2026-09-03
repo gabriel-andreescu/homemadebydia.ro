@@ -103,7 +103,7 @@ const year = new Date().getFullYear();
           </div>
         </div>
 
-        <div class="aspect-[16/10] overflow-hidden rounded-surface">
+        <div class="hidden lg:block aspect-[16/10] overflow-hidden rounded-surface">
           <AppDeferredMedia
             wrapper-class="w-full h-full"
             placeholder-class="w-full h-full bg-surface-sunk"
@@ -112,7 +112,7 @@ const year = new Date().getFullYear();
               src="/gallery/footer"
               :alt="t('footer.cakeTopViewAlt')"
               img-class="w-full h-full object-cover"
-              sizes="(max-width: 1024px) 100vw, 620px"
+              sizes="min(50vw, 740px)"
             />
           </AppDeferredMedia>
         </div>
