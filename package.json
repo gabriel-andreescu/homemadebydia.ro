@@ -9,7 +9,7 @@
     "dev": "vite",
     "prebuild": "node utils/generate-responsive-images.mjs && node utils/validate-catalog.mjs",
     "build": "vue-tsc && vite-ssg build",
-    "postbuild": "node utils/generate-sitemaps.mjs",
+    "postbuild": "node utils/generate-sitemaps.mjs && node utils/inline-critical-css.mjs",
     "preview": "vite preview",
     "validate:catalog": "node utils/validate-catalog.mjs"
   },
