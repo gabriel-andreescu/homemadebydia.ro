@@ -5,16 +5,17 @@ import IconSun from "./icons/IconSun.vue";
 import IconMoon from "./icons/IconMoon.vue";
 
 const { t } = useI18n();
-const { isDark, toggle } = useDarkMode();
+const { toggle } = useDarkMode();
 </script>
 
 <template>
   <button
     @click="toggle"
-    class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-    :aria-label="isDark ? t('accessibility.toggleLightMode') : t('accessibility.toggleDarkMode')"
+    class="p-[10px] rounded-full text-ink-muted hover:bg-surface-sunk transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
   >
-    <IconSun v-if="isDark" class="w-6 h-6" />
-    <IconMoon v-else class="w-6 h-6" />
+    <IconSun class="hidden dark:block size-[24px]" />
+    <IconMoon class="block dark:hidden size-[24px]" />
+    <span class="sr-only dark:hidden">{{ t("accessibility.toggleDarkMode") }}</span>
+    <span class="sr-only hidden dark:inline">{{ t("accessibility.toggleLightMode") }}</span>
   </button>
 </template>

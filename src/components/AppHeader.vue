@@ -2,13 +2,13 @@
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import AppNav from "./AppNav.vue";
+import AppCatalogTabs from "./AppCatalogTabs.vue";
 import { SCROLL_THRESHOLD } from "../constants";
-import { useDarkMode } from "../composables/useDarkMode";
 import { useScrollTo } from "../composables/useScrollTo";
 import { useCatalogTabs } from "../composables/useCatalogTabs";
+import type { CatalogTabKey } from "../siteNavigation";
 
 const { t } = useI18n();
-const { isDark } = useDarkMode();
 const { scrollTo } = useScrollTo();
 const scrolledFromTop = ref(false);
 
@@ -16,6 +16,9 @@ const { tabs, selectedTab, catalogInView, selectTab } = useCatalogTabs();
 
 // Computed to ensure reactivity
 const showStickyTabs = computed(() => catalogInView.value && tabs.value.length > 0);
+
+// Selecting from the masthead also scrolls the catalog back into view.
+const onSelectStickyTab = (tabKey: CatalogTabKey) => selectTab(tabKey, true, true);
 
 let topObserver: IntersectionObserver | null = null;
 
@@ -47,20 +50,21 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="fixed bg-white dark:bg-gray-900 w-full px-4 lg:px-12 z-30">
+  <!-- top-0, not the static position: the nav's scroll lock parks the body at -scrollY. -->
+  <header
+    class="fixed top-0 w-full px-[16px] lg:px-[48px] z-30 bg-page/85 backdrop-blur-md border-b border-line"
+  >
     <div
-      class="container mx-auto flex justify-between items-center transition-[height] duration-200"
-      :class="{ 'h-32': !scrolledFromTop, 'h-16': scrolledFromTop }"
+      class="container mx-auto flex justify-between items-center transition-[height] duration-[var(--duration-short)]"
+      :class="{ 'h-[112px]': !scrolledFromTop, 'h-[64px]': scrolledFromTop }"
     >
-      <button @click="scrollTo('')" class="bg-transparent border-none cursor-pointer">
-        <img
-          :src="isDark ? '/logo-dark.svg' : '/logo.svg'"
-          :alt="t('accessibility.logo')"
-          width="319"
-          height="128"
-          class="h-32 w-auto transform transition duration-200 pt-2 z-50"
-          :class="{ 'scale-100': !scrolledFromTop, 'scale-50': scrolledFromTop }"
-        />
+      <button @click="scrollTo('')" class="min-w-0 flex-1 bg-transparent border-none cursor-pointer rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
+        <span
+          role="img"
+          :aria-label="t('accessibility.logo')"
+          class="site-logo block w-auto max-w-full aspect-[319/128] transition-[height] duration-[var(--duration-short)] z-50"
+          :class="{ 'h-[80px]': !scrolledFromTop, 'h-[48px]': scrolledFromTop }"
+        ></span>
       </button>
       <AppNav />
     </div>
@@ -69,23 +73,14 @@ onUnmounted(() => {
     <Transition name="tabs-slide">
       <div
         v-if="showStickyTabs"
-        class="sm:mt-2 border-t border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm"
+        class="border-t border-line"
       >
-        <ul class="container mx-auto flex justify-center gap-1.5 sm:gap-2 pt-3 pb-2.5 sm:py-2.5">
-          <li
-            v-for="tab in tabs"
-            :key="tab.tabKey"
-            :class="[
-              'px-3 sm:px-5 py-1.5 sm:py-2 rounded-full cursor-pointer font-medium text-xs sm:text-sm tracking-wide transition-all duration-300',
-              tab.tabKey === selectedTab
-                ? 'bg-accent dark:bg-accent text-white shadow-md shadow-accent/20 dark:shadow-accent/30 scale-105'
-                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-accent dark:hover:border-accent hover:text-accent dark:hover:text-accent-light hover:shadow-md',
-            ]"
-            @click="selectTab(tab.tabKey, true, true)"
-          >
-            {{ tab.title }}
-          </li>
-        </ul>
+        <AppCatalogTabs
+          class="container mx-auto"
+          :tabs="tabs"
+          :selected="selectedTab"
+          @select="onSelectStickyTab"
+        />
       </div>
     </Transition>
   </header>
@@ -94,8 +89,8 @@ onUnmounted(() => {
 <style scoped>
 .tabs-slide-enter-active {
   transition:
-    opacity 0.25s ease-out 0.1s,
-    transform 0.3s cubic-bezier(0.34, 1.3, 0.64, 1) 0.1s;
+    opacity var(--duration-base) var(--ease-out) 0.1s,
+    transform var(--duration-base) var(--ease-overshoot) 0.1s;
 }
 
 /* Instant hide */

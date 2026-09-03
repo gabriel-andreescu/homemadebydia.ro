@@ -11,10 +11,6 @@ export const createApp = ViteSSG(
     routes,
   },
   ({ app, router }) => {
-    if (typeof history !== "undefined" && "scrollRestoration" in history) {
-      history.scrollRestoration = "auto";
-    }
-
     const i18n = createI18nInstance(getLocaleFromPath(router.currentRoute.value.path));
     app.use(i18n);
 

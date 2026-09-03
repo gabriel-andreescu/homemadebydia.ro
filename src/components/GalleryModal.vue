@@ -629,7 +629,7 @@ defineExpose({ openAt });
         aria-modal="true"
         aria-labelledby="gallery-modal-title"
         tabindex="-1"
-        class="fixed inset-0 z-[70] flex flex-col bg-black/95 backdrop-blur-sm"
+        class="fixed inset-0 z-[70] flex flex-col bg-black/95 backdrop-blur-xs"
         @click.self="close"
       >
         <h2 id="gallery-modal-title" class="sr-only">
@@ -638,13 +638,13 @@ defineExpose({ openAt });
 
         <!-- Header -->
         <div class="flex justify-between items-center p-4">
-          <span v-if="!isSingleImage" class="text-white/70 text-sm">
+          <span v-if="!isSingleImage" class="text-on-scrim/70 text-ui">
             {{ currentIndex + 1 }} / {{ images.length }}
           </span>
           <span v-else></span>
           <button
             @click="close"
-            class="text-white/70 hover:text-white transition-colors p-2"
+            class="text-on-scrim/70 hover:text-on-scrim transition-colors p-2 rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
             :aria-label="t('accessibility.closeGallery')"
           >
             <IconClose class="w-8 h-8" />
@@ -665,7 +665,7 @@ defineExpose({ openAt });
           <button
             v-if="hasPrev"
             @click="prev"
-            class="hidden md:flex absolute left-4 z-10 w-12 h-12 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            class="hidden md:flex absolute left-4 z-10 w-12 h-12 items-center justify-center rounded-full bg-surface/10 hover:bg-surface/20 text-on-scrim transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
             :aria-label="t('accessibility.prevImage')"
           >
             <IconChevronLeft class="w-6 h-6" />
@@ -679,21 +679,21 @@ defineExpose({ openAt });
           >
             <!-- Previous image -->
             <div
-              class="carousel-slide flex-shrink-0 w-full h-full flex items-center justify-center px-4"
+              class="carousel-slide shrink-0 w-full h-full flex items-center justify-center px-4"
               @click.self="close"
             >
               <AppPicture
                 v-if="prevImage"
                 :src="prevImage"
                 :alt="t('accessibility.enlargedImage')"
-                img-class="w-auto max-w-full max-h-[70vh] object-contain rounded-lg"
+                img-class="w-auto max-w-full max-h-[70vh] object-contain rounded-surface"
                 sizes="100vw"
               />
             </div>
 
             <!-- Current image -->
             <div
-              class="carousel-slide flex-shrink-0 w-full h-full flex items-center justify-center px-4"
+              class="carousel-slide shrink-0 w-full h-full flex items-center justify-center px-4"
               :class="{ 'is-zoomed': isZoomed }"
               @click.self="close"
             >
@@ -707,7 +707,7 @@ defineExpose({ openAt });
                   :key="currentImage"
                   :src="currentImage"
                   :alt="t('accessibility.enlargedImage')"
-                  img-class="w-auto max-w-full max-h-[70vh] object-contain rounded-lg select-none"
+                  img-class="w-auto max-w-full max-h-[70vh] object-contain rounded-surface select-none"
                   sizes="100vw"
                 />
               </div>
@@ -715,14 +715,14 @@ defineExpose({ openAt });
 
             <!-- Next image -->
             <div
-              class="carousel-slide flex-shrink-0 w-full h-full flex items-center justify-center px-4"
+              class="carousel-slide shrink-0 w-full h-full flex items-center justify-center px-4"
               @click.self="close"
             >
               <AppPicture
                 v-if="nextImage"
                 :src="nextImage"
                 :alt="t('accessibility.enlargedImage')"
-                img-class="w-auto max-w-full max-h-[70vh] object-contain rounded-lg"
+                img-class="w-auto max-w-full max-h-[70vh] object-contain rounded-surface"
                 sizes="100vw"
               />
             </div>
@@ -732,7 +732,7 @@ defineExpose({ openAt });
           <button
             v-if="hasNext"
             @click="next"
-            class="hidden md:flex absolute right-4 z-10 w-12 h-12 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            class="hidden md:flex absolute right-4 z-10 w-12 h-12 items-center justify-center rounded-full bg-surface/10 hover:bg-surface/20 text-on-scrim transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
             :aria-label="t('accessibility.nextImage')"
           >
             <IconChevronRight class="w-6 h-6" />
@@ -750,10 +750,10 @@ defineExpose({ openAt });
               v-for="(image, index) in images"
               :key="image"
               @click="goTo(index)"
-              class="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden transition-all duration-200"
+              class="shrink-0 w-16 h-16 rounded-surface overflow-hidden transition-[opacity,box-shadow,transform] duration-[var(--duration-short)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               :class="
                 index === targetIndex
-                  ? 'ring-2 ring-accent dark:ring-accent ring-offset-2 ring-offset-black scale-105'
+                  ? 'ring-2 ring-brand ring-offset-2 ring-offset-black scale-105'
                   : 'opacity-50 hover:opacity-80'
               "
             >
@@ -774,7 +774,7 @@ defineExpose({ openAt });
 <style scoped>
 .gallery-modal-enter-active,
 .gallery-modal-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity var(--duration-base) var(--ease-out);
 }
 
 .gallery-modal-enter-from,
@@ -784,7 +784,7 @@ defineExpose({ openAt });
 
 /* Carousel transitions */
 .carousel-track {
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform var(--duration-base) var(--ease-out);
   will-change: transform;
 }
 
@@ -825,7 +825,7 @@ defineExpose({ openAt });
 }
 
 .zoom-content:not(.is-interacting) {
-  transition: transform 0.18s ease;
+  transition: transform var(--duration-quick) var(--ease-out);
 }
 
 /* Hide scrollbar but keep functionality */

@@ -9,10 +9,10 @@ const { locale, toggle } = useLocale();
 <template>
   <button
     @click="toggle"
-    class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors font-medium text-sm"
+    class="p-[10px] rounded-full text-ink-muted hover:bg-surface-sunk transition-colors font-medium text-[14px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
     :aria-label="locale === 'ro' ? t('accessibility.switchToEnglish') : t('accessibility.switchToRomanian')"
   >
-    <span class="w-6 h-6 flex items-center justify-center uppercase">
+    <span class="size-[24px] flex items-center justify-center uppercase">
       {{ locale === 'ro' ? 'en' : 'ro' }}
     </span>
   </button>

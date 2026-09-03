@@ -73,8 +73,8 @@ function collectProductImageUrls() {
   return PRODUCT_SOURCES.flatMap((sourcePath) => {
     const products = readJson(sourcePath);
     return products.flatMap((product) => {
-      const imageUrls = Array.isArray(product.imageUrl) ? product.imageUrl : [product.imageUrl];
-      return imageUrls.map((imageUrl) => resolvePublicBaseImage(imageUrl));
+      const imageUrls = Array.isArray(product.image) ? product.image : [product.image];
+      return imageUrls.map((image) => resolvePublicBaseImage(image));
     });
   });
 }
@@ -97,7 +97,7 @@ function collectGalleryImageUrls(galleryDirName) {
 
 function collectReviewImageUrls() {
   return reviewMediaEntries.flatMap((entry) =>
-    (entry.images ?? []).map((image) => resolvePublicBaseImage(image.original)),
+    (entry.images ?? []).map((image) => resolvePublicBaseImage(image)),
   );
 }
 

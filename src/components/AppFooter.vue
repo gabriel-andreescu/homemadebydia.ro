@@ -1,145 +1,146 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
-import AppSocialLinks from "./AppSocialLinks.vue";
 import AppDeferredMedia from "./AppDeferredMedia.vue";
-import IconGoogle from "./icons/IconGoogle.vue";
+import AppPicture from "./AppPicture.vue";
 import IconMail from "./icons/IconMail.vue";
 import IconMapPin from "./icons/IconMapPin.vue";
 import IconPhone from "./icons/IconPhone.vue";
-import { useDarkMode } from "../composables/useDarkMode";
+import IconWhatsapp from "./icons/IconWhatsapp.vue";
 import { CONTACT } from "../constants";
 import type { Locale } from "../i18n";
 import { getLocalizedAnchor } from "../siteNavigation";
 
 const { t, locale } = useI18n();
-const { isDark } = useDarkMode();
 const currentLocale = computed(() => locale.value as Locale);
 const howToOrderId = computed(() => getLocalizedAnchor("howToOrder", currentLocale.value));
 const contactId = computed(() => getLocalizedAnchor("contact", currentLocale.value));
-const footerArtSrc = computed(() => {
-  const darkModeActive = isDark.value;
-  const darkThemeActive =
-    typeof document === "undefined"
-      ? darkModeActive
-      : document.documentElement.classList.contains("dark");
-
-  return darkThemeActive ? "/gallery/footer-dark.min.png" : "/gallery/footer.jpg";
-});
+const steps = ["step1", "step2", "step3", "step4"] as const;
+const year = new Date().getFullYear();
 </script>
 
 <template>
-  <footer class="mt-16 lg:mt-32">
-    <section class="flex flex-col xl:flex-row">
-      <section
-        class="flex flex-col w-full xl:w-1/2 px-2 pt-16 pb-8 lg:pl-8 sm:pb-10 xl:pb-0 bg-gradient-to-r from-transparent to-nude dark:bg-none"
-      >
-        <h2 :id="howToOrderId" class="text-4xl lg:text-6xl font-serif mb-10">
+  <footer class="mt-16">
+    <section :id="howToOrderId" class="bg-surface-sunk py-16">
+      <div class="container mx-auto px-2">
+        <p class="text-meta font-semibold uppercase tracking-[0.16em] text-ink-faint">
           {{ t("howToOrder.title") }}
+        </p>
+        <h2 class="mt-2 text-display font-serif text-balance">
+          {{ t("howToOrder.heading") }}
         </h2>
-        <div class="how-to-order-paragraphs">
-          <p>{{ t("howToOrder.step1") }}</p>
-          <p>{{ t("howToOrder.step2") }}</p>
-          <p>{{ t("howToOrder.step3") }}</p>
-          <p>{{ t("howToOrder.step4") }}</p>
-        </div>
-        <div class="flex items-center gap-3 my-6">
-          <span class="text-sm text-gray-600 dark:text-gray-400">{{ t("footer.didYouLike") }}</span>
-          <a
-            :href="CONTACT.googleReview"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-accent dark:bg-accent text-white rounded-full shadow-md shadow-accent/20 dark:shadow-accent/30 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] transition-all duration-300"
-          >
-            <IconGoogle class="w-4 h-4" />
-            {{ t("footer.leaveReview") }}
-          </a>
-        </div>
-        <AppDeferredMedia
-          wrapper-class="flex h-80"
-          placeholder-class="border-0 border-none min-w-full bg-gray-200 dark:bg-gray-700 rounded-xl"
-        >
-          <iframe
-            title="Google Maps"
-            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11370.733221679735!2d25.9309805!3d44.562586!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xfbb397e844540bfb!2sHomemade%20by%20Dia!5e0!3m2!1sro!2sro!4v1670659460931!5m2!1sro!2sro"
-            class="border-0 border-none min-w-full"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </AppDeferredMedia>
-        <section :id="contactId" class="mt-6 flex flex-col">
-          <AppSocialLinks class="h-auto mb-2" :center="false" />
-          <div class="mb-4 flex">
-            <div class="lg:text-lg flex flex-col gap-2">
-              <a
-                :href="`tel:${CONTACT.phone}`"
-                class="inline-flex items-center gap-2 underline hover:text-accent-dark dark:hover:text-accent-light cursor-pointer transition-colors duration-300"
-              >
-                <IconPhone class="w-5 h-5 shrink-0" aria-hidden="true" />
-                <span class="sr-only">{{ t("accessibility.callNow") }}:</span>
-                {{ CONTACT.phoneDisplay }}
-              </a>
-              <a
-                :href="`mailto:${CONTACT.email}`"
-                class="inline-flex items-center gap-2 underline hover:text-accent-dark dark:hover:text-accent-light cursor-pointer transition-colors duration-300"
-              >
-                <IconMail class="w-5 h-5 shrink-0" aria-hidden="true" />
-                <span class="sr-only">{{ t("accessibility.sendEmail") }}:</span>
-                {{ CONTACT.email }}
-              </a>
-              <a
-                :href="CONTACT.maps"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 underline hover:text-accent-dark dark:hover:text-accent-light cursor-pointer transition-colors duration-300"
-              >
-                <IconMapPin class="w-5 h-5 shrink-0" aria-hidden="true" />
-                <span class="sr-only">{{ t("accessibility.openInMaps") }}:</span>
-                {{ t("contact.address") }}
-              </a>
-            </div>
-          </div>
-          <a
-            href="https://reclamatiisal.anpc.ro/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-block"
-            :aria-label="t('footer.salBadgeAlt')"
-          >
-            <AppDeferredMedia
-              wrapper-class="inline-block"
-              placeholder-class="w-[140px] h-[55px] rounded bg-white/60 dark:bg-gray-800"
+        <ol class="mt-8 grid gap-8 border-t border-line pt-8 sm:grid-cols-2 xl:grid-cols-4">
+          <li v-for="(step, index) in steps" :key="step">
+            <p class="text-body font-semibold text-brand-ink tabular-nums">
+              {{ String(index + 1).padStart(2, "0") }}
+            </p>
+            <p class="mt-2 text-ink-muted leading-relaxed max-w-[40ch]">
+              {{ t(`howToOrder.${step}`) }}
+            </p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section :id="contactId" class="py-16">
+      <div class="container mx-auto px-2 grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div class="flex flex-col items-start gap-4">
+          <p class="text-meta font-semibold uppercase tracking-[0.16em] text-ink-faint">
+            {{ t("nav.contact") }}
+          </p>
+          <h2 class="text-display font-serif text-balance">
+            {{ t("contact.heading") }}
+          </h2>
+
+          <div class="flex flex-col items-start">
+            <a
+              :href="`tel:${CONTACT.phone}`"
+              class="inline-flex min-w-0 items-center gap-2 py-2.5 [overflow-wrap:anywhere] underline decoration-line-strong/70 underline-offset-4 hover:text-brand-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand rounded-control transition-colors"
             >
-              <img
-                src="/SAL-PICTOGRAMA.png"
-                :alt="t('footer.salBadgeAlt')"
-                loading="lazy"
-                decoding="async"
-              />
-            </AppDeferredMedia>
-          </a>
-        </section>
-      </section>
-      <section class="hidden xl:block xl:w-1/2 bg-nude dark:bg-none self-end">
-        <AppDeferredMedia
-          wrapper-class="w-full"
-          placeholder-class="w-full aspect-[963/1284] max-h-[min(100vh,1284px)] bg-nude/80 dark:bg-gray-800"
+              <IconPhone class="w-5 h-5 shrink-0" aria-hidden="true" />
+              <span class="sr-only">{{ t("accessibility.callNow") }}:</span>
+              {{ CONTACT.phoneDisplay }}
+            </a>
+            <a
+              :href="`mailto:${CONTACT.email}`"
+              class="inline-flex min-w-0 items-center gap-2 py-2.5 [overflow-wrap:anywhere] underline decoration-line-strong/70 underline-offset-4 hover:text-brand-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand rounded-control transition-colors"
+            >
+              <IconMail class="w-5 h-5 shrink-0" aria-hidden="true" />
+              <span class="sr-only">{{ t("accessibility.sendEmail") }}:</span>
+              {{ CONTACT.email }}
+            </a>
+            <a
+              :href="CONTACT.maps"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex min-w-0 items-center gap-2 py-2.5 [overflow-wrap:anywhere] underline decoration-line-strong/70 underline-offset-4 hover:text-brand-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand rounded-control transition-colors"
+            >
+              <IconMapPin class="w-5 h-5 shrink-0" aria-hidden="true" />
+              <span class="sr-only">{{ t("accessibility.openInMaps") }}:</span>
+              {{ t("contact.address") }}
+            </a>
+          </div>
+
+          <div class="mt-2 flex flex-wrap gap-3">
+            <a
+              :href="CONTACT.whatsapp"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-whatsapp text-on-whatsapp font-medium hover:brightness-95 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand transition-[transform,filter]"
+            >
+              <IconWhatsapp class="w-5 h-5" aria-hidden="true" />
+              {{ t("footer.writeWhatsApp") }}
+            </a>
+            <a
+              :href="CONTACT.maps"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-line-strong font-medium hover:border-brand hover:text-brand-ink active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand transition-[transform,color,border-color]"
+            >
+              <IconMapPin class="w-5 h-5" aria-hidden="true" />
+              {{ t("footer.openMap") }}
+            </a>
+          </div>
+        </div>
+
+        <div class="hidden lg:block aspect-[16/10] overflow-hidden rounded-surface">
+          <AppDeferredMedia
+            wrapper-class="w-full h-full"
+            placeholder-class="w-full h-full bg-surface-sunk"
+          >
+            <AppPicture
+              src="/gallery/footer"
+              :alt="t('footer.cakeTopViewAlt')"
+              img-class="w-full h-full object-cover"
+              sizes="min(50vw, 740px)"
+            />
+          </AppDeferredMedia>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-t border-line">
+      <div
+        class="container mx-auto px-2 py-6 flex flex-wrap items-center justify-between gap-4 text-meta text-ink-faint"
+      >
+        <p>© {{ year }} Homemade by Dia</p>
+        <a
+          href="https://reclamatiisal.anpc.ro/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+          :aria-label="t('footer.salBadgeAlt')"
         >
           <img
-            :src="footerArtSrc"
-            :alt="t('footer.cakeTopViewAlt')"
-            class="w-full max-w-full h-auto object-cover max-h-[min(100vh,1284px)]"
+            src="/SAL-PICTOGRAMA.png"
+            :alt="t('footer.salBadgeAlt')"
+            width="201"
+            height="50"
             loading="lazy"
             decoding="async"
           />
-        </AppDeferredMedia>
-      </section>
+        </a>
+      </div>
     </section>
   </footer>
 </template>
-
-<style scoped>
-.how-to-order-paragraphs p {
-  @apply lg:text-lg mb-4;
-}
-</style>

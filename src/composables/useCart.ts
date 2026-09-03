@@ -1,13 +1,19 @@
 import { computed, onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { CONTACT } from "../constants";
-import { getCatalogProductMap, getProductId, type CatalogProduct } from "../data/catalogData";
+import {
+  getCatalogProductMap,
+  getProductImages,
+  type CatalogExtra,
+  type CatalogProduct,
+} from "../data/catalogData";
 import type { Locale } from "../i18n";
 import { formatQuantityLabel, getQuantityStep, normalizeQuantity } from "../utils/quantity";
 import { trySetStorageItem } from "../utils/safeStorage";
 
 interface CartItemSnapshot {
   title: string;
+  image: string;
   price: number;
   unit: string;
   min: number;
@@ -17,6 +23,9 @@ interface CartItemSnapshot {
 interface StoredCartItem {
   id: string;
   quantity: number;
+  // Snapshotted like the product, so a renamed or deleted extra does not vanish from a
+  // cart someone already has.
+  extras?: CatalogExtra[];
   snapshot?: CartItemSnapshot;
 }
 
@@ -28,10 +37,18 @@ export interface CartItem {
   step: number;
   price: number;
   min: number;
+  image: string;
+  extras: CatalogExtra[];
+  /** An extra is priced per unit, like the product: more kilos need more filling. */
+  extrasPerUnit: number;
 }
 
-const STORAGE_KEY = "homemadebydia_cart";
-const ORDER_NOTES_STORAGE_KEY = "homemadebydia_cart_notes";
+const extrasPerUnit = (extras: CatalogExtra[] | undefined) =>
+  (extras ?? []).reduce((sum, extra) => sum + extra.price, 0);
+
+// Bumped with the catalogue schema: old carts name ids that no longer exist.
+const STORAGE_KEY = "homemadebydia_cart_v2";
+const ORDER_NOTES_STORAGE_KEY = "homemadebydia_cart_notes_v2";
 const ORDER_NOTES_MAX_LENGTH = 500;
 const drawerOpen = ref(false);
 const lastAdded = ref<string | null>(null);
@@ -47,9 +64,10 @@ function buildSnapshot(product: CatalogProduct): CartItemSnapshot {
 
   return {
     title: product.title,
+    image: getProductImages(product)[0] ?? "",
     price: product.price,
     unit,
-    min: product.min ?? 1,
+    min: product.minimum ?? 1,
     step: getQuantityStep(unit, product.step),
   };
 }
@@ -69,6 +87,7 @@ function repairStoredItemsWithProductMap(productMap: Map<string, CatalogProduct>
     if (
       !stored.snapshot ||
       stored.snapshot.title !== snapshot.title ||
+      stored.snapshot.image !== snapshot.image ||
       stored.snapshot.price !== snapshot.price ||
       stored.snapshot.unit !== snapshot.unit ||
       stored.snapshot.min !== snapshot.min ||
@@ -101,6 +120,7 @@ function loadFromStorage(): StoredCartItem[] {
           typeof item.snapshot.min === "number"
             ? {
                 title: item.snapshot.title,
+                image: typeof item.snapshot.image === "string" ? item.snapshot.image : "",
                 price: item.snapshot.price,
                 unit: item.snapshot.unit,
                 min: item.snapshot.min,
@@ -111,11 +131,21 @@ function loadFromStorage(): StoredCartItem[] {
               }
             : undefined;
 
+        const extras = Array.isArray(item.extras)
+          ? item.extras.filter(
+              (extra: unknown): extra is CatalogExtra =>
+                !!extra &&
+                typeof (extra as CatalogExtra).name === "string" &&
+                typeof (extra as CatalogExtra).price === "number",
+            )
+          : undefined;
+
         return {
           id: item.id,
           quantity: snapshot
             ? normalizeQuantity(item.quantity, snapshot.unit, snapshot.step)
             : item.quantity,
+          extras: extras?.length ? extras : undefined,
           snapshot,
         };
       })
@@ -203,11 +233,14 @@ export function useCart() {
         return {
           id: stored.id,
           title: snapshot.title,
+          image: snapshot.image,
           quantity: normalizeQuantity(stored.quantity, snapshot.unit, snapshot.step),
           unit: snapshot.unit,
           step: snapshot.step,
           price: snapshot.price,
           min: snapshot.min,
+          extras: stored.extras ?? [],
+          extrasPerUnit: extrasPerUnit(stored.extras),
         };
       })
       .filter((item): item is CartItem => item !== null),
@@ -216,7 +249,10 @@ export function useCart() {
   const count = computed(() => storedItems.value.length);
 
   const total = computed(() =>
-    items.value.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    items.value.reduce(
+      (sum, item) => sum + (item.price + item.extrasPerUnit) * item.quantity,
+      0,
+    ),
   );
 
   const whatsappUrl = computed(() => {
@@ -229,8 +265,12 @@ export function useCart() {
         if (!snapshot) return null;
 
         const quantity = normalizeQuantity(stored.quantity, snapshot.unit, snapshot.step);
+        const extraLines = (stored.extras ?? []).map(
+          (extra) => `
+  + ${extra.name} (+${extra.price} lei/${snapshot.unit})`,
+        );
 
-        return `• ${snapshot.title} - ${formatQuantityLabel(quantity, snapshot.unit, snapshot.step)}`;
+        return `• ${snapshot.title} - ${formatQuantityLabel(quantity, snapshot.unit, snapshot.step)}${extraLines.join("")}`;
       })
       .filter((line): line is string => line !== null);
 
@@ -244,7 +284,7 @@ export function useCart() {
   });
 
   function add(product: CatalogProduct) {
-    const id = getProductId(product);
+    const id = product.id;
     const existing = storedItems.value.find((item) => item.id === id);
     if (existing) return;
 
@@ -259,6 +299,32 @@ export function useCart() {
     setTimeout(() => {
       lastAdded.value = null;
     }, 2500);
+  }
+
+  function toggleExtra(product: CatalogProduct, extra: CatalogExtra) {
+    if (!storedItems.value.some((item) => item.id === product.id)) add(product);
+
+    const stored = storedItems.value.find((item) => item.id === product.id);
+    if (!stored) return;
+
+    const chosen = stored.extras ?? [];
+    const at = chosen.findIndex((one) => one.name === extra.name);
+    stored.extras =
+      at === -1
+        ? [...chosen, { name: extra.name, price: extra.price }]
+        : chosen.filter((_, index) => index !== at);
+  }
+
+  function removeExtra(id: string, name: string) {
+    const stored = storedItems.value.find((item) => item.id === id);
+    if (!stored?.extras) return;
+    stored.extras = stored.extras.filter((extra) => extra.name !== name);
+  }
+
+  function hasExtra(id: string, name: string) {
+    return !!storedItems.value
+      .find((item) => item.id === id)
+      ?.extras?.some((extra) => extra.name === name);
   }
 
   function update(id: string, quantity: number) {
@@ -309,6 +375,9 @@ export function useCart() {
     orderNotes,
     orderNotesMaxLength: ORDER_NOTES_MAX_LENGTH,
     add,
+    toggleExtra,
+    removeExtra,
+    hasExtra,
     update,
     remove,
     clear,

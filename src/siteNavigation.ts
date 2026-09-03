@@ -4,7 +4,6 @@ export type SectionKey =
   | "catalog"
   | "gallery"
   | "aboutUs"
-  | "whyUs"
   | "reviews"
   | "howToOrder"
   | "contact";
@@ -19,7 +18,6 @@ const LOCALIZED_ANCHORS: Record<Locale, Record<NavigationKey, string>> = {
     catalog: "catalog",
     gallery: "galerie",
     aboutUs: "despre-noi",
-    whyUs: "de-ce-noi",
     reviews: "recenzii",
     howToOrder: "cum-sa-comanzi",
     contact: "contact",
@@ -32,7 +30,6 @@ const LOCALIZED_ANCHORS: Record<Locale, Record<NavigationKey, string>> = {
     catalog: "catalog",
     gallery: "gallery",
     aboutUs: "about-us",
-    whyUs: "why-us",
     reviews: "reviews",
     howToOrder: "how-to-order",
     contact: "contact",

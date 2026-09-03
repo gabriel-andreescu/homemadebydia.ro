@@ -5,7 +5,7 @@ export const CONTACT = {
   whatsapp: "https://wa.me/40787283917",
   facebook: "https://www.facebook.com/homemadebyDia",
   messenger: "https://m.me/homemadebyDia",
-  instagram: "https://www.instagram.com/homemade.by.dia",
+  instagram: "https://www.instagram.com/diana.andreescu19",
   maps: "https://maps.app.goo.gl/HwjenXZkkT33KwWq8",
   googleReview: "https://g.page/r/CfsLVETol7P7EBM/review",
 } as const;
@@ -23,7 +23,6 @@ export const PRICES = {
   // Optional services
   dishRental: 150,
   candyBarSetup: 150,
-  dishPickup: 50,
   delivery: 250,
   favors: 10,
 } as const;

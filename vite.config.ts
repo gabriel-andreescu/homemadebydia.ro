@@ -1,5 +1,6 @@
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import { defineConfig, Plugin } from "vite";
+import tailwindcss from "@tailwindcss/vite";
 import vue from "@vitejs/plugin-vue";
 import fs from "fs";
 import path from "path";
@@ -94,6 +95,7 @@ export default defineConfig({
   },
   plugins: [
     validateProductUnits(),
+    tailwindcss(),
     vue(),
     ViteImageOptimizer({
       // We generate optimized responsive gallery variants ourselves,

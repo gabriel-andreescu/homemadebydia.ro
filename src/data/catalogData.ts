@@ -4,17 +4,40 @@ import cookiesRo from "../assets/cookies.json";
 import cookiesEn from "../assets/cookies.en.json";
 import pastryRo from "../assets/pastry.json";
 import pastryEn from "../assets/pastry.en.json";
+import layerVocabulary from "../assets/layers.json";
 import type { Locale } from "../i18n";
 
-export interface CatalogProduct {
-  imageUrl: string | string[];
-  title: string;
-  assortments?: string;
-  desc?: string[];
+interface LayerEntry {
+  /** null falls back to the rule colour. */
+  color: string | null;
+  ro: string;
+  en: string;
+}
+
+export interface CatalogLayer {
+  name: string;
+  color: string | null;
+}
+
+export interface CatalogExtra {
+  name: string;
   price: number;
-  min?: number;
-  unit?: string;
+}
+
+export interface CatalogProduct {
+  id: string;
+  image: string | string[];
+  title: string;
+  price: number;
+  unit: string;
+  minimum?: number;
   step?: number;
+  /** Keys into layers.json, in stacking order. */
+  layers?: string[];
+  variants?: string[];
+  weight?: string;
+  note?: string;
+  extras?: CatalogExtra[];
 }
 
 export interface CatalogCollections {
@@ -25,12 +48,17 @@ export interface CatalogCollections {
   productMap: Map<string, CatalogProduct>;
 }
 
-export function getProductId(product: Pick<CatalogProduct, "imageUrl">): string {
-  if (Array.isArray(product.imageUrl)) {
-    return product.imageUrl[0] ?? "";
-  }
+const layers = layerVocabulary as Record<string, LayerEntry>;
 
-  return product.imageUrl;
+export function getLayers(product: CatalogProduct, locale: Locale): CatalogLayer[] {
+  return (product.layers ?? []).flatMap((key) => {
+    const entry = layers[key];
+    return entry ? [{ name: entry[locale], color: entry.color }] : [];
+  });
+}
+
+export function getProductImages(product: CatalogProduct): string[] {
+  return Array.isArray(product.image) ? product.image : [product.image];
 }
 
 function buildCollections(
@@ -45,7 +73,7 @@ function buildCollections(
     pastries,
     bakery,
     allProducts,
-    productMap: new Map(allProducts.map((product) => [getProductId(product), product])),
+    productMap: new Map(allProducts.map((product) => [product.id, product])),
   };
 }
 

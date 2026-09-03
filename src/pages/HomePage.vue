@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import {
-  computed,
-  defineAsyncComponent,
-  hydrateOnVisible,
-  onMounted,
-  onUnmounted,
-  ref,
-  watch,
-} from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import AppHeader from "../components/AppHeader.vue";
 import AppSection from "../components/AppSection.vue";
 import SectionHome from "../components/SectionHome.vue";
 import SectionCatalog from "../components/SectionCatalog.vue";
+import SectionGallery from "../components/SectionGallery.vue";
+import SectionAboutUs from "../components/SectionAboutUs.vue";
+import SectionReviews from "../components/SectionReviews.vue";
+import AppFooter from "../components/AppFooter.vue";
 import CartDrawer from "../components/CartDrawer.vue";
 import CartToast from "../components/CartToast.vue";
 import IconClose from "../components/icons/IconClose.vue";
@@ -27,40 +23,10 @@ import { CONTACT } from "../constants";
 import type { Locale } from "../i18n";
 import { getLocalizedAnchor } from "../siteNavigation";
 
-const BELOW_THE_FOLD_HYDRATION = hydrateOnVisible({ rootMargin: "1200px 0px" });
-
 const { t, locale } = useI18n();
 const currentLocale = computed(() => locale.value as Locale);
 const getAnchorId = (key: Parameters<typeof getLocalizedAnchor>[0]) =>
   getLocalizedAnchor(key, currentLocale.value);
-const loadBelowFoldModules = () => import("../components/belowFold");
-const loadSectionGallery = () => loadBelowFoldModules().then((modules) => modules.SectionGallery);
-const loadSectionAboutUs = () => loadBelowFoldModules().then((modules) => modules.SectionAboutUs);
-const loadSectionWhyChooseUs = () => loadBelowFoldModules().then((modules) => modules.SectionWhyChooseUs);
-const loadSectionReviews = () => loadBelowFoldModules().then((modules) => modules.SectionReviews);
-const loadAppFooter = () => loadBelowFoldModules().then((modules) => modules.AppFooter);
-
-const SectionGallery = defineAsyncComponent({
-  loader: loadSectionGallery,
-  hydrate: BELOW_THE_FOLD_HYDRATION,
-});
-const SectionAboutUs = defineAsyncComponent({
-  loader: loadSectionAboutUs,
-  hydrate: BELOW_THE_FOLD_HYDRATION,
-});
-const SectionWhyChooseUs = defineAsyncComponent({
-  loader: loadSectionWhyChooseUs,
-  hydrate: BELOW_THE_FOLD_HYDRATION,
-});
-const SectionReviews = defineAsyncComponent({
-  loader: loadSectionReviews,
-  hydrate: BELOW_THE_FOLD_HYDRATION,
-});
-const AppFooter = defineAsyncComponent({
-  loader: loadAppFooter,
-  hydrate: BELOW_THE_FOLD_HYDRATION,
-});
-
 const cart = useCart();
 const { setCatalogInView } = useCatalogTabs();
 
@@ -116,8 +82,8 @@ onMounted(() => {
   const catalogTopSentinel = document.getElementById("catalog-top-sentinel");
 
   const catalogVisible = ref(false);
-  const topSentinelVisible = ref(true);
-  const updateStickyTabs = () => setCatalogInView(catalogVisible.value && !topSentinelVisible.value);
+  const catalogTopPassed = ref(false);
+  const updateStickyTabs = () => setCatalogInView(catalogVisible.value && catalogTopPassed.value);
 
   if (catalogSection) {
     stickyTabsCatalogObserver = new IntersectionObserver(
@@ -137,10 +103,15 @@ onMounted(() => {
       (entries) => {
         const entry = entries[0];
         if (!entry) return;
-        topSentinelVisible.value = entry.isIntersecting;
+        // isIntersecting is false on both sides of the root, so the sentinel's position
+        // tells them apart; comparing to the bottom stays clear of the crossing point.
+        const rootBottom = entry.rootBounds ? entry.rootBounds.bottom : window.innerHeight;
+        catalogTopPassed.value =
+          !entry.isIntersecting && entry.boundingClientRect.top < rootBottom;
         updateStickyTabs();
       },
-      { threshold: 0, rootMargin: "-140px 0px 0px 0px" },
+      // Collapsed masthead (65px) plus the docked strip (46px).
+      { threshold: 0, rootMargin: "-111px 0px 0px 0px" },
     );
     stickyTabsTopObserver.observe(catalogTopSentinel);
   }
@@ -175,24 +146,48 @@ onUnmounted(() => {
 <template>
   <div id="page-top-sentinel" class="h-0" aria-hidden="true"></div>
   <AppHeader />
-  <main class="container mx-auto pt-32">
-    <SectionHome />
-    <AppSection :title="t('sections.catalog')" :id="getAnchorId('catalog')">
-      <div id="catalog-top-sentinel" class="h-0" aria-hidden="true"></div>
-      <SectionCatalog />
-    </AppSection>
-    <AppSection :title="t('sections.gallery')" :id="getAnchorId('gallery')" class="px-2">
-      <SectionGallery />
-    </AppSection>
-    <AppSection :title="t('sections.aboutUs')" :id="getAnchorId('aboutUs')">
-      <SectionAboutUs />
-    </AppSection>
-    <AppSection :title="t('sections.whyUs')" :id="getAnchorId('whyUs')">
-      <SectionWhyChooseUs />
-    </AppSection>
-    <AppSection :title="t('sections.reviews')" :id="getAnchorId('reviews')">
-      <SectionReviews />
-    </AppSection>
+  <!-- Clears the 113px masthead and leaves air under its rule. -->
+  <main class="pt-36">
+    <div class="container mx-auto">
+      <SectionHome />
+      <AppSection
+        :eyebrow="t('sections.catalog')"
+        :title="t('sectionTitles.catalog')"
+        :id="getAnchorId('catalog')"
+        class="mt-16"
+        head-class="px-2"
+      >
+        <SectionCatalog />
+      </AppSection>
+    </div>
+
+    <div class="mt-16 py-16 bg-surface-sunk">
+      <div class="container mx-auto">
+        <AppSection
+          :eyebrow="t('sections.gallery')"
+          :title="t('sectionTitles.gallery')"
+          :id="getAnchorId('gallery')"
+          class="px-2"
+        >
+          <SectionGallery />
+        </AppSection>
+      </div>
+    </div>
+
+    <div class="container mx-auto">
+      <AppSection :id="getAnchorId('aboutUs')" class="mt-16 px-2">
+        <SectionAboutUs />
+      </AppSection>
+      <AppSection
+        :eyebrow="t('sections.reviews')"
+        :title="t('sectionTitles.reviews')"
+        :id="getAnchorId('reviews')"
+        class="mt-16"
+        head-class="px-2"
+      >
+        <SectionReviews />
+      </AppSection>
+    </div>
   </main>
   <div id="footer-sentinel" class="h-px" aria-hidden="true"></div>
   <AppFooter />
@@ -208,7 +203,7 @@ onUnmounted(() => {
     >
       <a
         :href="`tel:${CONTACT.phone}`"
-        class="flex lg:hidden items-center justify-center w-12 h-12 bg-accent dark:bg-accent text-white rounded-full shadow-md active:scale-95 transition-all"
+        class="flex lg:hidden items-center justify-center w-12 h-12 bg-brand-solid text-on-brand rounded-full shadow-card active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand transition-transform"
         :aria-label="t('accessibility.callNow')"
       >
         <IconPhone class="w-5 h-5" />
@@ -216,7 +211,7 @@ onUnmounted(() => {
 
       <button
         type="button"
-        class="hidden lg:flex items-center justify-center w-12 h-12 bg-accent dark:bg-accent text-white rounded-full shadow-md active:scale-95 transition-all"
+        class="hidden lg:flex items-center justify-center w-12 h-12 bg-brand-solid text-on-brand rounded-full shadow-card active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand transition-transform"
         :aria-label="t('accessibility.callNow')"
         aria-haspopup="dialog"
         :aria-expanded="phoneDialogOpen ? 'true' : 'false'"
@@ -228,7 +223,7 @@ onUnmounted(() => {
       <a
         :href="cart.count.value > 0 ? cart.whatsappUrl.value : CONTACT.whatsapp"
         target="_blank"
-        class="flex items-center justify-center w-12 h-12 bg-whatsapp text-white rounded-full shadow-md active:scale-95 transition-all"
+        class="flex items-center justify-center w-12 h-12 bg-whatsapp text-on-whatsapp rounded-full shadow-card active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand transition-transform"
         :aria-label="t('accessibility.sendWhatsApp')"
       >
         <IconWhatsappBrand class="w-6 h-6" />
@@ -249,11 +244,11 @@ onUnmounted(() => {
           aria-modal="true"
           aria-labelledby="phone-dialog-title"
           tabindex="-1"
-          class="relative w-full max-w-xs rounded-2xl bg-white dark:bg-gray-900 p-6 shadow-2xl text-center"
+          class="relative w-full max-w-xs rounded-surface bg-surface p-6 shadow-overlay text-center"
         >
           <button
             type="button"
-            class="absolute top-2 right-2 grid place-items-center w-9 h-9 text-gray-700 dark:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent-light focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 transition-colors"
+            class="absolute top-2 right-2 grid place-items-center w-9 h-9 text-ink-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand transition-colors"
             :aria-label="t('accessibility.closeDialog')"
             @click="phoneDialogOpen = false"
           >
@@ -262,7 +257,7 @@ onUnmounted(() => {
           <h2 id="phone-dialog-title" class="sr-only">{{ t("accessibility.callNow") }}</h2>
           <a
             :href="`tel:${CONTACT.phone}`"
-            class="inline-flex items-center justify-center text-2xl font-medium tracking-wide underline decoration-2 underline-offset-4 text-accent dark:text-accent-light hover:text-accent-dark dark:hover:text-white transition-colors"
+            class="inline-flex items-center justify-center text-title font-medium tracking-wide underline decoration-2 underline-offset-4 text-brand-ink hover:text-brand-ink transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand rounded-control"
             @click="phoneDialogOpen = false"
           >
             {{ CONTACT.phoneDisplay }}
@@ -289,7 +284,7 @@ onUnmounted(() => {
 
 .phone-dialog-enter-active,
 .phone-dialog-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity var(--duration-short) var(--ease-out);
 }
 
 .phone-dialog-enter-active > div,

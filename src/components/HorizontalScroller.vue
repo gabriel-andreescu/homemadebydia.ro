@@ -3,11 +3,7 @@ import { nextTick, onBeforeUnmount, onMounted, onUpdated, ref } from "vue";
 
 defineProps<{
   gradientClass?: string;
-  gradientHeight?: string;
-}>();
-
-const emit = defineEmits<{
-  (e: "end-visible"): void;
+  padClass?: string;
 }>();
 
 const scrollerRef = ref<HTMLElement | null>(null);
@@ -44,11 +40,7 @@ function setupEndObserver() {
   endObserver = new IntersectionObserver(
     ([entry]) => {
       // 0.99 avoids flaky "never hits 1.0" due to subpixel rounding.
-      const nextIsAtEnd = entry.isIntersecting && entry.intersectionRatio >= 0.99;
-      if (nextIsAtEnd && !isAtEnd.value) {
-        emit("end-visible");
-      }
-      isAtEnd.value = nextIsAtEnd;
+      isAtEnd.value = entry.isIntersecting && entry.intersectionRatio >= 0.99;
     },
     { root, threshold: [0, 0.5, 0.99] },
   );
@@ -90,16 +82,16 @@ function onWheel(e: WheelEvent) {
   <div class="relative w-full">
     <div
       ref="scrollerRef"
-      class="scroller flex gap-3 overflow-x-scroll py-4 snap-x snap-mandatory"
+      class="scroller flex gap-3 overflow-x-scroll snap-x snap-mandatory"
+      :class="padClass || 'py-4'"
       @wheel="onWheel"
     >
       <slot />
     </div>
     <div
-      class="absolute top-4 right-0 w-32 pointer-events-none bg-gradient-to-l from-10% via-50% to-transparent origin-right transition-[opacity,transform] duration-300 ease-out"
+      class="absolute inset-y-0 right-0 w-32 pointer-events-none bg-gradient-to-l from-10% via-50% to-transparent origin-right transition-[opacity,transform] ease-out"
       :class="[
-        gradientClass || 'from-white via-white/50 dark:from-gray-900 dark:via-gray-900/50',
-        gradientHeight || 'h-[calc(100%-2rem)]',
+        gradientClass || 'from-page via-page/50',
         isAtEnd ? 'opacity-0 scale-x-0' : 'opacity-100 scale-x-100',
       ]"
     ></div>
@@ -118,10 +110,11 @@ function onWheel(e: WheelEvent) {
 }
 
 /* Desktop: custom scrollbar */
-@screen md {
+@media (width >= 48rem) {
   .scroller {
+    --scrollbar-thumb: color-mix(in oklab, var(--color-brand) 55%, var(--color-page));
     scrollbar-width: thin;
-    scrollbar-color: theme("colors.accent.light") transparent;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
 
     &::-webkit-scrollbar {
       display: block;
@@ -129,7 +122,7 @@ function onWheel(e: WheelEvent) {
     }
 
     &::-webkit-scrollbar-thumb {
-      background: theme("colors.accent.light");
+      background: var(--scrollbar-thumb);
       border-radius: 4px;
     }
 

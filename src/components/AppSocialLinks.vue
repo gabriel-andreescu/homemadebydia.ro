@@ -19,45 +19,45 @@ withDefaults(
 </script>
 
 <template>
-  <p class="h-32 flex items-center" :class="{ 'justify-center': center }">
+  <p class="min-h-[56px] flex flex-wrap items-center" :class="{ 'justify-center': center }">
     <a
       :href="CONTACT.facebook"
       target="_blank"
-      class="m-2 rounded-full p-1 focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 focus-visible:outline-none"
+      class="m-[8px] rounded-full p-[6px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
       :aria-label="t('accessibility.visitFacebook')"
     >
       <IconFacebook
-        class="w-8 cursor-pointer text-gray-900 dark:text-gray-100 hover:text-accent dark:hover:text-accent-light transition-colors duration-300"
+        class="w-[32px] cursor-pointer text-ink hover:text-brand-ink transition-colors"
       />
     </a>
     <a
       :href="CONTACT.messenger"
       target="_blank"
-      class="m-2 rounded-full p-1 focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 focus-visible:outline-none"
+      class="m-[8px] rounded-full p-[6px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
       :aria-label="t('accessibility.sendMessenger')"
     >
       <IconMessenger
-        class="w-8 cursor-pointer text-gray-900 dark:text-gray-100 hover:text-accent dark:hover:text-accent-light transition-colors duration-300"
+        class="w-[32px] cursor-pointer text-ink hover:text-brand-ink transition-colors"
       />
     </a>
     <a
       :href="CONTACT.instagram"
       target="_blank"
-      class="m-2 rounded-full p-1 focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 focus-visible:outline-none"
+      class="m-[8px] rounded-full p-[6px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
       :aria-label="t('accessibility.visitInstagram')"
     >
       <IconInstagram
-        class="w-8 cursor-pointer text-gray-900 dark:text-gray-100 hover:text-accent dark:hover:text-accent-light transition-colors duration-300"
+        class="w-[32px] cursor-pointer text-ink hover:text-brand-ink transition-colors"
       />
     </a>
     <a
       :href="CONTACT.whatsapp"
       target="_blank"
-      class="m-2 rounded-full p-1 focus-visible:ring-2 focus-visible:ring-accent dark:focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 focus-visible:outline-none"
+      class="m-[8px] rounded-full p-[6px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
       :aria-label="t('accessibility.chatWhatsApp')"
     >
       <IconWhatsapp
-        class="w-8 cursor-pointer text-gray-900 dark:text-gray-100 hover:text-accent dark:hover:text-accent-light transition-colors duration-300"
+        class="w-[32px] cursor-pointer text-ink hover:text-brand-ink transition-colors"
       />
     </a>
   </p>

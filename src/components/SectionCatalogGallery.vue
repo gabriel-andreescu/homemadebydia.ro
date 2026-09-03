@@ -5,9 +5,15 @@ import type GalleryModal from "./GalleryModal.vue";
 import AppDeferredMedia from "./AppDeferredMedia.vue";
 import GalleryItem from "./GalleryItem.vue";
 import { useCart } from "../composables/useCart";
+import IconCart from "./icons/IconCart.vue";
 import IconCheck from "./icons/IconCheck.vue";
-import IconX from "./icons/IconX.vue";
-import { getProductId, type CatalogProduct } from "../data/catalogData";
+import IconPlus from "./icons/IconPlus.vue";
+import {
+  getLayers,
+  getProductImages,
+  type CatalogProduct,
+} from "../data/catalogData";
+import type { Locale } from "../i18n";
 
 const AsyncGalleryModal = defineAsyncComponent(() => import("./GalleryModal.vue"));
 
@@ -15,20 +21,35 @@ defineProps<{
   data: CatalogProduct[];
 }>();
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const cart = useCart();
-const expandedItems = ref<Set<string>>(new Set());
 const galleryModalRef = ref<InstanceType<typeof GalleryModal> | null>(null);
 const galleryModalMounted = ref(false);
 const galleryModalImages = ref<string[]>([]);
 const pendingGalleryIndex = ref<number | null>(null);
 
-const toggleExpand = (id: string) => {
-  if (expandedItems.value.has(id)) {
-    expandedItems.value.delete(id);
-  } else {
-    expandedItems.value.add(id);
+const formatNumber = (value: number) =>
+  new Intl.NumberFormat(locale.value, { maximumFractionDigits: 2 }).format(value);
+
+// The estimate is the base the customer is committing to, so a chosen extra belongs in it.
+const chosenExtrasPerUnit = (item: CatalogProduct) =>
+  (item.extras ?? [])
+    .filter((extra) => cart.hasExtra(item.id, extra.name))
+    .reduce((sum, extra) => sum + extra.price, 0);
+
+const minimumTotal = (item: CatalogProduct) =>
+  Math.round((item.price + chosenExtrasPerUnit(item)) * (item.minimum ?? 0));
+
+const productLayers = (item: CatalogProduct) => getLayers(item, locale.value as Locale);
+
+const specs = (item: CatalogProduct) => {
+  const out: string[] = [];
+  if (item.minimum) {
+    out.push(`${t("product.minimum")} ${formatNumber(item.minimum)} ${item.unit}`);
+    out.push(`~${formatNumber(minimumTotal(item))} ${t("product.pricePerUnit")}`);
   }
+  if (item.weight) out.push(item.weight);
+  return out;
 };
 
 const openGallery = async (images: string[], index: number) => {
@@ -52,21 +73,24 @@ watch(galleryModalRef, (modal) => {
 
 <template>
   <div class="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
-    <div
+    <article
       v-for="(item, index) in data"
-      :key="item.title"
-      class="card-stagger flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden"
+      :key="item.id"
+      class="@container card-stagger flex flex-col bg-surface rounded-surface shadow-card hover:shadow-raised transition-shadow overflow-hidden"
       :style="{ animationDelay: `${index * 40}ms` }"
     >
       <div class="relative w-full aspect-square overflow-hidden cursor-pointer">
         <AppDeferredMedia
           wrapper-class="w-full h-full"
-          placeholder-class="w-full h-full bg-rose-100 dark:bg-gray-700"
+          placeholder-class="w-full h-full bg-surface-sunk"
           root-margin="0px 0px"
         >
-          <div v-if="Array.isArray(item.imageUrl)" class="grid grid-cols-2 h-full">
+          <div
+            v-if="getProductImages(item).length > 1"
+            class="grid grid-cols-2 h-full"
+          >
             <div
-              v-for="(imagePath, imageIndex) in item.imageUrl"
+              v-for="(imagePath, imageIndex) in getProductImages(item)"
               :key="imagePath"
               class="overflow-hidden"
             >
@@ -76,109 +100,138 @@ watch(galleryModalRef, (modal) => {
                 :rounded="false"
                 :cover="true"
                 sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, min(25vw, 384px)"
-                @open="openGallery(item.imageUrl, imageIndex)"
+                @open="openGallery(getProductImages(item), imageIndex)"
               />
             </div>
           </div>
           <GalleryItem
             v-else
-            :image-path="item.imageUrl"
+            :image-path="getProductImages(item)[0]"
             :alt="item.title + ' ' + t('accessibility.productAltSuffix')"
             :cover="true"
             sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, min(25vw, 384px)"
-            @open="openGallery([item.imageUrl], 0)"
+            @open="openGallery(getProductImages(item), 0)"
           />
         </AppDeferredMedia>
       </div>
 
-      <div class="flex-1 flex flex-col p-3">
+      <div class="flex-1 flex flex-col gap-2.5 sm:gap-3 p-3 sm:p-4">
         <h3
-          class="text-sm md:text-base font-semibold text-gray-800 dark:text-gray-100 leading-tight"
+          class="card-title font-serif text-ink leading-tight text-balance"
         >
           {{ item.title }}
         </h3>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5" v-if="item.assortments">
-          {{ item.assortments }}
+        <template v-if="productLayers(item).length">
+          <p class="text-meta font-semibold uppercase tracking-[0.16em] text-ink-faint">
+            {{ t("product.composition") }}
+          </p>
+          <ul class="strata card-body flex flex-col gap-1.5 text-ink-soft leading-snug">
+            <li
+              v-for="layer in productLayers(item)"
+              :key="layer.name"
+              :style="{ '--layer': layer.color }"
+            >
+              {{ layer.name }}
+            </li>
+          </ul>
+        </template>
+
+        <template v-if="item.variants?.length">
+          <p class="text-meta font-semibold uppercase tracking-[0.16em] text-ink-faint">
+            {{ t("product.variants") }}
+          </p>
+          <ul class="flex flex-wrap gap-1">
+            <li
+              v-for="variant in item.variants"
+              :key="variant"
+              class="rounded-control bg-ink/8 px-2 py-1 text-meta text-ink-soft"
+            >
+              {{ variant }}
+            </li>
+          </ul>
+        </template>
+
+        <p v-if="item.note" class="card-body text-ink-muted leading-snug">
+          {{ item.note }}
         </p>
 
-        <!-- Description list -->
-        <div v-if="item.desc" class="mt-2">
-          <div
-            class="relative overflow-hidden transition-all duration-300"
-            :class="[
-              expandedItems.has(getProductId(item))
-                ? 'max-h-96'
-                : 'max-h-[4.25rem] md:max-h-20 min-h-[4.25rem] md:min-h-20',
-              item.desc.length > 3 ? 'cursor-pointer' : '',
-            ]"
-            @click="item.desc.length > 3 && toggleExpand(getProductId(item))"
-          >
-            <ul class="text-left text-xs text-gray-600 dark:text-gray-300 leading-snug space-y-0.5">
-              <li v-for="desc in item.desc" :key="desc" class="flex items-start gap-1.5">
-                <span class="text-accent dark:text-accent-light shrink-0 text-[10px] mt-0.5">
-                  ●
-                </span>
-                <span>{{ desc.replace(/^-\s*/, "").replace(/^\*\s*/, "") }}</span>
-              </li>
-            </ul>
-            <div
-              v-if="item.desc.length > 3"
-              class="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white dark:from-gray-800 to-transparent pointer-events-none transition-opacity duration-300"
-              :class="expandedItems.has(getProductId(item)) ? 'opacity-0' : 'opacity-100'"
-            ></div>
-          </div>
-          <!-- Fixed-height row for button alignment -->
-          <div class="h-5 flex items-center">
-            <button
-              v-if="item.desc.length > 3"
-              @click="toggleExpand(getProductId(item))"
-              class="text-[11px] text-accent dark:text-accent-light hover:underline"
-            >
-              {{ expandedItems.has(getProductId(item)) ? t("product.seeLess") : t("product.seeMore") }}
-            </button>
-          </div>
-        </div>
-
-        <!-- Price + Button pushed to bottom -->
-        <div class="mt-auto pt-3 border-t border-gray-100 dark:border-gray-700">
-          <div class="flex items-baseline gap-1">
-            <span class="text-2xl font-bold text-accent dark:text-accent-light">
-              {{ item.price }}
-            </span>
-            <span class="text-xs text-gray-500 dark:text-gray-400 font-medium">
-              {{ t("product.pricePerUnit") }}
-              <span v-if="item.unit">/{{ item.unit }}</span>
-            </span>
-          </div>
-          <p class="text-[11px] text-gray-500 dark:text-gray-300" v-if="item.min">
-            {{ t("product.minimum") }} {{ item.min }} {{ item.unit }}
-          </p>
-
+        <div v-if="item.extras?.length" class="mt-auto flex flex-col -space-y-px">
           <button
-            v-if="!cart.has(getProductId(item))"
-            @click="cart.add(item)"
-            class="mt-2.5 w-full py-2 bg-accent dark:bg-accent text-white text-sm font-medium tracking-wide rounded-full shadow-md shadow-accent/20 dark:shadow-accent/30 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] transition-all"
+            v-for="extra in item.extras"
+            :key="extra.name"
+            type="button"
+            :aria-pressed="cart.hasExtra(item.id, extra.name)"
+            :aria-label="t('product.addExtra', { name: extra.name, price: extra.price })"
+            class="card-body w-full border px-2.5 py-3 text-left text-ink-soft transition-colors first:rounded-t-control last:rounded-b-control focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand @min-[13rem]:flex @min-[13rem]:items-center @min-[13rem]:gap-2"
+            :class="
+              cart.hasExtra(item.id, extra.name)
+                ? 'border-brand bg-brand/10'
+                : 'border-line-strong hover:bg-surface-sunk'
+            "
+            @click="cart.toggleExtra(item, extra)"
           >
-            {{ t("product.addToCart") }}
+            <span class="@min-[13rem]:min-w-0"
+              ><span
+                class="mr-2 inline-grid size-5 place-items-center rounded-full bg-brand-solid align-middle text-on-brand"
+                aria-hidden="true"
+              >
+                <IconCheck v-if="cart.hasExtra(item.id, extra.name)" class="w-3 h-3" />
+                <IconPlus v-else class="w-3 h-3" />
+              </span>{{ extra.name }}</span>
+            <span class="font-semibold text-ink whitespace-nowrap @min-[13rem]:ml-auto">
+              +{{ extra.price }} {{ t("product.pricePerUnit") }}/{{ item.unit }}
+            </span>
           </button>
-          <div v-else class="mt-2.5 flex gap-1.5">
-            <div
-              class="flex-1 py-2 bg-accent/10 dark:bg-accent/20 text-accent dark:text-accent-light text-sm font-medium tracking-wide rounded-full flex items-center justify-center gap-1.5"
-            >
-              <IconCheck class="w-4 h-4" />
-              {{ t("product.inCart") }}
-            </div>
-            <button
-              @click="cart.remove(getProductId(item))"
-              class="px-2.5 py-2 text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/20 rounded-full transition-colors"
-              :title="t('product.removeFromCart')"
-            >
-              <IconX class="w-4 h-4" />
-            </button>
-          </div>
         </div>
       </div>
-    </div>
+
+      <div
+        class="flex flex-row items-center justify-between gap-3 border-t border-line bg-surface-sunk px-3 sm:px-4 py-3"
+      >
+        <p class="min-w-0 flex flex-col gap-0.5 leading-tight">
+          <span class="card-price font-serif font-semibold tabular-nums text-ink">
+            {{ item.price }} {{ t("product.pricePerUnit")
+            }}<span v-if="item.unit" class="text-[0.6em] font-normal">/{{ item.unit }}</span>
+          </span>
+          <span
+            v-if="specs(item).length"
+            class="flex flex-row flex-wrap text-meta text-ink-faint"
+          >
+            <template v-for="(spec, specIndex) in specs(item)" :key="spec">
+              <span v-if="specIndex" aria-hidden="true"
+                >&nbsp;·&nbsp;</span
+              >
+              <span>{{ spec }}</span>
+            </template>
+          </span>
+        </p>
+
+        <button
+          @click="
+            cart.has(item.id) ? cart.openDrawer() : cart.add(item)
+          "
+          class="shrink-0 size-11 grid place-items-center rounded-surface transition-[transform,filter,box-shadow,color,background-color] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+          :class="
+            cart.has(item.id)
+              ? 'bg-brand/15 text-brand-ink hover:bg-brand/25'
+              : 'bg-brand-solid text-on-brand shadow-card hover:brightness-90 hover:shadow-raised'
+          "
+          :title="
+            cart.has(item.id)
+              ? t('product.inCartOpenCart')
+              : t('product.addToCart')
+          "
+          :aria-label="
+            cart.has(item.id)
+              ? t('product.inCartOpenCart')
+              : t('product.addToCart')
+          "
+        >
+          <IconCheck v-if="cart.has(item.id)" class="w-5 h-5" />
+          <IconCart v-else class="w-5 h-5" />
+        </button>
+      </div>
+    </article>
   </div>
   <AsyncGalleryModal
     v-if="galleryModalMounted"
@@ -189,7 +242,7 @@ watch(galleryModalRef, (modal) => {
 
 <style scoped>
 .card-stagger {
-  animation: card-enter 0.35s ease-out both;
+  animation: card-enter var(--duration-base) var(--ease-out) both;
 }
 
 @keyframes card-enter {

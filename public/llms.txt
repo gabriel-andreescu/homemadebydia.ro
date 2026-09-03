@@ -1,0 +1,35 @@
+# Homemade by Dia
+
+> A one-woman pastry workshop in Buftea, Ilfov, Romania. Diana bakes layered cakes,
+> pastries and candy bars to order, with creams made from scratch rather than packet mixes.
+
+Orders are taken by WhatsApp or phone and collected from the workshop; there is no online
+checkout. The cart on the site builds a WhatsApp message, it does not take payment.
+
+- Site: https://homemadebydia.ro/ (Romanian) and https://homemadebydia.ro/en/ (English)
+- Address: Str. Cloșca 22A, Buftea (Ilfov), 070000, Romania
+- WhatsApp: https://wa.me/40787283917
+- Phone: +40 787 283 917
+- Email: diana@homemadebydia.ro
+
+## Catalogue
+
+Both locales are prerendered single pages; the catalogue lives in tabbed sections on the
+home page rather than on separate URLs.
+
+- Cakes (Torturi) — custom cakes sold by the kilogram, each listed with its layer composition
+- Pastries (Prăjituri) — sold by the piece or by weight
+- Patisserie (Patiserie) — savoury and sweet baked goods
+- Events (Evenimente) — candy bar packages priced per guest, with optional decor and delivery
+
+## Pages
+
+- [Home, Romanian](https://homemadebydia.ro/)
+- [Home, English](https://homemadebydia.ro/en/)
+- [Sitemap](https://homemadebydia.ro/sitemap.xml)
+- [Image sitemap](https://homemadebydia.ro/image-sitemap.xml)
+
+## Notes
+
+- Prices shown are indicative; the final price is confirmed on WhatsApp.
+- Photographs are of Diana's own work.
