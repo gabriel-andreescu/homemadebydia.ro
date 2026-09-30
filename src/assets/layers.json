@@ -39,6 +39,11 @@
     "ro": "Blat de cacao",
     "en": "Cocoa sponge base"
   },
+  "blat-foarte-pufos-fragezit-cu-kefir": {
+    "color": "#A52D32",
+    "ro": "Blat foarte pufos frăgezit cu kefir",
+    "en": "Extra fluffy sponge made tender with kefir"
+  },
   "blat-umed-de-morcov-cu-scortisoara-si-nuca": {
     "color": "#C7793B",
     "ro": "Blat umed de morcov cu scorțișoară și nucă",
@@ -53,6 +58,11 @@
     "color": "#FAF3E6",
     "ro": "Cremă de brânză",
     "en": "Cream cheese filling"
+  },
+  "crema-de-branza-aerata": {
+    "color": "#FAF3E6",
+    "ro": "Cremă de brânză aerată",
+    "en": "Light and airy cream cheese filling"
   },
   "crema-de-branza-cu-fructe": {
     "color": "#F2D9D2",
@@ -148,6 +158,11 @@
     "color": "#8E3A62",
     "ro": "Fructe de pădure",
     "en": "Forest berries"
+  },
+  "insert-de-visine": {
+    "color": "#8B203A",
+    "ro": "Insert de vișine",
+    "en": "Sour cherry insert"
   },
   "insertie-de-arahide-cu-caramel": {
     "color": "#C08A4C",

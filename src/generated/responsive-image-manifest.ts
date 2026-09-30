@@ -12,6 +12,7 @@ export const RESPONSIVE_IMAGE_MANIFEST = {
   "/gallery/cakes/pavlova": [64, 128, 256, 288],
   "/gallery/cakes/profiterol": [64, 128, 256, 384],
   "/gallery/cakes/profiterol-cu-fructe": [64, 128, 256, 384, 512, 531],
+  "/gallery/cakes/red-velvet": [64, 128, 256, 384, 512, 640, 768, 960, 1024, 1090],
   "/gallery/cakes/tort-aluna-caramel": [64, 128, 256, 384, 512, 640, 768, 960, 1024, 1257],
   "/gallery/cakes/tort-bere": [64, 128, 256, 384, 400],
   "/gallery/cakes/tort-cioco-visina": [64, 128, 256, 384, 512, 640, 768, 960, 1024, 1280, 1419],
