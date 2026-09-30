@@ -1,5 +1,18 @@
 [
   {
+    "id": "red-velvet",
+    "image": "/gallery/cakes/red-velvet",
+    "title": "Red Velvet",
+    "price": 170,
+    "unit": "kg",
+    "minimum": 1.8,
+    "layers": [
+      "blat-foarte-pufos-fragezit-cu-kefir",
+      "crema-de-branza-aerata",
+      "insert-de-visine"
+    ]
+  },
+  {
     "id": "profiterol-cu-fructe",
     "image": "/gallery/cakes/profiterol-cu-fructe",
     "title": "Profiterole with Fruit",
